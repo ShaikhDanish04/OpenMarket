@@ -25,7 +25,7 @@
 
       <div class="form-group text-center">
         <button class="btn btn-success w-100">Login</button>
-        <a href="javascript:void(0)" class="small font-weight-bold">Create New Account</a>
+        <a href="seller/register.php" class="small font-weight-bold">Create New Account</a>
       </div>
     </div>
   </div>

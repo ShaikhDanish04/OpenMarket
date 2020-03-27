@@ -97,8 +97,8 @@
         <div class="menu-list">
             <a href="?" class="list-item"><i class="fa fa-home"></i> Home</a>
             <a href="?page=add-product" class="list-item"><i class="fa fa-cart-plus"></i> Add New Product</a>
-            <a href="?page=location" class="list-item"><i class="fa fa-map-marker"></i> My Location</a>
             <a href="?" class="list-item"><i class="fa fa-archive"></i> Get Product List</a>
+            <a href="?page=location" class="list-item"><i class="fa fa-map-marker"></i> My Location</a>
             <a href="?" class="list-item"><i class="fa fa-list-alt"></i> Token History</a>
         </div>
     </div>
