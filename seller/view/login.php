@@ -6,7 +6,7 @@
   }
 </style>
 
-<form action="?page=add-shop" method="post">
+<form action="seller/index.php" method="post">
   <div class="card login-card">
     <div class="card-body">
       <p class="display-4 text-center">Login</p>
