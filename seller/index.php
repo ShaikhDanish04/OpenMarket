@@ -6,11 +6,11 @@
     <?php include('../head.php') ?>
 
     <?php
-    
+
     if (!isset($_SESSION['id'])) {
         echo "<script type='text/javascript'>document.location.href = 'login.php';</script>";
     }
-    
+
     $result = $conn->query("SELECT * FROM sellers WHERE id = '$id'");
     $row = $result->fetch_assoc();
     ?>
@@ -112,8 +112,7 @@
         </div>
         <div class="menu-list">
             <a href="?" class="list-item"><i class="fa fa-home"></i> Home</a>
-            <a href="?page=add-product" class="list-item"><i class="fa fa-cart-plus"></i> Add New Product</a>
-            <a href="?page=product-list" class="list-item"><i class="fa fa-archive"></i> Get Product List</a>
+            <a href="?page=product-list" class="list-item"><i class="fa fa-archive"></i> Products In Shop</a>
             <a href="?page=location" class="list-item"><i class="fa fa-map-marker"></i> My Location</a>
             <a href="?page=token-history" class="list-item"><i class="fa fa-list-alt"></i> Token History</a>
         </div>
