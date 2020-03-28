@@ -19,8 +19,8 @@
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div class="tab-pane container active" id="packed_product">
-            <form action="" class="container" method="post">
+        <div class="tab-pane active" id="packed_product">
+            <form action="" class="" method="post">
                 <div class="card mt-3">
                     <div class="card-header">
                         <p class="h5">Packed Product</p>
@@ -57,8 +57,8 @@
                 </div>
             </form>
         </div>
-        <div class="tab-pane container fade" id="loose_product">
-            <form action="" class="container" method="post">
+        <div class="tab-pane fade" id="loose_product">
+            <form action="" class="" method="post">
                 <div class="card mt-3">
                     <div class="card-header">
                         <p class="h5">Loose Product</p>
