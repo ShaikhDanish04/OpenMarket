@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 }
 
 session_start();
-
+ob_start();
 
 
 if (isset($_GET['logout'])) {
