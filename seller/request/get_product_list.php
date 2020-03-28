@@ -1,6 +1,6 @@
 <?php include('../../connect.php');
 
-$result = $conn->query("SELECT * FROM loose_product_list");
+$result = $conn->query("SELECT * FROM product_list");
 $product_list = array();
 
 while ($row = $result->fetch_assoc()) {

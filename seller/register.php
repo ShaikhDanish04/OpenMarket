@@ -97,7 +97,7 @@ if (isset($_POST['register_submit'])) {
                                 </script>
                             </div>
 
-                            <div class="carousel-item p-1 active">
+                            <div class="carousel-item p-1">
                                 <p class="h3 text-center mb-4">Verification</p>
                                 <div class="form-group">
                                     <label for="">Email ID</label>
@@ -124,7 +124,7 @@ if (isset($_POST['register_submit'])) {
                             </div>
 
 
-                            <div class="carousel-item p-1 active">
+                            <div class="carousel-item p-1">
                                 <p class="h3 text-center mb-3">Thank You</p>
                                 <p class="h6 text-center text-success">Your OTP is Verified !!!</p>
 

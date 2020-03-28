@@ -1,50 +1,157 @@
+<?php
+if (isset($_POST['address_submit'])) {
+
+    $state = $_POST['state'];
+    $district = $_POST['district'];
+    $sub_district = $_POST['sub-district'];
+    $area = $_POST['area'];
+    $address_submit = $_POST['address_submit'];
+
+    $conn->query("UPDATE `sellers` SET `state` = '$state', `district` = '$district', `sub-district` = '$sub_district', `area` = '$area' WHERE `id` = '$id'");
+    echo "<script>location.reload()</script>";
+}
+?>
+
+
+
 <div class="container">
+    <p class="display-4 text-center mt-3">Location</p>
+    <div class="card my-3">
+        <div class="card-body">
+            <p class="h5 text-primary"><i class="fa fa-street-view"></i> Your Shop Address is :</p>
+            <p class="mb-0 small">State : <b><?php echo $row['state'] ?></b></p>
+            <p class="mb-0 small">District : <b><?php echo $row['district'] ?></b></p>
+            <p class="mb-0 small">Sub - Distict : <b><?php echo $row['sub-district'] ?></b></p>
+            <p class="mb-0 small">Area : <b><?php echo $row['area'] ?></b></p>
+        </div>
+    </div>
 
     <div class="card mt-3">
         <div class="card-header">
-            <p class="h3">My Location</p>
+            <p class="h3 mb-0"><i class="fa fa-edit"></i> Edit Location</p>
         </div>
         <div class="card-body">
-            <div class="form-group">
-                <label for="">Select State</label>
-                <select class="form-control" name="">
-                    <option value="">--- Select ---</option>
-                </select>
-                <small class="text-muted">*Required</small>
-            </div>
+            <form action="" method="post">
 
-            <div class="form-group">
-                <label for="">Select City</label>
-                <select class="form-control" name="">
-                    <option value="">--- Select ---</option>
-                </select>
-                <small class="text-muted">*Required</small>
-            </div>
+                <div class="form-group">
+                    <label for="">Select State</label>
+                    <select class="form-control" name="state" required>
+                        <option value="">--- Select ---</option>
+                    </select>
+                    <small class="text-muted">*Required</small>
+                </div>
 
-            <div class="form-group">
-                <label for="">Select District</label>
-                <select class="form-control" name="">
-                    <option value="">--- Select ---</option>
-                </select>
-                <small class="text-muted">*Required</small>
-            </div>
+                <div class="form-group">
+                    <label for="">Select District</label>
+                    <select class="form-control" name="district" required>
+                        <option value="">--- Select ---</option>
+                    </select>
+                    <small class="text-muted">*Required</small>
+                </div>
 
-            <div class="form-group">
-                <label for="">Select Taluka</label>
-                <select class="form-control" name="">
-                    <option value="">--- Select ---</option>
-                </select>
-                <small class="text-muted">*Required</small>
-            </div>
+                <div class="form-group">
+                    <label for="">Select Sub-District</label>
+                    <select class="form-control" name="sub-district" required>
+                        <option value="">--- Select ---</option>
+                    </select>
+                    <small class="text-muted">*Required</small>
+                </div>
 
-            <div class="form-group">
-                <label for="">Pin Code</label>
-                <input type="text" name="" class="form-control">
-                <small class="text-muted">*Required</small>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-success w-100">Submit</button>
-            </div>
+                <div class="form-group">
+                    <label for="">Select Area</label>
+                    <select class="form-control" name="area" required>
+                        <option value="">--- Select ---</option>
+                    </select>
+                    <small class="text-muted">*Required</small>
+                </div>
+
+                <div class="form-group d-flex justify-content-between">
+                    <button type="button" onclick='location.reload()' tabindex="-1" class="btn btn-danger">Reset</button>
+                    <button type="submit" name="address_submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                type: "POST",
+                url: "request/address_mapper.php",
+                data: {
+                    "column": "state"
+                },
+                success: function(data) {
+                    var dataObj = JSON.parse(data);
+                    $.each(dataObj, function(index, data) {
+                        $('[name="state"]').append('<option value="' + data + '">' + data + '</option>');
+                    });
+                }
+            });
+
+            $('[name="state"]').change(function() {
+                $(this).focusout(function() {
+                    $(this).attr('readonly', 'true');
+                })
+                $.ajax({
+                    type: "POST",
+                    url: "request/address_mapper.php",
+                    data: {
+                        "state": $('[name="state"]').val(),
+                        "column": "district"
+                    },
+                    success: function(data) {
+                        var dataObj = JSON.parse(data);
+                        // console.log(dataObj);
+                        $.each(dataObj, function(index, data) {
+                            $('[name="district"]').append('<option class="dynamic" value="' + data + '">' + data + '</option>');
+                        });
+                    }
+                });
+            });
+
+            $('[name="district"]').change(function() {
+                $(this).focusout(function() {
+                    $(this).attr('readonly', 'true');
+                })
+                $.ajax({
+                    type: "POST",
+                    url: "request/address_mapper.php",
+                    data: {
+                        "district": $('[name="district"]').val(),
+                        "column": "sub-district"
+                    },
+                    success: function(data) {
+                        var dataObj = JSON.parse(data);
+                        // console.log(dataObj);
+                        $.each(dataObj, function(index, data) {
+                            $('[name="sub-district"]').append('<option class="dynamic" value="' + data + '">' + data + '</option>');
+                        });
+                    }
+                });
+            });
+
+            $('[name="sub-district"]').change(function() {
+                $(this).focusout(function() {
+                    $(this).attr('readonly', 'true');
+                })
+                $.ajax({
+                    type: "POST",
+                    url: "request/address_mapper.php",
+                    data: {
+                        "sub-district": $('[name="sub-district"]').val(),
+                        "column": "area"
+                    },
+                    success: function(data) {
+                        var dataObj = JSON.parse(data);
+                        // console.log(dataObj);
+                        $.each(dataObj, function(index, data) {
+                            $('[name="area"]').append('<option class="dynamic" value="' + data + '">' + data + '</option>');
+                        });
+                    }
+                });
+            })
+
+        })
+    </script>
 </div>

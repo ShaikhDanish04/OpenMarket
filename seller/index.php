@@ -128,7 +128,7 @@
             <div class="end">
                 <button type="button" class="btn" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></button>
                 <div class="dropdown-menu mt-3">
-                    <a class="dropdown-item" href="?logout=true">Logout</a>
+                    <a class="dropdown-item" href="?logout=true"><i class="fa fa-sign-out"></i> Logout</a>
                 </div>
             </div>
         </div>
