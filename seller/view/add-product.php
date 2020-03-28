@@ -1,5 +1,5 @@
 <style>
-    [name="price"] {
+    [name="price_per_item"] {
         font-size: 30px;
         letter-spacing: 5px;
     }
@@ -21,6 +21,7 @@
     <div class="tab-content">
         <div class="tab-pane active" id="packed_product">
             <form action="" class="" method="post">
+                <input type="hidden" name="operation" value="update_product">
                 <div class="card mt-3">
                     <div class="card-header">
                         <p class="h5">Packed Product</p>
@@ -28,26 +29,58 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="">Select Product Name</label>
-                            <select name="name" class="form-control">
+                            <select name="product_name" class="form-control" required>
                                 <option value="">--- Select ---</option>
-                                <option value="">abc</option>
-                                <option value="">def</option>
-                                <option value="">xyz</option>
+                                <div class="options"></div>
                             </select>
                             <small class="text-muted">*Required</small>
                         </div>
+
+                        <script>
+                            $(document).ready(function() {
+                                fetch('request/get_my_packed_products.php')
+                                    .then(function(response) {
+                                        response.json().then(function(data) {
+                                            $.each(data, function(index, data) {
+                                                $('[name="product_name"]').append('<option value="' + data + '">' + data + '</option>');
+                                            });
+                                            // console.log(data)
+
+                                        });
+                                    })
+
+                                $('[name="product_name"]').change(function() {
+                                    // console.log($(this).val());
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "request/manage_product_in_shop.php",
+                                        data: {
+                                            "operation": "get_data",
+                                            "product_name": $('[name="product_name"]').val()
+                                        },
+                                        success: function(data) {
+                                            var productObj = JSON.parse(data);
+                                            console.log(productObj);
+                                            $('[name="quantity_of_items"]').val(productObj.quantity_of_items);
+                                            $('[name="price_per_item"]').val(productObj.price_per_item);
+                                        }
+                                    });
+                                })
+                            })
+                        </script>
+
                         <div class="form-group">
                             <label for="">Enter Quantity in Number</label>
                             <div class="d-flex">
                                 <button type="button" class="btn btn-danger minus-val btn-lg" tabindex="-1"><i class="fa fa-minus"></i></button>
-                                <input type="number" value="0" min="0" name="quantity" class="form-control mx-2 btn-lg text-center">
+                                <input type="number" value="0" min="0" name="quantity_of_items" class="form-control mx-2 btn-lg text-center" required>
                                 <button type="button" class="btn btn-success plus-val btn-lg" tabindex="-1"><i class="fa fa-plus"></i></button>
                             </div>
                             <small class="text-muted">*Required</small>
                         </div>
                         <div class="form-group">
                             <label for="">Enter Price Per Item</label>
-                            <input type="text" name="price" class="form-control">
+                            <input type="text" name="price_per_item" class="form-control" required>
                             <small class="text-muted">*Required</small>
                         </div>
                         <div class="form-group">
@@ -109,6 +142,19 @@
 
 
 <script>
+    $('form').submit(function(e) {
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        $.ajax({
+            type: "POST",
+            url: "request/manage_product_in_shop.php",
+            data: $(this).serialize(), // serializes the form's elements.
+            success: function(data) {
+                location.reload();
+            }
+        });
+    })
+    
     $('.minus-val').click(function() {
         $(this).next().val(Number($(this).next().val()) - Number(1));
     })

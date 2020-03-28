@@ -6,10 +6,11 @@
     <?php include('../head.php') ?>
 
     <?php
+    
     if (!isset($_SESSION['id'])) {
         echo "<script type='text/javascript'>document.location.href = 'login.php';</script>";
     }
-    $id = $_SESSION['id'];
+    
     $result = $conn->query("SELECT * FROM sellers WHERE id = '$id'");
     $row = $result->fetch_assoc();
     ?>
@@ -128,7 +129,7 @@
             <div class="end">
                 <button type="button" class="btn" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></button>
                 <div class="dropdown-menu mt-3">
-                    <a class="dropdown-item" href="login.php">Logout</a>
+                    <a class="dropdown-item" href="?logout=true">Logout</a>
                 </div>
             </div>
         </div>
