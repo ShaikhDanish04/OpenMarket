@@ -19,10 +19,10 @@
         <div class="card login-card">
             <div class="card-body">
                 <p class="display-4 text-center">Login</p>
-                <p class="text-center mb-4 h3">SELLER</p>
+                <p class="text-center mb-4 h3">BUYER</p>
 
                 <div class="form-group">
-                    <label for="">Username / Email / Phone Number</label>
+                    <label for="">ID</label>
                     <input type="text" name="id" class="form-control">
                 </div>
 
