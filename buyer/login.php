@@ -4,14 +4,26 @@
 <head>
     <title>Daily Bazar : Buyer</title>
     <?php include('../head.php') ?>
+    <?php
+    if (isset($_SESSION['id'])) {
+        echo "<script type='text/javascript'>document.location.href = 'index.php';</script>";
+    }
+    ?>
 </head>
 <?php
-
+$status = "";
 if (isset($_POST['login_submit'])) {
-    $_SESSION['id'] = "1";
-}
-if (isset($_SESSION['id'])) {
-    echo "<script type='text/javascript'>document.location.href = 'index.php';</script>";
+
+    $id = $_POST['id'];
+    $password = sha1($_POST['password']);
+
+    $result = $conn->query("SELECT * FROM sellers WHERE id = '$id' AND `password` = '$password'");
+    if ($result->num_rows == 1) {
+        $_SESSION['id'] = $id;
+        echo "<script type='text/javascript'>document.location.href = 'index.php';</script>";
+    } else {
+        $status = '<div class="alert alert-danger my-3">Invalid Details !!! Try Again</div>';
+    }
 }
 ?>
 
@@ -25,6 +37,10 @@ if (isset($_SESSION['id'])) {
     </style>
 
     <form action="" method="post">
+        <div class="login-card">
+            <?php echo $status; ?>
+        </div>
+
         <div class="card login-card">
             <div class="card-body">
                 <p class="display-4 text-center">Login</p>
@@ -32,12 +48,12 @@ if (isset($_SESSION['id'])) {
 
                 <div class="form-group">
                     <label for="">ID</label>
-                    <input type="text" name="id" class="form-control">
+                    <input type="text" name="id" class="form-control" required>
                 </div>
 
                 <div class="form-group">
                     <label for="">Password</label>
-                    <input type="password" name="password" class="form-control">
+                    <input type="password" name="password" class="form-control" required>
                     <a href="javascript:void(0)" class="small font-weight-bold">Forgot Password ?</a>
                 </div>
 
