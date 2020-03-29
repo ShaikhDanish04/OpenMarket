@@ -5,8 +5,8 @@ if ($_POST['operation'] == "get_list") {
     $product_list = array();
     $result = $conn->query("SELECT * FROM `seller_product_stock` WHERE shop_id='$shop_id'");
 
-    echo '<input type="hidden" name="shop_id" value="' . $shop_id . '">';
-    echo '<input type="hidden" name="buyer_id" value="' . $id . '">';
+    // echo '<input type="hidden" name="shop_id" value="' . $shop_id . '">';
+    // echo '<input type="hidden" name="buyer_id" value="' . $id . '">';
     if ($result->num_rows > 0) {
 
         while ($row = $result->fetch_assoc()) {
@@ -27,8 +27,8 @@ if ($_POST['operation'] == "get_list") {
                 '    <div class="card-body">' .
                 '        <p class="card-title">' . $row['product_name'] . '</p>' .
                 '        <p class="card-text mb-0"><i class="fa fa-archive text-primary"></i> : <b>' . $quantity  . '</b></p>' .
-                '        <p class="card-text"><i class="fa fa-money text-success"></i> : ₹ <b>' . $row['price_per_item'] . ' / ' . $row['sold_by'] . '</b></p>' .
-                '        <button data-toggle="modal" data-target="#book_product" class="btn btn-success btn-sm w-100" data-name="' . $row["product_name"] . '"><i class="fa fa-shopping-bag"></i> Book</button>' .
+                '        <p class="card-text"><i class="fa fa-money text-success"></i> : ₹ <b>' . $row['price_per_item'] . ' / <span class="sold_by">' . $row['sold_by'] . '</span></b></p>' .
+                '        <button data-toggle="modal" data-target="#book_product" class="btn btn-success btn-sm w-100" data-product-name="' . $row["product_name"] . '"><i class="fa fa-shopping-bag"></i> Book</button>' .
                 '    </div>' .
                 '</div>';
         }
@@ -44,42 +44,17 @@ if ($_POST['operation'] == "get_list") {
     }
 } ?>
 
+
+
 <script>
-    $('[data-name]').click(function() {
+    $('[data-product-name]').click(function() {
+
         $('.modal [name="buyer_id"]').val($('[name="buyer_id"]').val());
         $('.modal [name="shop_id"]').val($('[name="shop_id"]').val());
-        $('.modal [name="product_name"]').val($(this).attr('data-name'));
-        $('.modal .product_name_get').text($(this).attr('data-name'));
 
-
-    })
-    $('form').submit(function(e) {
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-
-        $.ajax({
-            type: "POST",
-            url: "request/manage_order_list.php",
-            data: $(this).serialize(), // serializes the form's elements.
-            success: function(data) {
-                // location.reload();
-                console.log(data);
-                $.ajax({
-                    type: "POST",
-                    url: "request/manage_order_list.php",
-                    data: {
-                        "operation": "get_order_list",
-                        "shop_id": $('[name="in_shop_id"]').val()
-                    },
-                    success: function(data) {
-                        // location.reload();
-                        // console.log(data);
-                        $('.items-in-list').html(data);
-                        if (data != '') {
-                            $('.order-list').slideDown();
-                        }
-                    }
-                })
-            }
-        });
-    })
+        $('.estimation').text('');
+        $('.modal [name="sold_by"]').val($(this).prev().find('.sold_by').text());
+        $('.modal [name="product_name"]').val($(this).attr('data-product-name'));
+        $('.modal .product_name_get').text($(this).attr('data-product-name'));
+    });
 </script>

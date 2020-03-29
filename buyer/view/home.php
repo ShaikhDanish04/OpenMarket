@@ -42,7 +42,7 @@
                 url: "request/manage_order_list.php",
                 data: {
                     "operation": "get_order_list",
-                    "shop_id": $('[name="in_shop_id"]').val()
+                    "shop_id": $('[name="shop_id"]').val()
                 },
                 success: function(data) {
                     $('.items-in-list').html(data);
@@ -51,7 +51,6 @@
                     }
                 }
             });
-
         } else {
             $('.order-list').slideUp();
         }
@@ -62,11 +61,9 @@
             url: "request/manage_order_list.php",
             data: {
                 "operation": "get_order_list",
-                "shop_id": $('[name="in_shop_id"]').val()
+                "shop_id": $('[name="shop_id"]').val()
             },
             success: function(data) {
-                // location.reload();
-                // console.log(data);
                 $('.items-in-list').html(data);
                 if (data != '') {
                     $('.order-list').slideDown();
@@ -98,11 +95,9 @@
 
 <!-- The Modal -->
 <div class="modal" id="book_product">
-    <div class="modal-dialog">
+    <div class="modal-dialog ">
         <div class="modal-content">
             <form action="" method="post">
-
-
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Book Product</h4>
@@ -112,12 +107,54 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <p class="">Product Name : <b class="product_name_get"></b></p>
-                    <input type="text" name="operation" value="add_order">
-                    <input type="text" name="buyer_id">
-                    <input type="text" name="shop_id">
-                    <input type="text" name="product_name">
-                    <input type="text" name="quantity_of_items" value="1">
+                    <input type="hidden" name="operation" value="add_order">
+                    <input type="hidden" name="buyer_id">
+                    <input type="hidden" name="shop_id">
+                    <input type="hidden" name="product_name">
+                    <input type="hidden" name="sold_by">
 
+                    <div class="form-group">
+                        <label for="">Enter Quantity in Number</label>
+                        <div class="d-flex">
+                            <button type="button" class="btn btn-danger minus-val btn-lg" tabindex="-1"><i class="fa fa-minus"></i></button>
+                            <input type="number" step="0.005" value="0" min="0" name="quantity_of_items" class="form-control mx-2 btn-lg text-center" required>
+                            <button type="button" class="btn btn-success plus-val btn-lg" tabindex="-1"><i class="fa fa-plus"></i></button>
+                        </div>
+                        <p class="h4 mt-3 text-center estimation"></p>
+                        <small class="text-muted">*Required</small>
+                    </div>
+
+                    <script>
+                        $(document).ready(function() {
+
+                            $('.minus-val').click(function() {
+                                $(this).next().val(Number($(this).next().val()) - Number(1));
+                                $(this).next().change();
+                            })
+                            $('.plus-val').click(function() {
+                                $(this).prev().val(Number($(this).prev().val()) + Number(1));
+                                $(this).prev().change();
+                            })
+
+                            $('[name="quantity_of_items"],.modal-body').on('change click', function() {
+                                var value = $('[name="quantity_of_items"]').val();
+                                var unit = value.toString().split(".");
+
+                                if ($('[name="sold_by"]').val() == "Kg") {
+                                    $('.estimation').text(unit[0] + ' kilo ' + Number((value * 1000).toString().slice(-3)) + ' gram');
+                                }
+                                if ($('[name="sold_by"]').val() == "Liter") {
+                                    $('.estimation').text(unit[0] + ' liter ' + Number((value * 1000).toString().slice(-3)) + ' ml');
+                                }
+                                if ($('[name="sold_by"]').val() == "Unit") {
+                                    $('.estimation').text(unit[0] + ' Unit ');
+                                    $(this).attr('step', '1');
+                                } else {
+                                    $(this).attr('step', '0.005');
+                                }
+                            })
+                        })
+                    </script>
                     <div class="mt-3 d-flex justify-content-between">
                         <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
                         <button type="Submit" class="btn btn-sm btn-success">Submit</button>
@@ -135,5 +172,36 @@
 </style>
 
 <script>
+    $('form').submit(function(e) {
+        e.preventDefault(); // avoid to execute the actual submit of the form.
 
+        $.ajax({
+            type: "POST",
+            url: "request/manage_order_list.php",
+            data: $(this).serialize(), // serializes the form's elements.
+            success: function(data) {
+                // location.reload();
+                console.log(data);
+                $('#book_product').modal('hide');
+
+                
+                $.ajax({
+                    type: "POST",
+                    url: "request/manage_order_list.php",
+                    data: {
+                        "operation": "get_order_list",
+                        "shop_id": $('[name="shop_id"]').val()
+                    },
+                    success: function(data) {
+                        // location.reload();
+                        // console.log(data);
+                        $('.items-in-list').html(data);
+                        if (data != '') {
+                            $('.order-list').slideDown();
+                        }
+                    }
+                })
+            }
+        });
+    })
 </script>

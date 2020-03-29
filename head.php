@@ -36,9 +36,13 @@
         align-items: center;
         justify-content: space-between;
     }
-
+    .action-bar .start {
+        display: flex;
+        font-weight: 500;
+        align-items: center;
+    }
     .action-bar .middle {
-        font-weight: 500
+        font-weight: 500;
     }
 
     .side-bar {

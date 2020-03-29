@@ -51,7 +51,8 @@
     </style>
 
     <div class="shop-list"></div>
-    <script>
+
+<script>
         $(document).ready(function() {
             $('.shop-list').load('request/shop_list.php');
         })

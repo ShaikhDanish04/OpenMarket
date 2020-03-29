@@ -22,7 +22,7 @@ while ($row = $result->fetch_assoc()) {
 
 <script>
     $('[data-shop]').click(function() {
-        $('[name="in_shop_id"]').val($(this).attr('data-shop'));
+        $('[name="shop_id"]').val($(this).attr('data-shop'));
 
         $.ajax({
             type: "POST",

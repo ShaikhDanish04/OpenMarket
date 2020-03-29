@@ -35,11 +35,12 @@
         <div class="action-bar">
             <div class="start">
                 <button class="btn menu-toggle"><i class="fa fa-bars"></i></button>
+                <p class="text-light m-0 ml-3">Dashboard</p>
             </div>
             <div class="middle text-light">
-                Dashboard
             </div>
             <div class="end">
+                <a type="button" class="btn text-light"><i class="fa fa-shopping-cart"></i></a>
                 <a type="button" class="btn text-light" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu mt-3 dropdown-menu-right">
                     <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-list-alt"></i> Token List</a>

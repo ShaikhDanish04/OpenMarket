@@ -1,5 +1,8 @@
 <div class="container py-3">
-    <input type="text" name="in_shop_id">
+    <input type="hidden" name="shop_id">
+    <input type="hidden" name="buyer_id" value="<?php echo $id ?>">
+
+
     <div class="form-group d-flex align-items-center justify-content-between">
         <a href="#buyer_process" data-slide="prev" class="btn"><i class="fa fa-chevron-left text-dark"></i></a>
         <p class="h6 mb-0">Products</p>
@@ -8,6 +11,8 @@
     <div id="filter_product" class="container collapse">
         <input type="text" name="search_shop" class="form-control mb-3" placeholder="Search">
     </div>
+
+
 
     <div class="product_list_container"></div>
 
