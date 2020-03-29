@@ -13,13 +13,12 @@ if ($conn->connect_error) {
 
 session_start();
 ob_start();
-$_SESSION['id'] = "1";
 
 if (isset($_GET['logout'])) {
     session_unset();
     session_destroy();
 }
-if (isset($_SESSION['id'])) {
 
+if (isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
 }

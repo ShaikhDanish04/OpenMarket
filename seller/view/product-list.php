@@ -79,32 +79,42 @@
             <div class="product-list row no-gutters">
                 <?php
                 $result = $conn->query("SELECT * FROM `seller_product_stock` WHERE shop_id='$id'");
-                while ($row = $result->fetch_assoc()) {
-                    $quantity = $row['quantity_of_items'];
-                    $unit = explode('.', strval($row['quantity_of_items']));
-                    if ($row['sold_by'] == "Kg") {
-                        $quantity = $unit[0] . ' kilo ' . substr(strval($row['quantity_of_items'] * 1000), '-3') . ' gram';
+                if ($result->num_rows > 0) {
+
+                    while ($row = $result->fetch_assoc()) {
+                        $quantity = $row['quantity_of_items'];
+                        $unit = explode('.', strval($row['quantity_of_items']));
+                        if ($row['sold_by'] == "Kg") {
+                            $quantity = $unit[0] . ' kilo ' . substr(strval($row['quantity_of_items'] * 1000), '-3') . ' gram';
+                        }
+                        if ($row['sold_by'] == "Liter") {
+                            $quantity = $unit[0] . ' liter ' . substr(strval($row['quantity_of_items'] * 1000), '-3') . ' ml';
+                        }
+                        if ($row['sold_by'] == "Unit") {
+                            $quantity = $unit[0] . ' Unit ';
+                        }
+                        echo '' .
+                            '<div class="col-6 product">' .
+                            '   <div class="card">' .
+                            '       <img class="card-img-top" src="holder.js/100x180/" alt="">' .
+                            '       <div class="card-body">' .
+                            '           <p class="card-title">' . $row["product_name"] . '</p>' .
+                            '           <p class="card-text mb-0"><i class="fa fa-archive text-primary"></i> : <b>' . $quantity  . ' </b></p>' .
+                            '           <p class="card-text"><i class="fa fa-money text-success"></i> : ₹ <b>' . $row['price_per_item'] . ' / ' . $row['sold_by'] . '</b></p>' .
+                            '           <button data-toggle="modal" data-target="#edit_product" class="btn btn-warning btn-sm w-100" data-name="' . $row["product_name"] . '"><i class="fa fa-edit"></i> Edit</button>' .
+                            '       </div>' .
+                            '    </div>' .
+                            '</div>';
                     }
-                    if ($row['sold_by'] == "Liter") {
-                        $quantity = $unit[0] . ' liter ' . substr(strval($row['quantity_of_items'] * 1000), '-3') . ' ml';
-                    }
-                    if ($row['sold_by'] == "Unit") {
-                        $quantity = $unit[0] . ' Unit ';
-                    }
+                } else {
                     echo '' .
-                        '<div class="col-6 product">' .
-                        '   <div class="card">' .
-                        '       <img class="card-img-top" src="holder.js/100x180/" alt="">' .
-                        '       <div class="card-body">' .
-                        '           <p class="card-title">' . $row["product_name"] . '</p>' .
-                        '           <p class="card-text mb-0"><i class="fa fa-archive text-primary"></i> : <b>' . $quantity  . ' </b></p>' .
-                        '           <p class="card-text"><i class="fa fa-money text-success"></i> : ₹ <b>' . $row['price_per_item'] . ' / ' . $row['sold_by'] . '</b></p>' .
-                        '           <button data-toggle="modal" data-target="#edit_product" class="btn btn-warning btn-sm w-100" data-name="' . $row["product_name"] . '"><i class="fa fa-edit"></i> Edit</button>' .
-                        '       </div>' .
-                        '    </div>' .
+                        '<div class="text-center mx-auto mt-3">' .
+                        '    <p class="display-4">Empty</p>  ' .
+                        '    <p class="h6">No Products Available</p>' .
                         '</div>';
                 }
                 ?>
+
             </div>
         </div>
     </div>

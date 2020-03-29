@@ -5,6 +5,15 @@
     <title>Daily Bazar : Buyer</title>
     <?php include('../head.php') ?>
 </head>
+<?php
+
+if (isset($_POST['login_submit'])) {
+    $_SESSION['id'] = "1";
+}
+if (isset($_SESSION['id'])) {
+    echo "<script type='text/javascript'>document.location.href = 'index.php';</script>";
+}
+?>
 
 <body>
     <style>
@@ -15,7 +24,7 @@
         }
     </style>
 
-    <form action="index.php" method="post">
+    <form action="" method="post">
         <div class="card login-card">
             <div class="card-body">
                 <p class="display-4 text-center">Login</p>
@@ -33,12 +42,13 @@
                 </div>
 
                 <div class="form-group text-center">
-                    <button class="btn btn-success w-100">Login</button>
+                    <button class="btn btn-success w-100" name="login_submit">Login</button>
                     <a href="register.php" class="small font-weight-bold">Create New Account</a>
                 </div>
             </div>
         </div>
     </form>
+
 </body>
 
 </html>
