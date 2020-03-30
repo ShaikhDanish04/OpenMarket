@@ -65,6 +65,26 @@
         font-size: 30px;
         letter-spacing: 5px;
     }
+
+    .seller-card.card {
+        position: relative;
+    }
+
+    .seller-card.card [data-remove] {
+        opacity: 0;
+        transition: .3s;
+        border-radius: 50%;
+        position: absolute;
+        box-shadow: 0 0 5px #8b8b8b;
+        top: -10px;
+        right: -8px;
+        font-size: 8px;
+        padding: 6px 8px;
+    }
+
+    .seller-card.card:hover [data-remove] {
+        opacity: 1;
+    }
 </style>
 <div class="container py-3">
     <p class="display-4 text-center">Products</p>
@@ -87,7 +107,7 @@
 
         <?php
         $result = $conn->query("SELECT * FROM `seller_product_stock` WHERE shop_id='$id'");
-        
+
         if ($result->num_rows > 0) {
             echo '<div class="col-12"><p class="text-center"><i class="fa fa-archive text-primary"></i> You have <b>' . $result->num_rows . '</b> Item in Shop</p></div>';
 
@@ -105,7 +125,8 @@
                 }
                 echo '' .
                     '<div class="col-6 product">' .
-                    '   <div class="card">' .
+                    '   <div class="card seller-card">' .
+                    '        <button class="btn btn-danger top-remove" data-remove="' . $row["product_name"] . '"><i class="fa fa-times"></i></button>' .
                     '       <img class="card-img-top" src="holder.js/100x180/" alt="">' .
                     '       <div class="card-body">' .
                     '           <p class="card-title">' . $row["product_name"] . '</p>' .
@@ -127,6 +148,23 @@
 
     </div>
 </div>
+<!-- </div> -->
+<div class="modal fade" id="product_delete_modal">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-body text-center">
+                <p class="h3 mb-4 mt-3">Delete Token</p>
+                <p class="">Are Your Sure ?</p>
+                <div class="d-flex justify-content-center mb-3">
+                    <button type="button" class="btn mx-2 btn-danger" data-dismiss="modal">No</button>
+                    <button type="button" class="btn mx-2 btn-success remove-product">Yes</button>
+                </div>
+                <p class="small text-justify"><b>Note :</b> Your Token number will be set rejected and all your items will be sent back to your cart.</p>
+            </div>
+
+        </div>
+    </div>
 </div>
 <div class="modal fade" id="edit_product">
     <div class="modal-dialog">
@@ -240,33 +278,57 @@
                     "product_name": $('[name="product_name"]').val()
                 },
                 success: function(data) {
-                    console.log(data);
-                    if (data == 0) $('.add-product').show();
-                    else $('.remove-product').show();
+                    // add-product
+                    $.ajax({
+                        type: "POST",
+                        url: "request/manage_product_in_shop.php",
+                        data: {
+                            "operation": "add",
+                            "product_name": $('[name="product_name"]').val()
+                        },
+                        success: function(data) {
+                            // product-details
+
+                            $('.modal [name="operation"]').val('update_product');
+                            $.ajax({
+                                type: "POST",
+                                url: "request/manage_product_in_shop.php",
+                                data: {
+                                    "operation": "get_data",
+                                    "product_name": $('[name="product_name"]').val()
+                                },
+                                success: function(data) {
+                                    var productObj = JSON.parse(data);
+                                    $('.modal .card-title').text(productObj.product_name);
+                                    $('.modal [name="product_name"]').val(productObj.product_name);
+
+
+                                    $('.modal [name="sold_by"]').val(productObj.sold_by);
+                                    $('.modal [name="quantity_of_items"]').val(productObj.quantity_of_items);
+                                    $('.modal [name="price_per_item"]').val(productObj.price_per_item);
+
+                                    $('#edit_product').modal("show");
+                                }
+                            });
+                        }
+                    });
                 }
             });
 
         });
-        $('.add-product').click(function() {
-            $.ajax({
-                type: "POST",
-                url: "request/manage_product_in_shop.php",
-                data: {
-                    "operation": "add",
-                    "product_name": $('[name="product_name"]').val()
-                },
-                success: function(data) {
-                    location.reload();
-                }
-            });
-        });
+
+        $('[data-remove]').click(function() {
+            $('#product_delete_modal').attr('data-id', $(this).attr('data-remove'));
+            $('#product_delete_modal').modal('show');
+        })
+
         $('.remove-product').click(function() {
             $.ajax({
                 type: "POST",
                 url: "request/manage_product_in_shop.php",
                 data: {
                     "operation": "remove",
-                    "product_name": $('[name="product_name"]').val()
+                    "product_name": $('#product_delete_modal').attr('data-id')
                 },
                 success: function(data) {
                     location.reload();
