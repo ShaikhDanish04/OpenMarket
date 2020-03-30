@@ -9,7 +9,18 @@ if ($_POST['operation'] == "add_to_cart") {
     $product_name = $_POST['product_name'];
     $quantity_of_items = $_POST['quantity_of_items'];
 
-    $conn->query("INSERT INTO `cart` (`buyer_id`, `shop_id`, `product_name`, `quantity_of_items`) VALUES ('$buyer_id', '$shop_id', '$product_name', '$quantity_of_items')");
+    $result = $conn->query("SELECT * FROM cart WHERE buyer_id='$id' AND shop_id='$shop_id' AND product_name='$product_name'");
+    $row = $result->fetch_assoc();
+    if ($quantity_of_items == 0) {
+        $conn->query("DELETE FROM `cart` WHERE `buyer_id` = '$buyer_id' AND `shop_id`='$shop_id' AND `product_name`='$product_name' ");
+    }
+
+    if ($result->num_rows > 0) {
+        $conn->query("UPDATE `cart` SET `quantity_of_items` = '$quantity_of_items' WHERE buyer_id='$id' AND shop_id='$shop_id' AND product_name='$product_name'");
+    } else {
+        $conn->query("INSERT INTO `cart` (`buyer_id`, `shop_id`, `product_name`, `quantity_of_items`) VALUES ('$buyer_id', '$shop_id', '$product_name', '$quantity_of_items')");
+    }
+
     echo $conn->error;
 }
 
@@ -56,7 +67,7 @@ if ($_POST['operation'] == "get_cart_list") {
             '    </div>' .
             '    <div class="card-footer d-flex justify-content-between">' .
             '        <button class="btn btn-sm btn-danger delete"><i class="fa fa-times"></i></button>' .
-            '        <button class="btn btn-sm btn-warning" href="#buyer_process" data-slide="prev"><i class="fa fa-edit"></i> Edit</button>' .
+            '        <button class="btn btn-sm btn-warning edit-cart"><i class="fa fa-edit"></i> Edit</button>' .
             '    </div>' .
             '</div>';
     }
@@ -80,8 +91,6 @@ if ($_POST['operation'] == "remove_from_cart") {
     $conn->error;
 }
 ?>
-
-
 
 <script>
     $('.cart-card button.delete').click(function() {
@@ -109,5 +118,15 @@ if ($_POST['operation'] == "remove_from_cart") {
                 })
             }
         })
+    })
+    $('.cart-card button.edit-cart').click(function() {
+        var $card = $(this).closest('.card');
+        var product_id = $card.attr('data-id');
+
+        $('[name="product_name"]').val(product_id);
+        $('#buyer_process').carousel("prev");
+
+        $('#book_product').modal('show');
+
     })
 </script>

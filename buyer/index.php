@@ -26,8 +26,8 @@
         </div>
         <div class="menu-list">
             <a href="?" class="list-item"><i class="fa fa-home"></i> Home</a>
+            <a href="?page=token-list" class="list-item"><i class="fa fa-list-alt"></i> Token List</a>
             <a href="?page=location" class="list-item"><i class="fa fa-map-marker"></i> My Location</a>
-            <a href="?page=token-history" class="list-item"><i class="fa fa-list-alt"></i> Token History</a>
         </div>
     </div>
     <div class="content-view">
@@ -51,7 +51,7 @@
         <div class="screen">
 
             <div class="main collapse container cart-list">
-              
+
             </div>
 
             <div class="main collapse show">
@@ -73,7 +73,7 @@
     </div>
 
     <script>
-        $('[data-target=".main"]').click(function(){
+        $('[data-target=".main"]').click(function() {
             $('.cart-list').load('request/cart_list.php');
         })
 
@@ -85,6 +85,24 @@
         })
     </script>
 
+    <div class="modal fade" id="book_product">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <form action="" method="post">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <span><i class="fa fa-shopping-bag"></i> Book</span>
+                                <button type="button" class="close" data-dismiss="modal">×</button>
+                            </div>
+
+                            <div class="product-detail"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </body>

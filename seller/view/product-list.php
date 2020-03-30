@@ -8,6 +8,11 @@
         height: 130px;
         background: #ccc;
         margin-bottom: 0px;
+        background: url(img/shop_dummy.jpg);
+        background-size: cover;
+        background-position: bottom;
+        background-repeat: no-repeat;
+        flex-shrink: 0;
     }
 
 
@@ -63,12 +68,12 @@
 </style>
 <div class="container py-3">
     <p class="display-4 text-center">Products</p>
-    <div class="card">
+    <div class="card mb-3">
         <div class="card-body">
             <div class="form-group">
                 <input type="text" name="search_product" class="form-control" placeholder="Search">
             </div>
-            <div class="btn-group w-100 mb-3 align-items-center">
+            <div class="btn-group w-100 align-items-center">
                 <i class="fa fa-cart-plus mr-2"></i>
                 <select name="product_name" class="form-control">
                     <option value="">--- Manage Product ---</option>
@@ -76,47 +81,50 @@
                 <button class="btn btn-sm btn-success ml-2 rounded add-product" style="display: none"><i class="fa fa-plus"></i></button>
                 <button class="btn btn-sm btn-danger ml-2 rounded remove-product" style="display: none"><i class="fa fa-minus"></i></button>
             </div>
-            <div class="product-list row no-gutters">
-                <?php
-                $result = $conn->query("SELECT * FROM `seller_product_stock` WHERE shop_id='$id'");
-                if ($result->num_rows > 0) {
-
-                    while ($row = $result->fetch_assoc()) {
-                        $quantity = $row['quantity_of_items'];
-                        $unit = explode('.', strval($row['quantity_of_items']));
-                        if ($row['sold_by'] == "Kg") {
-                            $quantity = $unit[0] . ' kilo ' . substr(strval($row['quantity_of_items'] * 1000), '-3') . ' gram';
-                        }
-                        if ($row['sold_by'] == "Liter") {
-                            $quantity = $unit[0] . ' liter ' . substr(strval($row['quantity_of_items'] * 1000), '-3') . ' ml';
-                        }
-                        if ($row['sold_by'] == "Unit") {
-                            $quantity = $unit[0] . ' Unit ';
-                        }
-                        echo '' .
-                            '<div class="col-6 product">' .
-                            '   <div class="card">' .
-                            '       <img class="card-img-top" src="holder.js/100x180/" alt="">' .
-                            '       <div class="card-body">' .
-                            '           <p class="card-title">' . $row["product_name"] . '</p>' .
-                            '           <p class="card-text mb-0"><i class="fa fa-archive text-primary"></i> : <b>' . $quantity  . ' </b></p>' .
-                            '           <p class="card-text"><i class="fa fa-money text-success"></i> : ₹ <b>' . $row['price_per_item'] . ' / ' . $row['sold_by'] . '</b></p>' .
-                            '           <button data-toggle="modal" data-target="#edit_product" class="btn btn-warning btn-sm w-100" data-name="' . $row["product_name"] . '"><i class="fa fa-edit"></i> Edit</button>' .
-                            '       </div>' .
-                            '    </div>' .
-                            '</div>';
-                    }
-                } else {
-                    echo '' .
-                        '<div class="text-center mx-auto mt-3">' .
-                        '    <p class="display-4">Empty</p>  ' .
-                        '    <p class="h6">No Products Available</p>' .
-                        '</div>';
-                }
-                ?>
-
-            </div>
         </div>
+    </div>
+    <div class="product-list row no-gutters">
+
+        <?php
+        $result = $conn->query("SELECT * FROM `seller_product_stock` WHERE shop_id='$id'");
+        
+        if ($result->num_rows > 0) {
+            echo '<div class="col-12"><p class="text-center"><i class="fa fa-archive text-primary"></i> You have <b>' . $result->num_rows . '</b> Item in Shop</p></div>';
+
+            while ($row = $result->fetch_assoc()) {
+                $quantity = $row['quantity_of_items'];
+                $unit = explode('.', strval($row['quantity_of_items']));
+                if ($row['sold_by'] == "Kg") {
+                    $quantity = $unit[0] . ' kilo ' . substr(strval($row['quantity_of_items'] * 1000), '-3') . ' gram';
+                }
+                if ($row['sold_by'] == "Liter") {
+                    $quantity = $unit[0] . ' liter ' . substr(strval($row['quantity_of_items'] * 1000), '-3') . ' ml';
+                }
+                if ($row['sold_by'] == "Unit") {
+                    $quantity = $unit[0] . ' Unit ';
+                }
+                echo '' .
+                    '<div class="col-6 product">' .
+                    '   <div class="card">' .
+                    '       <img class="card-img-top" src="holder.js/100x180/" alt="">' .
+                    '       <div class="card-body">' .
+                    '           <p class="card-title">' . $row["product_name"] . '</p>' .
+                    '           <p class="card-text mb-0"><i class="fa fa-archive text-primary"></i> : <b>' . $quantity  . ' </b></p>' .
+                    '           <p class="card-text"><i class="fa fa-money text-success"></i> : ₹ <b>' . $row['price_per_item'] . ' / ' . $row['sold_by'] . '</b></p>' .
+                    '           <button data-toggle="modal" data-target="#edit_product" class="btn btn-warning btn-sm w-100" data-name="' . $row["product_name"] . '"><i class="fa fa-edit"></i> Edit</button>' .
+                    '       </div>' .
+                    '    </div>' .
+                    '</div>';
+            }
+        } else {
+            echo '' .
+                '<div class="text-center mx-auto mt-3">' .
+                '    <p class="display-4">Empty</p>  ' .
+                '    <p class="h6">No Products Available</p>' .
+                '</div>';
+        }
+        ?>
+
     </div>
 </div>
 </div>

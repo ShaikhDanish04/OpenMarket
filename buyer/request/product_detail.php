@@ -3,9 +3,34 @@
 if ($_POST['operation'] == "get_product") {
     $shop_id = $_POST['shop_id'];
     $product_name = $_POST['product_name'];
+    $quantity = 0;
+    $quantity_of_items = "";
+    $price = '';
 
     $result = $conn->query("SELECT * FROM `seller_product_stock` WHERE shop_id = '$shop_id' AND product_name='$product_name'");
     $row = $result->fetch_assoc();
+
+    $product_result = $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id' AND shop_id='$shop_id' AND product_name='$product_name'");
+    while ($product_row = $product_result->fetch_assoc()) {
+        // print_r($row);
+        $quantity = $product_row['quantity_of_items'];
+
+        $quantity_of_items = $product_row['quantity_of_items'];
+
+        $unit = explode('.', strval($product_row['quantity_of_items']));
+        if ($row['sold_by'] == "Kg") {
+            $quantity_of_items = $unit[0] . ' kilo ' . substr(strval($product_row['quantity_of_items'] * 1000), '-3') . ' gram';
+        }
+        if ($row['sold_by'] == "Liter") {
+            $quantity_of_items = $unit[0] . ' liter ' . substr(strval($product_row['quantity_of_items'] * 1000), '-3') . ' ml';
+        }
+        if ($row['sold_by'] == "Unit") {
+            $quantity_of_items = $unit[0] . ' Unit ';
+        }
+        $price = "Total Price : ₹ " . ($quantity * $row['price_per_item']);
+    }
+
+
 
     echo '' .
         '<img class="card-img-top" src="img/shop_dummy.jpg" height="250px" alt="">' .
@@ -19,11 +44,11 @@ if ($_POST['operation'] == "get_product") {
         '        <label for="">Enter Quantity in Number</label>' .
         '        <div class="d-flex">' .
         '            <button type="button" class="btn btn-danger minus-val btn-sm" tabindex="-1"><i class="fa fa-minus"></i></button>' .
-        '            <input type="number" step="0.005" value="0" min="0" name="quantity_of_items" class="form-control mx-2 btn-sm text-center" required="">' .
+        '            <input type="number" step="0.005" value="' . $quantity . '" min="0" name="quantity_of_items" class="form-control mx-2 btn-sm text-center" required="">' .
         '            <button type="button" class="btn btn-success plus-val btn-sm" tabindex="-1"><i class="fa fa-plus"></i></button>' .
         '        </div>' .
-        '        <p class="h4 mt-3 text-center estimation"></p>' .
-        '        <p class="h6 mt-3 text-center price"></p>' .
+        '        <p class="h4 mt-3 text-center estimation">' . $quantity_of_items . '</p>' .
+        '        <p class="h6 mt-3 text-center price">' . $price . '</p>' .
         '        <small class="text-muted">*Required</small>' .
         '    </div>' .
         '    <div class="form-group d-flex justify-content-between">' .
@@ -46,7 +71,6 @@ if ($_POST['operation'] == "get_product") {
             }),
             success: function(data) {
                 console.log(data);
-                $('#buyer_process').carousel("next");
                 $('#book_product').modal("hide");
             }
         });

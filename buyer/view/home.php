@@ -123,24 +123,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="book_product">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body p-0">
-                <form action="" method="post">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <span><i class="fa fa-shopping-bag"></i> Book</span>
-                            <button type="button" class="close" data-dismiss="modal">×</button>
-                        </div>
-
-                        <div class="product-detail"></div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <script>
     $(document).ready(function() {
 
@@ -197,7 +179,20 @@
             })
             console.log('product-modal');
         });
-
+        $("#book_product").on('hide.bs.modal', function() {
+            $.ajax({
+                type: "POST",
+                url: "request/product_list.php",
+                data: {
+                    "shop_id": $('[name="shop_id"]').val(),
+                    "operation": "get_list"
+                },
+                success: function(data) {
+                    $('.product-card-list').html(data);
+                }
+            })
+            console.log('product-modal');
+        });
 
     })
 </script>
