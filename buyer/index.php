@@ -40,7 +40,7 @@
             <div class="middle text-light">
             </div>
             <div class="end">
-                <a type="button" class="btn text-light"><i class="fa fa-shopping-cart"></i></a>
+                <a type="button" class="btn text-light" data-toggle="collapse" data-target=".main"><i class="fa fa-shopping-cart"></i></a>
                 <a type="button" class="btn text-light" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu mt-3 dropdown-menu-right">
                     <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-list-alt"></i> Token List</a>
@@ -50,23 +50,34 @@
             </div>
         </div>
         <div class="screen">
-            <?php
-            if (isset($_GET['page'])) {
-                if ($_GET['page'] == '') {
-                    $page = "home";
-                } else {
-                    $page = $_GET['page'];
-                }
-            } else {
-                $page = "home";
-            }
-            include("view/" . $page . ".php");
 
-            ?>
+            <div class="main collapse container cart-list">
+              
+            </div>
+
+            <div class="main collapse show">
+                <?php
+                if (isset($_GET['page'])) {
+                    if ($_GET['page'] == '') {
+                        $page = "home";
+                    } else {
+                        $page = $_GET['page'];
+                    }
+                } else {
+                    $page = "home";
+                }
+                include("view/" . $page . ".php");
+
+                ?>
+            </div>
         </div>
     </div>
 
     <script>
+        $('[data-target=".main"]').click(function(){
+            $('.cart-list').load('request/cart_list.php');
+        })
+
         $('.menu-toggle').click(function() {
             $('body').toggleClass('menu-open');
         })

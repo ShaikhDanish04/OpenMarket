@@ -16,7 +16,7 @@ if ($_POST['operation'] == "add_to_cart") {
 if ($_POST['operation'] == "get_cart_list") {
 
     $shop_id = $_POST['shop_id'];
-    $result = $conn->query("SELECT * FROM `cart` WHERE shop_id='$shop_id'");
+    $result = $conn->query("SELECT * FROM `cart` WHERE shop_id='$shop_id' AND `status`='in'");
     while ($row = $result->fetch_assoc()) {
         echo '' .
             '<div class="card cart-card mb-3" data-id="' . $row['product_name'] . '">' .
@@ -31,6 +31,13 @@ if ($_POST['operation'] == "get_cart_list") {
             '    </div>' .
             '</div>';
     }
+
+    echo '' .
+        '<div class="card fixed-card">' .
+        '    <div class="card-body p-2">' .
+        '        <button class="btn btn-success w-100"><i class="fa fa-list-alt"></i> Get Token</button>' .
+        '    </div>' .
+        '</div>';
 }
 
 if ($_POST['operation'] == "remove_from_cart") {

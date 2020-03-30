@@ -70,10 +70,6 @@
     });
 </script>
 
-
-<!-- <a href="#buyer_process" data-slide="prev" class="btn"><i class="fa fa-chevron-left text-dark"></i></a>
-<a href="#buyer_process" data-slide="next" class="btn"><i class="fa fa-chevron-right text-dark"></i></a> -->
-
 <div id="buyer_process" class="carousel slide" data-ride="carousel" data-slide="false" data-interval="false" data-wrap="false">
     <div class="carousel-inner">
         <div class="carousel-item shop-carousel active">
@@ -117,10 +113,9 @@
                 </div>
 
                 <div class="cart-card-list"></div>
-
-                <div class="card fixed-card">
+                <div class="card fixed-card mt-3">
                     <div class="card-body p-2">
-                        <button class="btn btn-success w-100"><i class="fa fa-list-alt"></i> Get Token</button>
+                        <button class="btn btn-primary w-100" href="#buyer_process" data-slide="prev"><i class="fa fa-chevron-left"></i> Shop More</button>
                     </div>
                 </div>
             </div>
@@ -148,7 +143,7 @@
 </div>
 <script>
     $(document).ready(function() {
-       
+
         $('.shop-card-list').load('request/shop_list.php');
 
         $("#buyer_process").on('slid.bs.carousel', function() {
