@@ -30,6 +30,7 @@
             <a href="?page=location" class="list-item"><i class="fa fa-map-marker"></i> My Location</a>
         </div>
     </div>
+
     <div class="content-view">
         <div class="action-bar">
             <div class="start">
@@ -39,7 +40,7 @@
             <div class="middle text-light">
             </div>
             <div class="end">
-                <a type="button" class="btn text-light <?php echo ($_GET['page'] == '') ? '' : 'd-none'?>" data-toggle="collapse" data-target=".main"><i class="fa fa-shopping-cart"></i></a>
+                <a type="button" class="btn text-light <?php echo ($_GET['page'] == '') ? '' : 'd-none' ?>" data-toggle="collapse" data-target=".main"><i class="fa fa-shopping-cart"></i></a>
                 <a type="button" class="btn text-light" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu mt-3 dropdown-menu-right">
                     <a class="dropdown-item" href="?page=token-list"><i class="fa fa-list-alt"></i> Token List</a>
@@ -50,11 +51,11 @@
         </div>
         <div class="screen">
 
-            <div class="main collapse container cart-list">
 
-            </div>
+            <div class="main collapse container cart-list"></div>
 
             <div class="main collapse show">
+
                 <?php
                 if (isset($_GET['page'])) {
                     if ($_GET['page'] == '') {
