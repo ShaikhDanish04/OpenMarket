@@ -2,9 +2,29 @@
 
 if ($_POST['operation'] == "get_list") {
     $shop_id = $_POST['shop_id'];
+    $token_pending = false;
     $product_list = array();
-    $result = $conn->query("SELECT * FROM `seller_product_stock` WHERE shop_id='$shop_id'");
+    $result = $conn->query("SELECT * FROM `token_list` WHERE shop_id='$shop_id' AND buyer_id='$id' AND `status`='pending'");
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        // print_r($row);
+        $token_pending = true;
+        echo '' .
+            '<div class="col-12">' .
+            '   <div class="card mb-3">' .
+            '       <div class="card-header">' .
+            '           <p class="h6 mb-0">Your Token No : ' . $row['token_number'] . '</p>' .
+            '       </div>' .
+            '       <div class="card-body d-flex align-items-center flex-column">' .
+            '           <p class="text-justify small mb-0"><b>Note : </b> You cannot book more items with pending token, Complete your order or Delete Token.</p>' .
+            '           <button class="btn btn-primary mt-3 btn-sm w-100" href="?page=token-list"><i class="fa fa-list-alt"></i> Token List</button>' .
+            '       </div>' .
+            '   </div>' .
+            '</div>';
+    }
 
+
+    $result = $conn->query("SELECT * FROM `seller_product_stock` WHERE shop_id='$shop_id'");
 
     if ($result->num_rows > 0) {
         echo '<div class="col-12"><p class="text-center"><i class="fa fa-archive text-primary"></i> There are <b>' . $result->num_rows . '</b> Item in Shop</p></div>';
@@ -28,19 +48,24 @@ if ($_POST['operation'] == "get_list") {
             $product_row = $product_result->fetch_assoc();
             // print_r($product_row);
 
-            if (!isset($product_row['product_name'])) $button = '<button class="btn btn-success btn-sm w-100 book-btn"><i class="fa fa-shopping-bag"></i> Book</button>';
-            else $button = '' .
-                '<div class="text-center">' .
-                '   <p class="mb-2 small text-danger font-weight-bold">Added to Cart</p>' .
-                '   <button class="btn btn-warning btn-sm w-100 edit-btn"><i class="fa fa-edit"></i> Edit</button>' .
-                '</div>';
+            if ($token_pending) {
+                $button = '';
+            } else {
+
+                if (!isset($product_row['product_name'])) $button = '<button class="mt-3 btn btn-success btn-sm w-100 book-btn"><i class="fa fa-shopping-bag"></i> Book</button>';
+                else $button = '' .
+                    '<div class="text-center mt-3">' .
+                    '   <p class="mb-2 small text-danger font-weight-bold">Added to Cart</p>' .
+                    '   <button class="btn btn-warning btn-sm w-100 edit-btn"><i class="fa fa-edit"></i> Edit</button>' .
+                    '</div>';
+            }
 
             echo '' .
                 '<div class="col-6 mb-3">' .
                 '    <div class="card product-card" data-id="' . $row["product_name"] . '">' .
                 '        <img class="card-side-img" src="holder.js/100x180/" alt="">' .
                 '        <div class="card-body">' .
-                '            <div class="mb-3">' .
+                '            <div class="">' .
                 '                <p class="card-title">' . $row['product_name'] . '</p>' .
                 '                <p class="card-text mb-0"><i class="fa fa-archive text-primary"></i> : <b>' . $quantity  . '</b></p>' .
                 '                <p class="card-text mb-0"><i class="fa fa-money text-success"></i> : ₹ <b>' . $row['price_per_item'] . ' / <span class="sold_by">' . $row['sold_by'] . '</span></b></p>' .
@@ -49,12 +74,15 @@ if ($_POST['operation'] == "get_list") {
                 '    </div>' .
                 '</div>';
         }
-        echo '' .
-            '<div class="card fixed-card w-100">' .
-            '    <div class="card-body p-2">' .
-            '        <button class="btn btn-primary w-100" href="#buyer_process" data-slide="next"><i class="fa fa-shopping-cart"></i> View Cart</button>' .
-            '    </div>' .
-            '</div>';
+        if (!$token_pending) {
+
+            echo '' .
+                '<div class="card fixed-card w-100">' .
+                '    <div class="card-body p-2">' .
+                '        <button class="btn btn-primary w-100" href="#buyer_process" data-slide="next"><i class="fa fa-shopping-cart"></i> View Cart</button>' .
+                '    </div>' .
+                '</div>';
+        }
     } else {
         echo '' .
             '<div class="card mx-auto">' .
