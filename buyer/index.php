@@ -52,7 +52,7 @@
         <div class="screen">
 
 
-            <div class="main collapse container cart-list"></div>
+            <div class="main collapse container cart-list pb-3"></div>
 
             <div class="main collapse show">
 

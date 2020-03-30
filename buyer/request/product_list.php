@@ -17,7 +17,7 @@ if ($_POST['operation'] == "get_list") {
             '       </div>' .
             '       <div class="card-body d-flex align-items-center flex-column">' .
             '           <p class="text-justify small mb-0"><b>Note : </b> You cannot book more items with pending token, Complete your order or Delete Token.</p>' .
-            '           <button class="btn btn-primary mt-3 btn-sm w-100" href="?page=token-list"><i class="fa fa-list-alt"></i> Token List</button>' .
+            '           <a class="btn btn-primary mt-3 btn-sm w-100" href="?page=token-list"><i class="fa fa-list-alt"></i> Token List</a>' .
             '       </div>' .
             '   </div>' .
             '</div>';
