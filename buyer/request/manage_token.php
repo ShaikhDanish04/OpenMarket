@@ -12,16 +12,18 @@ if ($_POST['operation'] == 'generate_token') {
         $token_number = $row['token_number'] + 1;
     }
 
-    if($conn->query("INSERT INTO token_list (`token_number`,`shop_id`,`buyer_id`) VALUES ('$token_number','$shop_id','$id')") === TRUE) {
-
+    if ($conn->query("INSERT INTO token_list (`token_number`,`shop_id`,`buyer_id`) VALUES ('$token_number','$shop_id','$id')") === TRUE) {
         $result = $conn->query("SELECT * FROM `cart` WHERE shop_id='$shop_id' AND `status`='in'");
         while ($row = $result->fetch_assoc()) {
             $procuct_name = $row['product_name'];
-            if($conn->query("UPDATE cart SET token_number = '$token_number', `status` = 'tokened' WHERE buyer_id = '$id' AND shop_id = '$shop_id' AND product_name = '$procuct_name'") == TRUE) {
-                echo "ok";
-            } else {
-                $conn->query("DELETE FROM `token_list` WHERE token_number = '$token_number' AND `shop_id`='$shop_id'");
-            }
-         }
+
+            $product_result = $conn->query("SELECT * FROM seller_product_stock WHERE shop_id='$shop_id' AND product_name='$procuct_name'");
+            $product_row = $product_result->fetch_assoc();
+
+            $new_quantity_of_items = $product_row['quantity_of_items'] - $row['quantity_of_items'];
+
+            $conn->query("UPDATE `seller_product_stock` SET `quantity_of_items`='$new_quantity_of_items' WHERE product_name='$procuct_name'");
+            $conn->query("UPDATE cart SET token_number = '$token_number', `status` = 'tokened' WHERE buyer_id = '$id' AND shop_id = '$shop_id' AND product_name = '$procuct_name'");
+        }
     }
 }

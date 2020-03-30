@@ -30,8 +30,6 @@ if ($_POST['operation'] == "get_product") {
         $price = "Total Price : ₹ " . ($quantity * $row['price_per_item']);
     }
 
-
-
     echo '' .
         '<img class="card-img-top" src="img/shop_dummy.jpg" height="250px" alt="">' .
         '<div class="card-body">' .
@@ -44,7 +42,7 @@ if ($_POST['operation'] == "get_product") {
         '        <label for="">Enter Quantity in Number</label>' .
         '        <div class="d-flex">' .
         '            <button type="button" class="btn btn-danger minus-val btn-sm" tabindex="-1"><i class="fa fa-minus"></i></button>' .
-        '            <input type="number" step="0.005" value="' . $quantity . '" min="0" name="quantity_of_items" class="form-control mx-2 btn-sm text-center" required="">' .
+        '            <input type="number" step="0.005" value="' . $quantity . '" min="0" max="' . $row['quantity_of_items'] . '" name="quantity_of_items" class="form-control mx-2 btn-sm text-center" required="">' .
         '            <button type="button" class="btn btn-success plus-val btn-sm" tabindex="-1"><i class="fa fa-plus"></i></button>' .
         '        </div>' .
         '        <p class="h4 mt-3 text-center estimation">' . $quantity_of_items . '</p>' .

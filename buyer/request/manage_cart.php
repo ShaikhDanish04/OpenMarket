@@ -17,6 +17,7 @@ if ($_POST['operation'] == "add_to_cart") {
 
     if ($result->num_rows > 0) {
         $conn->query("UPDATE `cart` SET `quantity_of_items` = '$quantity_of_items' WHERE buyer_id='$id' AND shop_id='$shop_id' AND product_name='$product_name'");
+        echo "echo";
     } else {
         $conn->query("INSERT INTO `cart` (`buyer_id`, `shop_id`, `product_name`, `quantity_of_items`) VALUES ('$buyer_id', '$shop_id', '$product_name', '$quantity_of_items')");
     }
@@ -28,7 +29,6 @@ if ($_POST['operation'] == "get_cart_list") {
     $total_cost = 0;
     $shop_id = $_POST['shop_id'];
     $result = $conn->query("SELECT * FROM `cart` WHERE shop_id='$shop_id' AND `status`='in'");
-    // $result = $conn->query("SELECT * FROM seller_product_stock INNER JOIN cart ON cart.shop_id = seller_product_stock.shop_id WHERE cart.shop_id='$shop_id'");
 
     // echo '<p class="h5 my-3 text-center">' . $result->num_rows . ' Items in this cart</p>';
     while ($row = $result->fetch_assoc()) {
@@ -131,6 +131,8 @@ if ($_POST['operation'] == "remove_from_cart") {
     })
 
     $('.check-out-cart').click(function() {
+        $(this).attr('disabled', 'true');
+
         $.ajax({
             type: "POST",
             url: "request/manage_token.php",
@@ -140,7 +142,7 @@ if ($_POST['operation'] == "remove_from_cart") {
             },
             success: function(data) {
                 console.log(data);
-                if(data == "ok") {
+                if (data == "ok") {
                     location.href = "?page=token-list"
                 }
             }

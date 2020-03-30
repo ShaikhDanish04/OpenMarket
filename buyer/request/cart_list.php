@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
 <script>
     $('.show-cart').click(function() {
         $('[name="shop_id"]').val($(this).attr('data-id'));
-
+        
         $.ajax({
             type: "POST",
             url: "request/manage_cart.php",
