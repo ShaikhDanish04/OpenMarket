@@ -5,8 +5,6 @@ if ($_POST['operation'] == "get_list") {
     $product_list = array();
     $result = $conn->query("SELECT * FROM `seller_product_stock` WHERE shop_id='$shop_id'");
 
-    // echo '<input type="hidden" name="shop_id" value="' . $shop_id . '">';
-    // echo '<input type="hidden" name="buyer_id" value="' . $id . '">';
     if ($result->num_rows > 0) {
 
         while ($row = $result->fetch_assoc()) {
@@ -22,19 +20,23 @@ if ($_POST['operation'] == "get_list") {
                 $quantity = $unit[0] . ' Unit ';
             }
             echo '' .
-                '<div class="card product-card">' .
-                '    <img class="card-side-img" src="holder.js/100x180/" alt="">' .
-                '    <div class="card-body">' .
-                '        <p class="card-title">' . $row['product_name'] . '</p>' .
-                '        <p class="card-text mb-0"><i class="fa fa-archive text-primary"></i> : <b>' . $quantity  . '</b></p>' .
-                '        <p class="card-text"><i class="fa fa-money text-success"></i> : ₹ <b>' . $row['price_per_item'] . ' / <span class="sold_by">' . $row['sold_by'] . '</span></b></p>' .
-                '        <button data-toggle="modal" data-target="#book_product" class="btn btn-success btn-sm w-100" data-product-name="' . $row["product_name"] . '"><i class="fa fa-shopping-bag"></i> Book</button>' .
+                '<div class="col-6 mb-3">' .
+                '    <div class="card product-card" data-id="' . $row["product_name"] . '">' .
+                '        <img class="card-side-img" src="holder.js/100x180/" alt="">' .
+                '        <div class="card-body">' .
+                '            <div class="mb-3">' .
+                '                <p class="card-title">' . $row['product_name'] . '</p>' .
+                '                <p class="card-text mb-0"><i class="fa fa-archive text-primary"></i> : <b>' . $quantity  . '</b></p>' .
+                '                <p class="card-text mb-0"><i class="fa fa-money text-success"></i> : ₹ <b>' . $row['price_per_item'] . ' / <span class="sold_by">' . $row['sold_by'] . '</span></b></p>' .
+                '            </div>' .
+                '            <button class="btn btn-success btn-sm w-100"><i class="fa fa-shopping-bag"></i> Book</button>' .
+                '        </div>' .
                 '    </div>' .
                 '</div>';
         }
     } else {
         echo '' .
-            '<div class="card">' .
+            '<div class="card mx-auto">' .
             '    <div class="card-body d-flex align-items-center flex-column">' .
             '        <p class="display-4">Sorry</p>' .
             '        <p class="h6">No Products Available</p>' .
@@ -47,14 +49,12 @@ if ($_POST['operation'] == "get_list") {
 
 
 <script>
-    $('[data-product-name]').click(function() {
+    $('.product-card button').click(function() {
+        var $card = $(this).closest('.card');
+        var product_id = $card.attr('data-id');
 
-        $('.modal [name="buyer_id"]').val($('[name="buyer_id"]').val());
-        $('.modal [name="shop_id"]').val($('[name="shop_id"]').val());
+        $('[name="product_name"]').val(product_id);
 
-        $('.estimation').text('');
-        $('.modal [name="sold_by"]').val($(this).prev().find('.sold_by').text());
-        $('.modal [name="product_name"]').val($(this).attr('data-product-name'));
-        $('.modal .product_name_get').text($(this).attr('data-product-name'));
-    });
+        $('#book_product').modal('show');
+    })
 </script>
