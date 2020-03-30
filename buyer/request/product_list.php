@@ -24,7 +24,7 @@ if ($_POST['operation'] == "get_list") {
                 $quantity = $unit[0] . ' Unit ';
             }
 
-            $product_result = $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id' AND shop_id='$shop_id' AND product_name='$product_name'");
+            $product_result = $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id' AND shop_id='$shop_id' AND product_name='$product_name' AND `status`='in'");
             $product_row = $product_result->fetch_assoc();
             // print_r($product_row);
 

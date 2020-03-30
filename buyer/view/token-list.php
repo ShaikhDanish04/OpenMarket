@@ -3,7 +3,13 @@
 
     <div class="card">
         <div class="card-body">
-        Token Number
+            <?php $result = $conn->query("SELECT * FROM token_list WHERE buyer_id='$id'");
+            while ($row = $result->fetch_assoc()) {
+                echo "<pre>";
+                print_r($row);
+                echo "</pre>";
+            }
+            ?>
         </div>
     </div>
 </div>

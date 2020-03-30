@@ -76,7 +76,7 @@ if ($_POST['operation'] == "get_cart_list") {
         '<div class="card fixed-card">' .
         '    <div class="card-body p-2">' .
         '       <p class="h6 p-2 text-center">Total Price : ₹ <b>' . $total_cost . '</b></p>' .
-        '        <button class="btn btn-success w-100"><i class="fa fa-list-alt"></i> Get Token</button>' .
+        '        <button class="btn btn-success w-100 check-out-cart"><i class="fa fa-list-alt"></i> Get Token</button>' .
         '    </div>' .
         '</div>';
 }
@@ -128,5 +128,22 @@ if ($_POST['operation'] == "remove_from_cart") {
 
         $('#book_product').modal('show');
 
+    })
+
+    $('.check-out-cart').click(function() {
+        $.ajax({
+            type: "POST",
+            url: "request/manage_token.php",
+            data: {
+                "shop_id": $('[name="shop_id"]').val(),
+                "operation": "generate_token"
+            },
+            success: function(data) {
+                console.log(data);
+                if(data == "ok") {
+                    location.href = "?page=token-list"
+                }
+            }
+        })
     })
 </script>

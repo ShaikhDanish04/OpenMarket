@@ -10,7 +10,7 @@ if ($_POST['operation'] == "get_product") {
     $result = $conn->query("SELECT * FROM `seller_product_stock` WHERE shop_id = '$shop_id' AND product_name='$product_name'");
     $row = $result->fetch_assoc();
 
-    $product_result = $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id' AND shop_id='$shop_id' AND product_name='$product_name'");
+    $product_result = $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id' AND shop_id='$shop_id' AND product_name='$product_name' AND `status`='in'");
     while ($product_row = $product_result->fetch_assoc()) {
         // print_r($row);
         $quantity = $product_row['quantity_of_items'];
