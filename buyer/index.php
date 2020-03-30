@@ -26,7 +26,6 @@
         </div>
         <div class="menu-list">
             <a href="?" class="list-item"><i class="fa fa-home"></i> Home</a>
-            <a href="?page=product-list" class="list-item"><i class="fa fa-archive"></i> Products In Shop</a>
             <a href="?page=location" class="list-item"><i class="fa fa-map-marker"></i> My Location</a>
             <a href="?page=token-history" class="list-item"><i class="fa fa-list-alt"></i> Token History</a>
         </div>

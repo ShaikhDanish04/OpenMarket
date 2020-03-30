@@ -14,16 +14,45 @@ if ($_POST['operation'] == "add_to_cart") {
 }
 
 if ($_POST['operation'] == "get_cart_list") {
-
+    $total_cost = 0;
     $shop_id = $_POST['shop_id'];
     $result = $conn->query("SELECT * FROM `cart` WHERE shop_id='$shop_id' AND `status`='in'");
+    // $result = $conn->query("SELECT * FROM seller_product_stock INNER JOIN cart ON cart.shop_id = seller_product_stock.shop_id WHERE cart.shop_id='$shop_id'");
+
+    // echo '<p class="h5 my-3 text-center">' . $result->num_rows . ' Items in this cart</p>';
     while ($row = $result->fetch_assoc()) {
+
+        $product_name = $row['product_name'];
+        $product_result = $conn->query("SELECT * FROM seller_product_stock WHERE shop_id='$shop_id' AND product_name='$product_name'");
+        $product_row = $product_result->fetch_assoc();
+
+        // echo "<pre>";
+        // print_r($product_row);
+        // print_r($row);
+        // echo "</pre>";
+        $quantity = $row['quantity_of_items'];
+
+        // $quantity_of_items = ;
+        $cost = $product_row['price_per_item'] * $row['quantity_of_items'];
+        $total_cost = $total_cost + $cost;
+
+        $unit = explode('.', strval($row['quantity_of_items']));
+        if ($product_row['sold_by'] == "Kg") {
+            $quantity = $unit[0] . ' kilo ' . substr(strval($row['quantity_of_items'] * 1000), '-3') . ' gram';
+        }
+        if ($product_row['sold_by'] == "Liter") {
+            $quantity = $unit[0] . ' liter ' . substr(strval($row['quantity_of_items'] * 1000), '-3') . ' ml';
+        }
+        if ($product_row['sold_by'] == "Unit") {
+            $quantity = $unit[0] . ' Unit ';
+        }
         echo '' .
             '<div class="card cart-card mb-3" data-id="' . $row['product_name'] . '">' .
             '    <img class="card-side-img" src="holder.js/100x180/" alt="">' .
             '    <div class="card-body">' .
-            '        <p class="card-title h6">' . $row['product_name'] . ' : <b>0 kilo 0 gram</b></p>' .
-            '        <p class="card-text"><i class="fa fa-money text-success"></i> : ₹ <b>12 / <span class="sold_by">Kg</span></b></p>' .
+            '        <p class="card-title h6">' . $row['product_name'] . '</p>' .
+            '        <p class="card-text mb-0">Quantity : <b>' . $quantity . '</b></p>' .
+            '        <p class="card-text mb-0">Price : ₹ <b>' . $cost . '</b></p>' .
             '    </div>' .
             '    <div class="card-footer d-flex justify-content-between">' .
             '        <button class="btn btn-sm btn-danger delete"><i class="fa fa-times"></i></button>' .
@@ -35,6 +64,7 @@ if ($_POST['operation'] == "get_cart_list") {
     echo '' .
         '<div class="card fixed-card">' .
         '    <div class="card-body p-2">' .
+        '       <p class="h6 p-2 text-center">Total Price : ₹ <b>' . $total_cost . '</b></p>' .
         '        <button class="btn btn-success w-100"><i class="fa fa-list-alt"></i> Get Token</button>' .
         '    </div>' .
         '</div>';

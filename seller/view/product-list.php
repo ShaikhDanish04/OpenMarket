@@ -187,7 +187,7 @@
                             </script>
                             <div class="form-group">
                                 <label for="">Enter Price Per Quantity</label>
-                                <input type="text" name="price_per_item" class="form-control" required>
+                                <input type="number" name="price_per_item" class="form-control" required>
                                 <small class="text-muted">*Required</small>
                             </div>
                             <div class="form-group d-flex justify-content-between">

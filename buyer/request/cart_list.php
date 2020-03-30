@@ -3,7 +3,7 @@
 include('../../connect.php');
 
 $shop_list = array();
-$result = $conn->query("SELECT DISTINCT sellers.* FROM sellers RIGHT JOIN cart ON cart.shop_id = sellers.id WHERE buyer_id = '$id' AND `status` = 'in'");
+$result = $conn->query("SELECT DISTINCT sellers.* FROM sellers INNER JOIN cart ON cart.shop_id = sellers.id WHERE buyer_id = '$id' AND `status` = 'in'");
 
 if ($result->num_rows > 0) {
 
