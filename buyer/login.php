@@ -5,7 +5,7 @@
     <title>Daily Bazar : Buyer</title>
     <?php include('../head.php') ?>
     <?php
-    if (isset($_SESSION['id'])) {
+    if (isset($_SESSION['id']) && $_SESSION['type'] == "buyer") {
         echo "<script type='text/javascript'>document.location.href = 'index.php';</script>";
     }
     ?>
@@ -21,6 +21,7 @@ if (isset($_POST['login_submit'])) {
     $row = $result->fetch_assoc();
     if ($result->num_rows == 1) {
         $_SESSION['id'] = $row['id'];
+        $_SESSION['type'] = "buyer";
         echo "<script type='text/javascript'>document.location.href = 'index.php';</script>";
     } else {
         $status = '<div class="alert alert-danger my-3">Invalid Details !!! Try Again</div>';
@@ -60,8 +61,11 @@ if (isset($_POST['login_submit'])) {
 
                 <div class="form-group text-center">
                     <button class="btn btn-success w-100" name="login_submit">Login</button>
-                    <a href="register.php" class="small font-weight-bold">Create New Account</a>
                 </div>
+            </div>
+            <div class="card-footer">
+                <p class="small mb-0 text-center">Dont have account ? <a href="register.php" class="font-weight-bold text-underline">Register</a></p>
+
             </div>
         </div>
     </form>

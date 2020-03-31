@@ -5,7 +5,7 @@
     <title>Daily Bazar : Seller</title>
     <?php include('../head.php') ?>
     <?php
-    if (isset($_SESSION['id'])) {
+    if (isset($_SESSION['id']) && $_SESSION['type'] == "buyer") {
         echo "<script type='text/javascript'>document.location.href = 'index.php';</script>";
     }
     ?>
@@ -32,6 +32,7 @@ if (isset($_POST['login_submit'])) {
         if ($conn->query("INSERT INTO signin_log VALUES ('$id','$OPERATION_TIME','$OPERATION_DATE')") === TRUE) {
             $status = '<div class="alert alert-success my-3">Logged in</div>';
             $_SESSION['id'] = $id;
+            $_SESSION['type'] = "seller";
             echo "<script type='text/javascript'>document.location.href = 'index.php';</script>";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
@@ -54,7 +55,7 @@ if (isset($_POST['login_submit'])) {
         }
     </style>
 
-    <form action="" method="post">
+    <form action="" method="post" class="p-3">
         <div class="login-card">
             <?php echo $status; ?>
         </div>

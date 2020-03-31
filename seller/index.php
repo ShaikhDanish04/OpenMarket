@@ -7,7 +7,7 @@
 
     <?php
 
-    if (!isset($_SESSION['id'])) {
+    if (!isset($_SESSION['id']) || $_SESSION['type'] != "seller") {
         echo "<script type='text/javascript'>document.location.href = 'login.php';</script>";
     }
 
