@@ -141,7 +141,7 @@ if ($_POST['operation'] == "remove_from_cart") {
                 "operation": "generate_token"
             },
             success: function(data) {
-                location.href = "?page=token-list"
+                location.reload();
             }
         })
     })

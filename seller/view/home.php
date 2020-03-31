@@ -22,7 +22,7 @@ if (isset($_POST['start_selling'])) {
     <p class="display-4 text-center">Active Tokens</p>
 
     <!-- list my tokens -->
-    <?php $result = $conn->query("SELECT * FROM token_list WHERE shop_id='$id' AND `status`='active' OR `status` = 'pending'");
+    <?php $result = $conn->query("SELECT * FROM token_list WHERE (shop_id='$id' AND `status`='active') OR (shop_id='$id' AND `status` = 'pending')");
 
     if ($pending_tokens = $result->num_rows > 0) {
 

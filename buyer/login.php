@@ -17,9 +17,10 @@ if (isset($_POST['login_submit'])) {
     $id = $_POST['id'];
     $password = sha1($_POST['password']);
 
-    $result = $conn->query("SELECT * FROM sellers WHERE id = '$id' AND `password` = '$password'");
+    $result = $conn->query("SELECT * FROM buyers WHERE (id='$id' AND `password`='$password') OR (username='$id' AND `password`='$password')");
+    $row = $result->fetch_assoc();
     if ($result->num_rows == 1) {
-        $_SESSION['id'] = $id;
+        $_SESSION['id'] = $row['id'];
         echo "<script type='text/javascript'>document.location.href = 'index.php';</script>";
     } else {
         $status = '<div class="alert alert-danger my-3">Invalid Details !!! Try Again</div>';
