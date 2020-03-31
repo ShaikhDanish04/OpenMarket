@@ -4,7 +4,7 @@ if ($_POST['operation'] == "get_list") {
     $shop_id = $_POST['shop_id'];
     $token_pending = false;
     $product_list = array();
-    $result = $conn->query("SELECT * FROM `token_list` WHERE shop_id='$shop_id' AND buyer_id='$id' AND `status`='pending' OR `status`='active'");
+    $result = $conn->query("SELECT * FROM `token_list` WHERE (shop_id='$shop_id' AND buyer_id='$id' AND `status`='pending') OR (shop_id='$shop_id' AND buyer_id='$id' AND `status`='active')");
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         // print_r($row);
