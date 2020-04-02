@@ -19,6 +19,7 @@ if (isset($_POST['login_submit'])) {
 
     $result = $conn->query("SELECT * FROM buyers WHERE (id='$id' AND `password`='$password') OR (username='$id' AND `password`='$password')");
     $row = $result->fetch_assoc();
+
     if ($result->num_rows == 1) {
         $_SESSION['id'] = $row['id'];
         $_SESSION['type'] = "buyer";

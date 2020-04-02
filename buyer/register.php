@@ -31,7 +31,7 @@ if (isset($_POST['register_submit'])) {
             '        <p class="text-info font-weight-bold">Your Shop is Registed Successfully</p>' .
             '        <p class="h4">' . $fname . $lname . '</p>' .
             '        <p class="h5 text-uppercase">' . $user_name . '</p>' .
-            '        <p class="h6">Your Seller Id Number is</p>' .
+            '        <p class="h6">Your Buyer Id Number is</p>' .
             '        <p class="h3 mb-0">' . $id . '</p>' .
             '        <a href="login.php" class="btn btn-success mt-3">Go to Login</a>' .
             '    </div>' .
@@ -60,6 +60,7 @@ if (isset($_POST['register_submit'])) {
 
 <body>
     <div class="container">
+        <?php echo $status; ?>
 
         <div class="card my-3">
             <div class="card-body">
