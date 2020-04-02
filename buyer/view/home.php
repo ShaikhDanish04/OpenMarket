@@ -70,19 +70,12 @@
     });
 </script>
 
+
 <div id="buyer_process" class="carousel slide" data-ride="carousel" data-slide="false" data-interval="false" data-wrap="false">
     <div class="carousel-inner">
         <div class="carousel-item shop-carousel active">
             <div class="container py-3">
-                <div class="form-group d-flex">
-                    <input type="text" name="search_shop" class="form-control" placeholder="Search">
-                    <button class="btn btn-secondary ml-2" data-toggle="collapse" data-target="#filter_container"><i class="fa fa-filter"></i></button>
-                </div>
-                <div id="filter_container" class="container collapse">
-                    <div class="card mb-3">
-                        <div class="card-body"></div>
-                    </div>
-                </div>
+                <?php include("search.php") ?>
 
                 <div class="shop-card-list"></div>
             </div>
