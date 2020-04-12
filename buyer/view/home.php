@@ -12,6 +12,7 @@
     }
 
 
+    .searched-product-card .card-side-img,
     .cart-card .card-side-img,
     .shop-card .card-side-img,
     .product-card .card-side-img {
@@ -25,6 +26,7 @@
         flex-shrink: 0;
     }
 
+    .searched-product-card .card-body,
     .shop-card .card-body,
     .product-card .card-body {
         padding: 0.75rem 1rem;
@@ -34,6 +36,7 @@
     }
 
 
+    .searched-product-card .card-title,
     .shop-card .card-title,
     .product-card .card-title {
         border-bottom: 1px solid #ccc;
@@ -42,6 +45,7 @@
         margin-bottom: .25rem;
     }
 
+    .searched-product-card .card-text,
     .shop-card .card-text,
     .product-card .card-text {
         font-size: 12px;

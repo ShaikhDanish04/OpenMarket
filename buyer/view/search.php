@@ -46,7 +46,38 @@
     </div>
 </form>
 
-<div class="all-product-card-list row no-gutters"></div>
+<style>
+    .searched-product-card .address {
+        background: #f3f3f3;
+        border-radius: .5rem;
+        transition: .5s;
+        /* margin-bottom: .5rem; */
+        padding: .5rem 1rem;
+        text-align: justify;
+        box-shadow: 0px 4px 8px #ddd;
+    }
+
+    .searched-product-card .rating {
+        color: #f8c100;
+        margin-right: .5rem;
+    }
+
+    .searched-product-card .product {
+        display: flex;
+        min-height: 150px;
+        flex-direction: row;
+        margin-bottom: 0px;
+    }
+
+    .searched-product-card p {
+        margin-bottom: 0px;
+    }
+
+    .divider {
+        border-bottom: 1px solid rgba(0, 0, 0, .25);
+    }
+</style>
+<div class="all-product-card-list"></div>
 
 <script>
     $('#search_all_products').submit(function(e) {
@@ -76,7 +107,7 @@
     $('#search_all_products input').on('focus keyup', function() {
         $('#search_all_products .btn-success').show();
         $('#search_all_products .btn-danger').hide();
-        
+
     });
 
 
