@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Daily Bazar : Buyer</title>
+    <title>Open Market : Buyer</title>
     <?php include('../head.php') ?>
 
     <?php
@@ -17,6 +17,9 @@
 </head>
 
 <body class="">
+    <input type="hidden" name="shop_id">
+    <input type="hidden" name="product_name">
+
     <div class="side-bar">
         <div class="display">
             <!-- <img src="" alt="" width="50px" height="50px" class="user-img"> -->

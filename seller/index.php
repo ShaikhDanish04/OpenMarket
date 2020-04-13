@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Daily Bazar : Seller</title>
+    <title>Open Market : Seller</title>
     <?php include('../head.php') ?>
 
     <?php

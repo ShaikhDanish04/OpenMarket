@@ -127,7 +127,6 @@ if ($_POST['operation'] == "remove_from_cart") {
         $('#buyer_process').carousel("prev");
 
         $('#book_product').modal('show');
-
     })
 
     $('.check-out-cart').click(function() {

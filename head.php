@@ -27,6 +27,10 @@
         overflow-x: hidden;
     }
 
+    .divider {
+        border-bottom: 1px solid rgba(0, 0, 0, .25);
+    }
+
     .card {
         box-shadow: 2px 2px 8px #ccc;
     }

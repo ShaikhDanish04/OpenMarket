@@ -85,8 +85,6 @@
             </div>
         </div>
         <div class="carousel-item product-carousel">
-            <input type="hidden" name="shop_id">
-            <input type="hidden" name="product_name">
 
             <div class="container py-3">
                 <div class="form-group d-flex align-items-center justify-content-between">
