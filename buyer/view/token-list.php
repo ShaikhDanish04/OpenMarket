@@ -74,12 +74,12 @@
                     $quantity = $unit[0] . ' Unit ';
                 }
 
-                $total_cost = ($row_product['quantity_of_items'] * $items_in_cart) + $total_cost;
+                $total_cost = ($row_product['price_per_item'] * $items_in_cart) + $total_cost;
                 $cart_product_list .= '' .
                     '<p class="m-0 h6 small"><i class="fa fa-dot-circle-o text-primary"></i> ' . $product_name . '</p>' .
                     '<div class="d-flex align-items-center justify-content-between p-2">' .
                     '      <p class="card-title small font-weight-bold">' . $quantity . '</p>' .
-                    '      <p class="card-title small font-weight-bold">₹ ' . ($row_product['quantity_of_items'] * $items_in_cart) . '</p>' .
+                    '      <p class="card-title small font-weight-bold">₹ ' . ($row_product['price_per_item'] * $items_in_cart) . '</p>' .
                     '</div>';
             }
 
