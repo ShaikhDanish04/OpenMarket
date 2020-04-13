@@ -88,6 +88,8 @@ if ($result->num_rows > 0) {
 <!-- <div class="cart-card-list"></div> -->
 
 <script>
+    $('.cart-btn .badge').load('request/count_carts.php');
+    
     $('.check-out-cart').click(function() {
 
         $(this).attr('disabled', 'true');

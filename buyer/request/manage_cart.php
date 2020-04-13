@@ -93,6 +93,8 @@ if ($_POST['operation'] == "remove_from_cart") {
 ?>
 
 <script>
+    $('.cart-btn .badge').load('request/count_carts.php');
+
     $('.cart-card button.delete').click(function() {
         var $card = $(this).closest('.card');
 

@@ -16,6 +16,19 @@
     ?>
 </head>
 
+<style>
+    .cart-display.cart-btn {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .cart-display.cart-btn .badge {
+        position: absolute;
+        top: -5px;
+        right: 5px;
+    }
+</style>
+
 <body class="">
     <input type="hidden" name="shop_id">
     <input type="hidden" name="product_name">
@@ -43,7 +56,10 @@
             <div class="middle text-light">
             </div>
             <div class="end">
-                <a type="button" class="btn text-light cart-btn <?php echo ($_GET['page'] == '') ? '' : 'd-none' ?>" data-toggle="collapse" data-target=".main"><i class="fa fa-shopping-cart"></i></a>
+                <span class="cart-display cart-btn <?php echo ($_GET['page'] == '') ? '' : 'd-none' ?>" data-toggle="collapse" data-target=".main">
+                    <a type="button" class="btn text-light"><i class="fa fa-shopping-cart"></i></a>
+                    <span class="badge badge-warning"></span>
+                </span>
                 <a type="button" class="btn text-light home-btn <?php echo ($_GET['page'] == '') ? '' : 'd-none' ?>" data-toggle="collapse" data-target=".main"><i class="fa fa-home"></i></a>
                 <a type="button" class="btn text-light" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu mt-3 dropdown-menu-right">
@@ -72,7 +88,6 @@
     </div>
 
     <script>
-        
         $('.menu-toggle').click(function() {
             $('body').toggleClass('menu-open');
         })
