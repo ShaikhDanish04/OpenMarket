@@ -3,7 +3,7 @@
 $search_product = $_POST['search'];
 
 if ($search_product != '') {
-    $result = $conn->query("SELECT * FROM `seller_product_stock` INNER JOIN sellers ON sellers.id = seller_product_stock.shop_id WHERE product_name LIKE '$search_product%'");
+    $result = $conn->query("SELECT * FROM `seller_product_stock` INNER JOIN sellers ON sellers.id = seller_product_stock.shop_id WHERE product_name LIKE '%$search_product%'");
 
     echo '<p class="text-center"><b>' . $result->num_rows . '</b> Result Found for <b>"' . $search_product . '"</b></p>';
 
