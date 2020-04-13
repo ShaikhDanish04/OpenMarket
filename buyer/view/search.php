@@ -98,7 +98,6 @@
     });
     $('#search_all_products .btn-danger').click(function() {
         $('.shop-card-list').load('request/shop_list.php');
-
         $(this).hide();
         $('.all-product-card-list').html('');
         $('#search_all_products input').val('');

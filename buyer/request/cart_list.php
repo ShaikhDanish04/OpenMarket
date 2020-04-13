@@ -99,8 +99,7 @@ if ($result->num_rows > 0) {
                 "shop_id": $(this).attr('data-shop-id'),
                 "operation": "generate_token"
             },
-            success: function(data) {
-            }
+            success: function(data) {}
         })
         location.href = "?page=token-list";
     });
@@ -131,7 +130,7 @@ if ($result->num_rows > 0) {
                     "operation": "remove_from_cart"
                 },
                 success: function(data) {
-                    location.reload();
+                    $('.cart-list').load('request/cart_list.php');
                 }
             })
         }

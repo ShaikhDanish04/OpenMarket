@@ -98,6 +98,13 @@ if ($_POST['operation'] == "get_list") {
 
 
 <script>
+    $('[name="search_product"]').on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $(".product-card-list .col-6").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+
     $('.product-card .book-btn').click(function() {
         var $card = $(this).closest('.card');
         var product_id = $card.attr('data-id');

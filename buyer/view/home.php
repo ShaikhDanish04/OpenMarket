@@ -65,52 +65,46 @@
     }
 </style>
 
-<script>
-    $('[name="search_shop"]').on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $(".shop-list .shop-card").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-    });
-</script>
 
+<div class="main collapse container cart-list pb-3"></div>
+<div class="main collapse show">
+    <div id="buyer_process" class="carousel slide" data-ride="carousel" data-slide="false" data-interval="false" data-wrap="false">
+        <div class="carousel-inner">
+            <div class="carousel-item shop-carousel active">
+                <div class="container py-3">
+                    <?php include("search.php") ?>
 
-<div id="buyer_process" class="carousel slide" data-ride="carousel" data-slide="false" data-interval="false" data-wrap="false">
-    <div class="carousel-inner">
-        <div class="carousel-item shop-carousel active">
-            <div class="container py-3">
-                <?php include("search.php") ?>
-
-                <div class="shop-card-list"></div>
+                    <div class="shop-card-list"></div>
+                </div>
             </div>
-        </div>
-        <div class="carousel-item product-carousel">
+            <div class="carousel-item product-carousel">
 
-            <div class="container py-3">
-                <div class="form-group d-flex align-items-center justify-content-between">
-                    <a href="#buyer_process" data-slide="prev" class="btn"><i class="fa fa-chevron-left text-dark"></i></a>
-                    <p class="h6 mb-0">Products</p>
-                    <a class="btn" data-toggle="collapse" data-target="#filter_product"><i class="fa fa-search text-dark"></i></a>
-                </div>
-                <div id="filter_product" class="container collapse">
-                    <input type="text" name="search_shop" class="form-control mb-3" placeholder="Search">
-                </div>
+                <div class="container py-3">
+                    <div class="form-group d-flex align-items-center justify-content-between">
+                        <a href="#buyer_process" data-slide="prev" class="btn"><i class="fa fa-chevron-left text-dark"></i></a>
+                        <p class="h6 mb-0">Products</p>
+                        <a class="btn" data-toggle="collapse" data-target="#filter_product"><i class="fa fa-search text-dark"></i></a>
+                    </div>
+                    <div id="filter_product" class="container collapse">
+                        <input type="text" name="search_product" class="form-control mb-3" placeholder="Search">
+                    </div>
 
-                <div class="row no-gutters product-card-list"></div>
+                    <div class="row no-gutters product-card-list"></div>
+                </div>
             </div>
-        </div>
-        <div class="carousel-item cart-carousel">
-            <div class="container py-3">
-                <div class="form-group d-flex align-items-center justify-content-between">
-                    <a href="#buyer_process" data-slide="prev" class="btn"><i class="fa fa-chevron-left text-dark"></i></a>
-                    <p class="h6 mb-0"><i class="fa fa-shopping-cart"></i> Cart</p>
-                    <a class="btn" data-toggle="collapse" data-target="#filter_product"><i class="fa fa-search text-dark"></i></a>
-                </div>
+            <div class="carousel-item cart-carousel">
+                <div class="container py-3">
+                    <div class="form-group d-flex align-items-center justify-content-between">
+                        <a href="#buyer_process" data-slide="prev" class="btn"><i class="fa fa-chevron-left text-dark"></i></a>
+                        <p class="h6 mb-0"><i class="fa fa-shopping-cart"></i> Cart</p>
+                        <a class="btn" data-toggle="collapse" data-target="#filter_product"><i class="fa fa-search text-dark"></i></a>
+                    </div>
 
-                <div class="cart-card-list"></div>
-                <div class="card fixed-card mt-3">
-                    <div class="card-body p-2">
-                        <button class="btn btn-primary w-100" href="#buyer_process" data-slide="prev"><i class="fa fa-chevron-left"></i> Shop More</button>
+                    <div class="cart-card-list"></div>
+                    <div class="card fixed-card mt-3">
+                        <div class="card-body p-2">
+                            <button class="btn btn-primary w-100" href="#buyer_process" data-slide="prev"><i class="fa fa-chevron-left"></i> Shop More</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -121,10 +115,15 @@
 <script>
     $(document).ready(function() {
 
+        $('.home-btn').addClass('d-none');
+
         $('.shop-card-list').load('request/shop_list.php');
+
 
         $("#buyer_process").on('slid.bs.carousel', function() {
             if ($('.shop-carousel').hasClass('active')) {
+                $('#search_all_products .btn-success').show();
+                $('#search_all_products .btn-danger').hide();
                 $('.shop-card-list').load('request/shop_list.php');
                 console.log('shop-carousel');
             }
@@ -172,7 +171,7 @@
                     // console.log(data);
                 }
             })
-            console.log('product-modal');
+            console.log('product-modalshow');
         });
         $("#book_product").on('hide.bs.modal', function() {
             $.ajax({
@@ -184,9 +183,24 @@
                 },
                 success: function(data) {
                     $('.product-card-list').html(data);
+                    $('.cart-list').load('request/cart_list.php');
+                    $('#search_all_products').submit();
                 }
             })
-            console.log('product-modal');
+            console.log('product-modal-hide');
+        });
+
+        $('.main').on('hidden.bs.collapse', function() {
+            if ($('.cart-list').hasClass('show')) {
+                $('.cart-btn').addClass('d-none');
+                $('.home-btn').removeClass('d-none');
+            } else {
+                $('.home-btn').addClass('d-none');
+                $('.cart-btn').removeClass('d-none');
+            }
+
+            $('.cart-list').load('request/cart_list.php');
+            $("#buyer_process").carousel(0);
         });
 
     })
