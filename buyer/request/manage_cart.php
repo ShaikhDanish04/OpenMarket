@@ -30,7 +30,7 @@ if ($_POST['operation'] == "get_cart_list") {
     $shop_id = $_POST['shop_id'];
     $result = $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id' AND shop_id='$shop_id' AND `status`='in'");
 
-    // echo '<p class="h5 my-3 text-center">' . $result->num_rows . ' Items in this cart</p>';
+    echo '<p class="h5 my-3 text-center">' . $result->num_rows . ' Items in this cart</p>';
     while ($row = $result->fetch_assoc()) {
 
         $product_name = $row['product_name'];

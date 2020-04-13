@@ -51,7 +51,7 @@
             if (isset($row_token['token_number'])) $active_token = $row_token['token_number'];
             else $active_token = '<span class="badge badge-secondary p-2">No Active Token</span>';
 
-            $result_cart = $conn->query("SELECT * FROM cart WHERE token_number = '$token_number'");
+            $result_cart = $conn->query("SELECT * FROM cart WHERE token_number = '$token_number' AND `shop_id`='$shop_id' AND `status`='tokened'");
             while ($row_cart = $result_cart->fetch_assoc()) {
                 // echo "<pre>";
                 // print_r($row_cart);
@@ -60,7 +60,7 @@
                 $product_name = $row_cart['product_name'];
                 $items_in_cart = $row_cart['quantity_of_items'];
 
-                $result_product = $conn->query("SELECT * FROM seller_product_stock WHERE product_name = '$product_name'");
+                $result_product = $conn->query("SELECT * FROM seller_product_stock WHERE shop_id='$shop_id' AND product_name = '$product_name'");
                 $row_product = $result_product->fetch_assoc();
 
                 $unit = explode('.', strval($row_cart['quantity_of_items']));

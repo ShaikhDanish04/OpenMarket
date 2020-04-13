@@ -104,10 +104,9 @@
         $('#search_all_products input').val('');
         $('#search_all_products .btn-success').show();
     });
-    $('#search_all_products input').on('focus keyup', function() {
+    $('#search_all_products input').on('focus', function() {
         $('#search_all_products .btn-success').show();
         $('#search_all_products .btn-danger').hide();
-
     });
 
 
@@ -192,7 +191,7 @@
                 currentFocus--;
                 /*and and make the current item more visible:*/
                 addActive(x);
-            } else if (e.keyCode == 13) {
+            } else if (e.keyCode == 39) {
                 /*If the ENTER key is pressed, prevent the form from being submitted,*/
                 e.preventDefault();
                 if (currentFocus > -1) {
