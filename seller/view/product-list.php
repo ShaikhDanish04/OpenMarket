@@ -154,7 +154,7 @@
         <div class="modal-content">
 
             <div class="modal-body text-center">
-                <p class="h3 mb-4 mt-3">Delete Token</p>
+                <p class="h3 mb-4 mt-3">Delete Product</p>
                 <p class="">Are Your Sure ?</p>
                 <div class="d-flex justify-content-center mb-3">
                     <button type="button" class="btn mx-2 btn-danger" data-dismiss="modal">No</button>
