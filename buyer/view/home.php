@@ -74,7 +74,42 @@
                 <div class="container py-3">
                     <?php include("search.php") ?>
 
-                    <div class="shop-card-list"></div>
+                    <style>
+                        .shop-card.card {
+                            flex-direction: column;
+                        }
+
+                        .shop-card .shop-head {
+                            display: flex;
+                            flex-direction: row;
+                            min-height: inherit;
+                        }
+
+                        .rating i.fa {
+                            color: #f8c100;
+                        }
+
+                        .rating span.value {
+                            margin-right: .5rem;
+                            font-weight: 600;
+                            border-left: 1px solid rgba(0, 0, 0, .25);
+                            padding-left: .25rem;
+                        }
+
+                        .address {
+                            background: #f3f3f3;
+                            border-radius: .5rem;
+                            transition: .5s;
+                            /* margin-bottom: .5rem; */
+                            padding: .5rem 1rem;
+                            text-align: justify;
+                            box-shadow: 0px 4px 8px #ddd;
+                        }
+                    </style>
+
+                    <div class="shop-card-list">
+
+                    </div>
                 </div>
             </div>
             <div class="carousel-item product-carousel">
