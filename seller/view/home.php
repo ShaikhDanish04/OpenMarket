@@ -58,12 +58,12 @@ if (isset($_POST['start_selling'])) {
                         $quantity = $unit[0] . ' Unit ';
                     }
 
-                    $total_cost = ($row_product['quantity_of_items'] * $items_in_cart) + $total_cost;
+                    $total_cost = ($row_product['price_per_item'] * $items_in_cart) + $total_cost;
                     $cart_product_list .= '' .
                         '<p class="m-0 h6 small"><i class="fa fa-dot-circle-o text-primary"></i> ' . $product_name . '</p>' .
                         '<div class="d-flex align-items-center justify-content-between p-2">' .
                         '      <p class="card-title small font-weight-bold">' . $quantity . '</p>' .
-                        '      <p class="card-title small font-weight-bold">₹ ' . ($row_product['quantity_of_items'] * $items_in_cart) . '</p>' .
+                        '      <p class="card-title small font-weight-bold">₹ ' . ($row_product['price_per_item'] * $items_in_cart) . '</p>' .
                         '</div>';
                 }
 
@@ -126,11 +126,11 @@ if (isset($_POST['start_selling'])) {
             <div class="modal-content">
 
                 <div class="modal-body text-center">
-                    <p class="h3 mb-4 mt-3">Delete Token</p>
+                    <p class="h3 mb-4 mt-3 modal-title">Delete Token</p>
                     <p class="">Are Your Sure ?</p>
                     <div class="d-flex justify-content-center mb-3">
                         <button type="button" class="btn mx-2 btn-danger" data-dismiss="modal">No</button>
-                        <button type="button" class="btn mx-2 btn-success">Yes</button>
+                        <button type="button" class="btn mx-2 btn-success delete_token_button">Yes</button>
                     </div>
                     <p class="small text-justify"><b>Note :</b> Your Token number will be set rejected and all your items will be sent back to your cart.</p>
                 </div>

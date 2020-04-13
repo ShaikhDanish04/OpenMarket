@@ -44,7 +44,7 @@ if ($_POST['operation'] == 'delete_token') {
         $new_quantity_of_items = $product_row['quantity_of_items'] + $cart_row['quantity_of_items'];
 
         $conn->query("UPDATE `seller_product_stock` SET `quantity_of_items`='$new_quantity_of_items' WHERE product_name='$procuct_name'");
-        $conn->query("UPDATE cart SET token_number = '$token_number', `status` = 'in' WHERE buyer_id = '$id' AND shop_id = '$shop_id' AND product_name = '$procuct_name'");
+        $conn->query("UPDATE cart SET token_number = NULL, `status` = 'in' WHERE buyer_id = '$id' AND shop_id = '$shop_id' AND product_name = '$procuct_name'");
         $conn->query("UPDATE token_list SET `status` = 'deleted' WHERE buyer_id = '$id' AND shop_id = '$shop_id' AND token_number='$token_number'");
     }
 }
