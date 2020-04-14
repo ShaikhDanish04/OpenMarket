@@ -120,7 +120,7 @@
                         <p class="h6 mb-0">Products</p>
                         <a class="btn" data-toggle="collapse" data-target="#filter_product"><i class="fa fa-search text-dark"></i></a>
                     </div>
-                    <div id="filter_product" class="container collapse">
+                    <div id="filter_produc" class="container">
                         <input type="text" name="search_product" class="form-control mb-3" placeholder="Search">
                     </div>
 

@@ -164,15 +164,15 @@
                 }
             }
             // console.log();
-            if ($(a).text() == '') {
-                /*create a DIV element for each matching element:*/
-                b = document.createElement("DIV");
-                /*make the matching letters bold:*/
-                b.innerHTML = "No result found";
-                /*insert a input field that will hold the current array item's value:*/
-                /*execute a function when someone clicks on the item value (DIV element):*/
-                a.appendChild(b);
-            }
+            // if ($(a).text() == '') {
+            //     /*create a DIV element for each matching element:*/
+            //     b = document.createElement("DIV");
+            //     /*make the matching letters bold:*/
+            //     b.innerHTML = "No sugges found";
+            //     /*insert a input field that will hold the current array item's value:*/
+            //     /*execute a function when someone clicks on the item value (DIV element):*/
+            //     a.appendChild(b);
+            // }
         });
         /*execute a function presses a key on the keyboard:*/
         inp.addEventListener("keydown", function(e) {

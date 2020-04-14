@@ -44,7 +44,7 @@
 
     </div>
     <div class="p-3">
-        <div class="card login-card">
+        <div class="card login-card mb-3">
             <div class="card-body">
                 <div class="d-flex mt-3 align-items-center justify-content-center">
 
@@ -73,6 +73,10 @@
                 <a class="btn btn-success w-100 mb-3" href="seller/">Login for Seller</a>
             </div>
         </div>
+        <div class="d-flex align-items-baseline justify-content-center">
+            Translate : <div id="google_translate_element"></div>
+        </div>
+
     </div>
 </body>
 
