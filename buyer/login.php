@@ -69,6 +69,10 @@ if (isset($_POST['login_submit'])) {
 
             </div>
         </div>
+        <div class="d-flex align-items-baseline justify-content-center">
+            Translate : <div id="google_translate_element"></div>
+        </div>
+
     </form>
 
 </body>

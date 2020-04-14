@@ -174,7 +174,10 @@ if (isset($_POST['register_submit'])) {
             </div>
         </div>
     </div>
+    <div class="d-flex align-items-baseline justify-content-center">
+        Translate : <div id="google_translate_element"></div>
     </div>
+
 </body>
 
 </html>

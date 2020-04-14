@@ -40,12 +40,14 @@
             <!-- <img src="" alt="" width="50px" height="50px" class="user-img"> -->
             <p class="user-img"><i class="fa fa-shopping-bag"></i></p>
             <p class="user-name"><?php echo $row['fname'] . " " . $row['lname'] ?> </p>
-            <p class="small font-weight-bold mb-0"><?php echo $row['username'] ?></p>
+            <p class="small font-weight-bold"><?php echo $row['username'] ?></p>
+            <div id="google_translate_element"></div>
         </div>
         <div class="menu-list">
             <a href="?" class="list-item"><i class="fa fa-home"></i> Home</a>
             <a href="?page=token-list" class="list-item"><i class="fa fa-list-alt"></i> Token List</a>
             <a href="?page=location" class="list-item"><i class="fa fa-map-marker"></i> My Location</a>
+            
         </div>
     </div>
 
@@ -83,6 +85,7 @@
                     '</div>';
             } ?>
         </div>
+
         <div class="screen">
             <?php
             if (isset($_GET['page'])) {

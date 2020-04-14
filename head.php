@@ -16,10 +16,14 @@
 </script>
 
 
-<?php include('connect.php') ?>
+<?php include('connect.php');
+// setcookie('googtrans', '/en/hi');
+?>
 <style>
     html {
         overflow-x: hidden;
+        user-select: none !important;
+
     }
 
     body {
@@ -127,5 +131,62 @@
 
     .alert-area .alert {
         box-shadow: 2px 2px 8px #ccc;
+    }
+</style>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,hi,mr,ur,sd,gu,pa,ml,bn,ta,te,kn,ne,ru,es,ja,ar,la,fr,de,da,id',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+
+        function changeGoogleStyles() {
+            if ($('.goog-te-menu-frame').contents().find('.goog-te-menu2').length) {
+                $('.goog-te-menu-frame').contents().find('.goog-te-menu2').css({
+                    'max-width': '100%',
+                    'overflow-x': 'auto',
+                    'box-sizing': 'border-box',
+                    'height': 'auto'
+                });
+            } else {
+                setTimeout(changeGoogleStyles, 50);
+            }
+        }
+        changeGoogleStyles();
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<style>
+    body {
+        top: 0px !important;
+    }
+
+    .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+    }
+
+    .goog-te-menu-frame {
+        max-width: calc(100% - 1rem) !important;
+        padding: .5rem;
+        box-shadow: 0 0 0;
+    }
+
+    .goog-te-menu2 {
+        max-width: calc(100%) !important;
+        overflow-x: scroll !important;
+        box-sizing: border-box !important;
+        height: auto !important;
+    }
+
+    #google_translate_element {
+        overflow: hidden;
+        border-radius: 5px;
+        min-width: 100px;
+        min-height: 25px;
+        display: inline-block;
+        background: rgba(0, 0, 0, 0.45);
     }
 </style>
