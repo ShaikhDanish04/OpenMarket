@@ -15,31 +15,16 @@
 $status = "";
 if (isset($_POST['login_submit'])) {
 
-
-
-    $id = $_POST['id'];
+    $username = $_POST['username'];
     $password = sha1($_POST['password']);
 
-    $result = $conn->query("SELECT * FROM sellers WHERE id = '$id' AND `password` = '$password'");
+    $result = $conn->query("SELECT (id) FROM sellers WHERE username = '$username' AND `password` = '$password'");
+    $row = $result->fetch_assoc();
 
     if ($result->num_rows == 1) {
-        $row = $result->fetch_assoc();
-
-        date_default_timezone_set('Asia/Kolkata');
-        $OPERATION_TIME = date("h:i:s a");
-        $OPERATION_DATE = date("d/m/Y");
-
-        if ($conn->query("INSERT INTO signin_log VALUES ('$id','$OPERATION_TIME','$OPERATION_DATE')") === TRUE) {
-            $status = '<div class="alert alert-success my-3">Logged in</div>';
-            $_SESSION['id'] = $id;
-            $_SESSION['type'] = "seller";
-            echo "<script type='text/javascript'>document.location.href = 'index.php';</script>";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-            $status = '<div class="alert alert-warning my-3">Error !!! Try Again</div>';
-        }
-
-        $result->free();
+        $_SESSION['id'] = $row['id'];
+        $_SESSION['type'] = "seller";
+        echo "<script type='text/javascript'>document.location.href = 'index.php';</script>";
     } else {
         $status = '<div class="alert alert-danger my-3">Invalid Details !!! Try Again</div>';
     }
@@ -67,8 +52,8 @@ if (isset($_POST['login_submit'])) {
                 <p class="text-center mb-4 h3">SELLER</p>
 
                 <div class="form-group">
-                    <label for="">Seller ID</label>
-                    <input type="text" name="id" class="form-control">
+                    <label for="">Username</label>
+                    <input type="text" name="username" class="form-control">
                 </div>
 
                 <div class="form-group">

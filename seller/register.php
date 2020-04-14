@@ -12,18 +12,20 @@ if (isset($_POST['register_submit'])) {
 
     $name = $_POST['name'];
     $category = $_POST['category'];
-    $email = $_POST['email'];
+    $user_name = $_POST['username'];
     $password = sha1($_POST['password']);
 
     $result = $conn->query("SELECT * FROM sellers ORDER BY id DESC LIMIT 1");
     $row = $result->fetch_assoc();
 
-    if ($row['id'] == null) {
-        $id = 1;
+    if ($row['count'] == null) {
+        $count = 1;
     } else {
-        $id = $row['id'] + 1;
+        $count = $row['count'] + 1;
     }
-    $query_response = $conn->query("INSERT INTO sellers (`id`,`name`, `category`, `email`,`password`) VALUES ('$id','$name', '$category', '$email','$password')");
+    $id = md5($count);
+    $dateCreated = date("d-m-Y h:i:s a");
+    $query_response = $conn->query("INSERT INTO sellers (`count`,`id`,`name`, `category`, `username`,`password`,`dateCreated`) VALUES ('$count','$id','$name', '$category', '$user_name','$password','$dateCreated')");
 
     if ($query_response === TRUE) {
         $status = '' .
@@ -31,9 +33,8 @@ if (isset($_POST['register_submit'])) {
             '    <div class="card-body text-center">' .
             '        <p class="text-info font-weight-bold">Your Shop is Registed Successfully</p>' .
             '        <p class="h4">' . $name . '</p>' .
-            '        <p class="h5 text-uppercase">' . $category . '</p>' .
-            '        <p class="h6">Your Seller Id Number is</p>' .
-            '        <p class="h3 mb-0">' . $id . '</p>' .
+            '        <p class="h5 text-uppercase small">' . $category . '</p>' .
+            '        <p class="h5 text-uppercase">' . $user_name . '</p>' .
             '        <a href="login.php" class="btn btn-success mt-3">Go to Login</a>' .
             '    </div>' .
             '</div>';
@@ -86,6 +87,10 @@ if (isset($_POST['register_submit'])) {
                                         <option value="kirana">Kirana</option>
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="">Username</label>
+                                    <input type="text" name="username" class="form-control">
+                                </div>
                                 <div class="form-group text-right">
                                     <button type="button" class="btn btn-primary initial">Next <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></button>
                                 </div>
@@ -125,9 +130,6 @@ if (isset($_POST['register_submit'])) {
 
 
                             <div class="carousel-item p-1">
-                                <p class="h3 text-center mb-3">Thank You</p>
-                                <p class="h6 text-center text-success">Your OTP is Verified !!!</p>
-
                                 <div class="form-group">
                                     <label for="">Enter Password</label>
                                     <input type="password" name="password" minlength="6" class="form-control">
@@ -139,7 +141,7 @@ if (isset($_POST['register_submit'])) {
                                 </div>
 
                                 <div class="form-group d-flex justify-content-between">
-                                    <button type="submit" class="btn btn-success w-100" minle disabled name="register_submit">Submit</button>
+                                    <button type="submit" class="btn btn-success w-100" disabled name="register_submit">Submit</button>
                                 </div>
 
                                 <script>

@@ -14,10 +14,10 @@
 $status = "";
 if (isset($_POST['login_submit'])) {
 
-    $id = $_POST['id'];
+    $username = $_POST['username'];
     $password = sha1($_POST['password']);
 
-    $result = $conn->query("SELECT * FROM buyers WHERE (id='$id' AND `password`='$password') OR (username='$id' AND `password`='$password')");
+    $result = $conn->query("SELECT (id) FROM buyers WHERE username='$username' AND `password`='$password'");
     $row = $result->fetch_assoc();
 
     if ($result->num_rows == 1) {
@@ -50,8 +50,8 @@ if (isset($_POST['login_submit'])) {
                 <p class="text-center mb-4 h3">BUYER</p>
 
                 <div class="form-group">
-                    <label for="">ID</label>
-                    <input type="text" name="id" class="form-control" required>
+                    <label for="">Username</label>
+                    <input type="text" name="username" class="form-control" required>
                 </div>
 
                 <div class="form-group">

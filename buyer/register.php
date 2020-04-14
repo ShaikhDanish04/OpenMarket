@@ -17,12 +17,14 @@ if (isset($_POST['register_submit'])) {
     $result = $conn->query("SELECT * FROM buyers ORDER BY id DESC LIMIT 1");
     $row = $result->fetch_assoc();
 
-    if ($row['id'] == null) {
-        $id = 1;
+    if ($row['count'] == null) {
+        $count = 1;
     } else {
-        $id = $row['id'] + 1;
+        $count = $row['count'] + 1;
     }
-    $query_response = $conn->query("INSERT INTO buyers (`id`,`fname`,`lname`, `username`,`password`) VALUES ('$id','$fname', '$lname', '$user_name','$password')");
+    $id = md5($count);
+    $dateCreated = date("d-m-Y h:i:s a");
+    $query_response = $conn->query("INSERT INTO buyers (`count`,`id`,`fname`,`lname`, `username`,`password`,`dateCreated`) VALUES ('$count','$id','$fname', '$lname', '$user_name','$password','$dateCreated')");
 
     if ($query_response === TRUE) {
         $status = '' .
@@ -31,8 +33,6 @@ if (isset($_POST['register_submit'])) {
             '        <p class="text-info font-weight-bold">Your Shop is Registed Successfully</p>' .
             '        <p class="h4">' . $fname . $lname . '</p>' .
             '        <p class="h5 text-uppercase">' . $user_name . '</p>' .
-            '        <p class="h6">Your Buyer Id Number is</p>' .
-            '        <p class="h3 mb-0">' . $id . '</p>' .
             '        <a href="login.php" class="btn btn-success mt-3">Go to Login</a>' .
             '    </div>' .
             '</div>';

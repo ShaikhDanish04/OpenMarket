@@ -15,8 +15,9 @@
     };
 </script>
 
-<?php include('connect.php') ?>
 
+<?php include('connect.php') ?>
+<?php date_default_timezone_set('Asia/Kolkata'); ?>
 <style>
     html {
         overflow-x: hidden;

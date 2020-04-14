@@ -23,7 +23,7 @@
             <p class="user-img"><i class="fa fa-shopping-bag"></i></p>
             <p class="user-name"><?php echo $row['name'] ?></p>
             <p class="small text-uppercase"><?php echo $row['category'] ?></p>
-            <p class="small font-weight-bold mb-0">Seller ID : <?php echo $row['id'] ?></p>
+            <p class="small font-weight-bold mb-0"><?php echo $row['username'] ?></p>
         </div>
         <div class="menu-list">
             <a href="?" class="list-item"><i class="fa fa-home"></i> Home</a>
