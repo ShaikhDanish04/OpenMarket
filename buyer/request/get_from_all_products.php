@@ -28,14 +28,14 @@ if ($search_product != '') {
             while ($product_row = $product_result->fetch_assoc()) {
 
                 if ($row['shop_id'] == $product_row['shop_id'] && $row['product_name'] == $product_row['product_name']) {
-                    // echo print_r($product_row);
                     $product_incart = true;
                 }
             }
+            $shop_id = $row['shop_id'];
 
             echo '' .
                 '<div class="card searched-product-card mb-3" data-product-id="' . $row['product_name'] . '" data-shop-id="' . $row['shop_id'] . '">' .
-                '    <div class="card product" data-toggle="collapse" data-target="#collapse_' . $row['shop_id'] . '">' .
+                '    <div class="card product" data-toggle="collapse" data-target="#collapse_' . $row['shop_id'] . '_' . $row['product_name'] . '">' .
                 '        <img class="card-side-img" src="holder.js/100x180/" alt="">' .
                 '        <div class="card-body">' .
                 '            <p class="card-title">' . $row['product_name'] . '</p>' .
@@ -46,9 +46,9 @@ if ($search_product != '') {
                     '            <button class="mt-3 btn btn-success btn-sm w-100 book-btn"><i class="fa fa-shopping-bag"></i> Book</button> ') .
                 '        </div>' .
                 '    </div>' .
-                '    <div id="collapse_' . $row['shop_id'] . '" class="collapse small m-2">' .
+                '    <div id="collapse_' . $row['shop_id'] . '_' . $row['product_name'] . '" class="collapse small m-2">' .
                 '        <div class="d-flex align-items-center justify-content-between p-1 mb-2">' .
-                '            <p class="ml-1"><b>11</b> Product in stock</p>' .
+                '            <p class="ml-1"><b>' . $conn->query("SELECT * FROM seller_product_stock WHERE shop_id='$shop_id'")->num_rows . '</b> Product in stock</p>' .
                 '            <button class="btn btn-primary btn-sm visit-btn"><i class="fa fa-shopping-basket"></i></button>' .
                 '        </div>' .
                 '        <div class="address"> ' .
