@@ -56,7 +56,7 @@
             <div class="middle text-light">
             </div>
             <div class="end">
-                <span class="cart-display cart-btn <?php echo ($_GET['page'] == '') ? '' : 'd-none' ?>" data-toggle="collapse" data-target=".main">
+                <span class="cart-display    <?php echo ($_GET['page'] == '') ? '' : 'd-none' ?>" data-toggle="collapse" data-target=".main">
                     <a type="button" class="btn text-light"><i class="fa fa-shopping-cart"></i></a>
                     <span class="badge badge-warning"></span>
                 </span>
