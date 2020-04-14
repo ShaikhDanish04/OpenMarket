@@ -51,7 +51,10 @@ if ($search_product != '') {
                 '            <p class="ml-1"><b>11</b> Product in stock</p>' .
                 '            <button class="btn btn-primary btn-sm visit-btn"><i class="fa fa-shopping-basket"></i></button>' .
                 '        </div>' .
-                '        <p class="address"><i class="fa fa-map-marker text-danger"></i> ' . $row['area'] . ', ' . $row['sub-district'] . ', ' . $row['district'] . ', ' . $row['state'] . '</p>' .
+                '        <div class="address"> ' .
+                '           <p class="mb-1"><b>Address : </b> ' . $row['address'] . '</p>' .
+                '           <i class="fa fa-map-marker text-danger"></i> ' . $row['area'] . ' - ' . $row['region'] . ', ' . $row['district'] . ', ' . $row['state'] . ' - ' . $row['pincode'] .
+                '        </div>' .
                 '    </div>' .
                 '    <div class="d-flex align-items-center justify-content-between p-2">' .
                 '        <div>' .

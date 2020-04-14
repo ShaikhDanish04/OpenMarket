@@ -7,8 +7,9 @@ if (isset($_POST['address_submit'])) {
     $district = $_POST['district'];
     $area = $_POST['area'];
     $region = $_POST['region'];
+    $address = $_POST['address'];
 
-    $conn->query("UPDATE `sellers` SET `state` = '$state', `district` = '$district', `area` = '$area',`region` = '$region', `pincode`='$pincode' WHERE `id` = '$id'");
+    $conn->query("UPDATE `sellers` SET `address` = '$address',`state` = '$state', `district` = '$district', `area` = '$area',`region` = '$region', `pincode`='$pincode' WHERE `id` = '$id'");
     echo "<script>location.reload()</script>";
 }
 ?>
@@ -23,53 +24,60 @@ if (isset($_POST['address_submit'])) {
 
 <div class="container">
     <p class="display-4 text-center mt-3">Location</p>
-    <div class="card my-3">
-        <div class="card-body">
-            <p class="h5 text-primary"><i class="fa fa-street-view"></i> Your Shop Address is :</p>
-            <p class="mb-0 small">State : <b><?php echo $row['state'] ?></b></p>
-            <p class="mb-0 small">District : <b><?php echo $row['district'] ?></b></p>
-            <p class="mb-0 small">Area : <b><?php echo $row['area'] ?> - <?php echo $row['region'] ?></b></p>
-            <p class="mb-0 small">Pincode : <b><?php echo $row['pincode'] ?></b></p>
+    <div class="card my-3 <?php echo ($row['pincode'] == '0') ? 'd-none' : ''; ?> ">
+
+        <div class="card-body small">
+            <p class=""><b>Address : </b> <?php echo $row['address'] ?></p>
+            <div class="divider mb-3"></div>
+            <p class="h5 text-primary text-center"><i class="fa fa-street-view"></i> Your Location Pointer </p>
+            <i class="fa fa-map-marker text-danger "></i> <?php echo  $row['area'] . ' - ' . $row['region'] . ', ' . $row['district'] . ', ' . $row['state'] . ' - ' . $row['pincode'] ?>
+
         </div>
     </div>
 
     <div class="card">
         <div class="card-body">
             <form action="" method="post">
+                <p class="h5 text-center mb-3"><i class="fa fa-street-view"></i> Update Location</p>
+                <div class="divider mb-2"></div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea name="address" rows="4" style="resize:unset" maxlength="200" class="form-control text-justify"><?php echo $row['address'] ?></textarea>
+                </div>
 
+                <p class="h6 text-center mb-3"><i class="fa fa-map-marker text-danger"></i> Set Location Pointer</p>
                 <div class="form-group">
                     <label>Pincode</label>
-                    <input type="input" class="form-control" maxlength="6" name="pincode" placeholder="000000" required>
+                    <input type="input" class="form-control" maxlength="6" value="<?php echo ($row['pincode'] == '0') ? '' : $row['pincode'] ?>" name="pincode" placeholder="000000" required>
                 </div>
                 <div class="form-group">
                     <label>State</label>
-                    <input type="input" class="form-control" name="state" placeholder="State" readonly required>
+                    <input type="input" class="form-control" name="state" value="<?php echo $row['state'] ?>" placeholder="State" readonly required>
                 </div>
                 <div class="form-group">
                     <label>District</label>
-                    <input type="input" class="form-control" name="district" placeholder="District" readonly required>
+                    <input type="input" class="form-control" name="district" value="<?php echo $row['district'] ?>" placeholder="District" readonly required>
                 </div>
                 <div class="form-group">
                     <label>Area</label>
                     <select class="form-control" name="area" required>
-                        <option value="">--- Select Area ---</option>
+                        <?php echo (isset($row['area'])) ?
+                            ' <option value="' . $row['area'] . '">' . $row['area'] . '</option>' :
+                            ' <option value="">--- Select Area ---</option>'
+                        ?>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Region</label>
                     <select class="form-control" name="region" required>
-                        <option value="">--- Select Region ---</option>
+                        <option value="">--- Select Area ---</option>;
                         <option value="E">East (E)</option>
                         <option value="W">West (W)</option>
-                        <option value="none">None</option>
+                        <option value="U">None</option>
                     </select>
                 </div>
-                <!-- <div class="form-group">
-                    <label>Address</label>
-                    <textarea name="address" class="form-control" style="resize:unset" rows="4" maxlength="100"></textarea>
-                </div> -->
                 <div class="form-group">
-                    <button class="btn btn-success" name="address_submit">Submit</button>
+                    <button class="btn btn-primary" name="address_submit">Update</button>
                 </div>
             </form>
         </div>

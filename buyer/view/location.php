@@ -1,148 +1,117 @@
 <?php
-// if (isset($_POST['address_submit'])) {
 
-//     $state = $_POST['state'];
-//     $district = $_POST['district'];
-//     $sub_district = $_POST['sub-district'];
-//     $area = $_POST['area'];
-//     $address_submit = $_POST['address_submit'];
+if (isset($_POST['address_submit'])) {
 
-//     $conn->query("UPDATE `sellers` SET `state` = '$state', `district` = '$district', `sub-district` = '$sub_district', `area` = '$area' WHERE `id` = '$id'");
-//     echo "<script>location.reload()</script>";
-// }
+    $pincode = $_POST['pincode'];
+    $state = $_POST['state'];
+    $district = $_POST['district'];
+    $area = $_POST['area'];
+    $region = $_POST['region'];
+    $address = $_POST['address'];
+
+    $conn->query("UPDATE `buyers` SET `address` = '$address',`state` = '$state', `district` = '$district', `area` = '$area',`region` = '$region', `pincode`='$pincode' WHERE `id` = '$id'");
+    echo "<script>location.reload()</script>";
+}
 ?>
-
-
+<style>
+    [name="pincode"] {
+        font-size: 30px;
+        letter-spacing: 15px;
+        padding-left: 30px;
+        text-align: center;
+    }
+</style>
 
 <div class="container">
     <p class="display-4 text-center mt-3">Location</p>
+    <div class="card my-3 <?php echo ($row['pincode'] == '0') ? 'd-none' : ''; ?> ">
+        <div class="card-body small">
+            <p class=""><b>Address : </b> <?php echo $row['address'] ?></p>
+            <div class="divider mb-3"></div>
+            <p class="h5 text-center"><i class="fa fa-map-marker text-danger"></i> Your Location Pointer </p>
+            <p class="mb-0 text-center">
+                <?php echo  $row['area'] . ' - ' . $row['region'] . ', ' . $row['district'] . ', ' . $row['state'] . ' - ' . $row['pincode'] ?>
+            </p>
 
-    <div class="card mt-3">
-        <div class="card-header">
-            <p class="h3 mb-0"><i class="fa fa-edit"></i> Edit Location</p>
         </div>
+    </div>
+
+    <div class="card">
         <div class="card-body">
             <form action="" method="post">
-
+                <p class="h5 text-center mb-3 text-info"><i class="fa fa-street-view"></i> Update Location</p>
+                <div class="divider mb-2"></div>
                 <div class="form-group">
-                    <label for="">Select State</label>
-                    <select class="form-control" name="state" required>
-                        <option value="">--- Select ---</option>
-                    </select>
-                    <small class="text-muted">*Required</small>
+                    <label>Address</label>
+                    <textarea name="address" rows="4" style="resize:unset" maxlength="200" class="form-control text-justify"><?php echo $row['address'] ?></textarea>
                 </div>
 
+                <p class="h6 text-center mb-3"><i class="fa fa-map-marker text-danger"></i> Set Location Pointer</p>
                 <div class="form-group">
-                    <label for="">Select District</label>
-                    <select class="form-control" name="district" required>
-                        <option value="">--- Select ---</option>
-                    </select>
-                    <small class="text-muted">*Required</small>
+                    <label>Pincode</label>
+                    <input type="input" class="form-control" maxlength="6" value="<?php echo ($row['pincode'] == '0') ? '' : $row['pincode'] ?>" name="pincode" placeholder="000000" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="">Select Sub-District</label>
-                    <select class="form-control" name="sub-district" required>
-                        <option value="">--- Select ---</option>
-                    </select>
-                    <small class="text-muted">*Required</small>
+                    <label>State</label>
+                    <input type="input" class="form-control" name="state" value="<?php echo $row['state'] ?>" placeholder="State" readonly required>
                 </div>
-
                 <div class="form-group">
-                    <label for="">Select Area</label>
+                    <label>District</label>
+                    <input type="input" class="form-control" name="district" value="<?php echo $row['district'] ?>" placeholder="District" readonly required>
+                </div>
+                <div class="form-group">
+                    <label>Area</label>
                     <select class="form-control" name="area" required>
-                        <option value="">--- Select ---</option>
+                        <?php echo (isset($row['area'])) ?
+                            ' <option value="' . $row['area'] . '">' . $row['area'] . '</option>' :
+                            ' <option value="">--- Select Area ---</option>'
+                        ?>
                     </select>
-                    <small class="text-muted">*Required</small>
                 </div>
-
-                <div class="form-group d-flex justify-content-between">
-                    <button type="button" onclick='location.reload()' tabindex="-1" class="btn btn-danger">Reset</button>
-                    <button type="submit" name="address_submit" class="btn btn-success">Submit</button>
+                <div class="form-group">
+                    <label>Region</label>
+                    <select class="form-control" name="region" required>
+                        <option value="">--- Select Area ---</option>;
+                        <option value="E">East (E)</option>
+                        <option value="W">West (W)</option>
+                        <option value="U">None</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" name="address_submit">Update</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <script>
-        $(document).ready(function() {
+</div>
+<script>
+    $('[name="pincode"]').on("input propertychange", function() {
+        var searchField = $(this).val();
+
+        if (searchField.length == 6) {
             $.ajax({
-                type: "POST",
-                url: "request/address_mapper.php",
-                data: {
-                    "column": "state"
-                },
+                dataType: "json",
+                url: '../address_map.json',
                 success: function(data) {
-                    var dataObj = JSON.parse(data);
-                    $.each(dataObj, function(index, data) {
-                        $('[name="state"]').append('<option value="' + data + '">' + data + '</option>');
+                    $.each(data, function(key, val) {
+                        if (val.pincode == searchField) {
+                            console.log("State : " + val.stateName);
+                            console.log("District : " + val.district);
+                            console.log("Area : " + val.officeName);
+                            console.log("");
+                            $('[name="state"]').val(val.stateName);
+                            $('[name="district"]').val(val.district);
+                            $('[name="area"]').append('<option class="dynamic" value="' + val.officeName + '">' + val.officeName + '</option>');
+                        }
                     });
+                    $('[name="area"]').focus();
                 }
             });
-
-            $('[name="state"]').change(function() {
-                $(this).focusout(function() {
-                    $(this).attr('readonly', 'true');
-                })
-                $.ajax({
-                    type: "POST",
-                    url: "request/address_mapper.php",
-                    data: {
-                        "state": $('[name="state"]').val(),
-                        "column": "district"
-                    },
-                    success: function(data) {
-                        var dataObj = JSON.parse(data);
-                        // console.log(dataObj);
-                        $.each(dataObj, function(index, data) {
-                            $('[name="district"]').append('<option class="dynamic" value="' + data + '">' + data + '</option>');
-                        });
-                    }
-                });
-            });
-
-            $('[name="district"]').change(function() {
-                $(this).focusout(function() {
-                    $(this).attr('readonly', 'true');
-                })
-                $.ajax({
-                    type: "POST",
-                    url: "request/address_mapper.php",
-                    data: {
-                        "district": $('[name="district"]').val(),
-                        "column": "sub-district"
-                    },
-                    success: function(data) {
-                        var dataObj = JSON.parse(data);
-                        // console.log(dataObj);
-                        $.each(dataObj, function(index, data) {
-                            $('[name="sub-district"]').append('<option class="dynamic" value="' + data + '">' + data + '</option>');
-                        });
-                    }
-                });
-            });
-
-            $('[name="sub-district"]').change(function() {
-                $(this).focusout(function() {
-                    $(this).attr('readonly', 'true');
-                })
-                $.ajax({
-                    type: "POST",
-                    url: "request/address_mapper.php",
-                    data: {
-                        "sub-district": $('[name="sub-district"]').val(),
-                        "column": "area"
-                    },
-                    success: function(data) {
-                        var dataObj = JSON.parse(data);
-                        // console.log(dataObj);
-                        $.each(dataObj, function(index, data) {
-                            $('[name="area"]').append('<option class="dynamic" value="' + data + '">' + data + '</option>');
-                        });
-                    }
-                });
-            })
-
-        })
-    </script>
-</div>
+        } else {
+            $('[name="state"]').val('');
+            $('[name="district"]').val('');
+            $('[name="area"]').html('<option value="">--- Select Distict ---</option>');
+        }
+    });
+</script>

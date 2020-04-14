@@ -124,4 +124,8 @@
         color: #fff;
         text-decoration: none;
     }
+
+    .alert-area .alert {
+        box-shadow: 2px 2px 8px #ccc;
+    }
 </style>

@@ -49,6 +49,18 @@
                 </div>
             </div>
         </div>
+        <div class="alert-area">
+            <?php if ($row['pincode'] == '0') {
+                echo '' .
+                    '<div class="alert alert-warning fade show mb-0">' .
+                    '    <button type="button" class="close" data-dismiss="alert">&times;</button>' .
+                    '    <strong>Warning !!!</strong>' .
+                    '    <p class="mt-1 mb-1"><i class="fa fa-map-marker text-danger"></i> Please Set Your Location Pointer</p>' .
+                    '    <div class="divider"></div>' .
+                    '    <a href="?page=location" class="alert-link text-decoration-underline"><i class="fa fa-hand-o-right"></i> Click Here</a>' .
+                    '</div>';
+            } ?>
+        </div>
         <div class="screen">
             <?php
             if (isset($_GET['page'])) {

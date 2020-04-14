@@ -58,7 +58,7 @@
             <div class="middle text-light">
             </div>
             <div class="end">
-                <span class="cart-display    <?php echo ($_GET['page'] == '') ? '' : 'd-none' ?>" data-toggle="collapse" data-target=".main">
+                <span class="cart-display cart-btn <?php echo ($_GET['page'] == '') ? '' : 'd-none' ?>" data-toggle="collapse" data-target=".main">
                     <a type="button" class="btn text-light"><i class="fa fa-shopping-cart"></i></a>
                     <span class="badge badge-warning"></span>
                 </span>
@@ -70,6 +70,18 @@
                     <a class="dropdown-item" href="?logout=true"><i class="fa fa-sign-out"></i> Logout</a>
                 </div>
             </div>
+        </div>
+        <div class="alert-area">
+            <?php if ($row['pincode'] == '0') {
+                echo '' .
+                    '<div class="alert alert-warning fade show mb-0">' .
+                    '    <button type="button" class="close" data-dismiss="alert">&times;</button>' .
+                    '    <strong>Warning !!!</strong>' .
+                    '    <p class="mt-1 mb-1"><i class="fa fa-map-marker text-danger"></i> Please Set Your Location Pointer</p>' .
+                    '    <div class="divider"></div>' .
+                    '    <a href="?page=location" class="alert-link text-decoration-underline"><i class="fa fa-hand-o-right"></i> Click Here</a>' .
+                    '</div>';
+            } ?>
         </div>
         <div class="screen">
             <?php
