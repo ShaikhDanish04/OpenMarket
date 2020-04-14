@@ -83,7 +83,7 @@ if (isset($_POST['address_submit'])) {
         if (searchField.length == 6) {
             $.ajax({
                 dataType: "json",
-                url: 'address_map.json',
+                url: '../address_map.json',
                 success: function(data) {
                     $.each(data, function(key, val) {
                         if (val.pincode == searchField) {

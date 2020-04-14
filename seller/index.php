@@ -8,6 +8,8 @@
     <?php
 
     if (!isset($_SESSION['id']) || $_SESSION['type'] != "seller") {
+        session_unset();
+        session_destroy();
         echo "<script type='text/javascript'>document.location.href = 'login.php';</script>";
     }
 

@@ -8,6 +8,8 @@
     <?php
 
     if (!isset($_SESSION['id']) || $_SESSION['type'] != "buyer") {
+        session_unset();
+        session_destroy();
         echo "<script type='text/javascript'>document.location.href = 'login.php';</script>";
     }
 
@@ -38,7 +40,7 @@
             <!-- <img src="" alt="" width="50px" height="50px" class="user-img"> -->
             <p class="user-img"><i class="fa fa-shopping-bag"></i></p>
             <p class="user-name"><?php echo $row['fname'] . " " . $row['lname'] ?> </p>
-            <p class="small font-weight-bold mb-0">User : <?php echo $row['username'] ?></p>
+            <p class="small font-weight-bold mb-0"><?php echo $row['username'] ?></p>
         </div>
         <div class="menu-list">
             <a href="?" class="list-item"><i class="fa fa-home"></i> Home</a>
