@@ -179,7 +179,9 @@
                             <span><i class="fa fa-edit"></i> Edit Product</span>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
-                        <img class="card-img-top" src="holder.js/100x180/" alt="">
+                        <div>
+                            <img class="card-img-top" src="" alt="">
+                        </div>
                         <div class="card-body">
                             <p class="card-title"></p>
                             <input type="hidden" name="operation">
@@ -352,6 +354,7 @@
                     $('.modal .card-title').text(productObj.product_name);
                     $('.modal [name="product_name"]').val(productObj.product_name);
 
+                    $('.modal .card-img-top').attr("src", "../product_list/" + productObj.product_name + ".jpg");
 
                     $('.modal [name="sold_by"]').val(productObj.sold_by);
                     $('.modal [name="quantity_of_items"]').val(productObj.quantity_of_items);

@@ -63,7 +63,7 @@ if ($_POST['operation'] == "get_list") {
             echo '' .
                 '<div class="col-6 mb-3">' .
                 '    <div class="card product-card" data-id="' . $row["product_name"] . '">' .
-                '        <img class="card-side-img" src="holder.js/100x180/" alt="">' .
+                '        <img class="card-img-top" defer src="../product_list/' . $row["product_name"] . '.jpg" alt="">' .
                 '        <div class="card-body">' .
                 '            <div class="">' .
                 '                <p class="card-title">' . $row['product_name'] . '</p>' .
@@ -111,7 +111,10 @@ if ($_POST['operation'] == "get_list") {
 
         $('[name="product_name"]').val(product_id);
 
+        $('#book_product .card-img-top').attr("src", "../product_list/Amul Butter (100 Grams).jpg");
+
         $('#book_product').modal('show');
+
     });
 
     $('.product-card .edit-btn').click(function() {
@@ -119,6 +122,7 @@ if ($_POST['operation'] == "get_list") {
         var product_id = $card.attr('data-id');
 
         $('[name="product_name"]').val(product_id);
+        $('#book_product .card-img-top').attr("src", "../product_list/Amul Butter (100 Grams).jpg");
 
         $('#book_product').modal('show');
 
