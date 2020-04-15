@@ -58,6 +58,11 @@
         height: 100%;
     }
 
+    .card.product-card .card-img-top {
+        box-shadow: 0 0 10px #ccc;
+        border-radius: 5px;
+    }
+
     .cart-card .card-side-img,
     .product-card .card-side-img {
         width: auto;
