@@ -111,8 +111,6 @@ if ($_POST['operation'] == "get_list") {
 
         $('[name="product_name"]').val(product_id);
 
-        $('#book_product .card-img-top').attr("src", "../product_list/Amul Butter (100 Grams).jpg");
-
         $('#book_product').modal('show');
 
     });
@@ -122,7 +120,6 @@ if ($_POST['operation'] == "get_list") {
         var product_id = $card.attr('data-id');
 
         $('[name="product_name"]').val(product_id);
-        $('#book_product .card-img-top').attr("src", "../product_list/Amul Butter (100 Grams).jpg");
 
         $('#book_product').modal('show');
 

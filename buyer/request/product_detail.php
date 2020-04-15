@@ -57,6 +57,8 @@ if ($_POST['operation'] == "get_product") {
 } ?>
 
 <script>
+    $('.modal .card-img-top').attr("src", "../product_list/" + $('[name="product_name"]').val() + ".jpg");
+
     $('#book_product form').submit(function(e) {
         e.preventDefault();
 
@@ -82,6 +84,7 @@ if ($_POST['operation'] == "get_product") {
         $(this).prev().val(Number($(this).prev().val()) + Number(1));
         $(this).prev().change();
     })
+
     $('[name="quantity_of_items"],.modal-body').on('change click', function() {
         var value = $('[name="quantity_of_items"]').val();
         var unit = value.toString().split(".");
