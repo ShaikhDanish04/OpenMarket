@@ -6,16 +6,16 @@ while ($row = $result->fetch_assoc()) {
     // print_r($row);
     echo '' .
         '<div class="card mb-3 shop-card" data-id="' . $row['id'] . '">' .
-        '    <div class="shop-head card">' .
+        '    <div class="shop-head card visit-btn">' .
         '        <img class="card-side-img" src="holder.js/100x180/" alt="">' .
         '        <div class="card-body">' .
         '            <div class="">' .
         '                <p class="card-title">' . $row['name'] . '</p>' .
         '                <p class="small text-uppercase">' . $row['category'] . '</p>' .
         '            </div>' .
-        '            <div class="d-flex align-items-center justify-content-between">' .
-        '                <p class="m-0"><b>' . $conn->query("SELECT * FROM seller_product_stock WHERE shop_id='$shop_id'")->num_rows . '</b> Item</p>' .
-        '                <button class="btn btn-primary btn-sm visit-btn"><i class="fa fa-shopping-basket"></i> Visit</button>' .
+        '            <div class="d-flex flex-column align-items-center justify-content-between">' .
+        '                <button class="btn btn-primary btn-sm mb-2"><i class="fa fa-shopping-basket"></i> Visit</button>' .
+        '                <p class="m-0 small"><b>' . $conn->query("SELECT * FROM seller_product_stock WHERE shop_id='$shop_id'")->num_rows . '</b> Product In Shop</p>' .
         '            </div>' .
         '        </div>' .
         '    </div>' .

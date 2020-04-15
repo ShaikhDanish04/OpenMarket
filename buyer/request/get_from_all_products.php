@@ -36,7 +36,7 @@ if ($search_product != '') {
             echo '' .
                 '<div class="card searched-product-card mb-3" data-product-id="' . $row['product_name'] . '" data-shop-id="' . $row['shop_id'] . '">' .
                 '    <div class="card product" data-toggle="collapse" data-target="#collapse_' . $row['shop_id'] . '_' . $row['product_name'] . '">' .
-                '        <img class="card-side-img" src="holder.js/100x180/" alt="">' .
+                '        <img class="card-side-img" src="../product_list/' . $row['product_name'] . '.jpg" alt="">' .
                 '        <div class="card-body">' .
                 '            <p class="card-title">' . $row['product_name'] . '</p>' .
                 '            <p class="card-text"><i class="fa fa-archive text-primary"></i> : <b>' . $quantity . ' </b></p>' .
