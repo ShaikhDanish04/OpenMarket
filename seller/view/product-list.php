@@ -13,6 +13,8 @@
         background-position: bottom;
         background-repeat: no-repeat;
         flex-shrink: 0;
+        box-shadow: 0 0 10px #ccc;
+        border-radius: 5px;
     }
 
 
@@ -127,7 +129,7 @@
                     '<div class="col-6 product">' .
                     '   <div class="card seller-card">' .
                     '        <button class="btn btn-danger top-remove" data-remove="' . $row["product_name"] . '"><i class="fa fa-times"></i></button>' .
-                    '       <img class="card-img-top" src="holder.js/100x180/" alt="">' .
+                    '       <img class="card-img-top" src="../product_list/' . $row["product_name"] . '.jpg" alt="">' .
                     '       <div class="card-body">' .
                     '           <p class="card-title">' . $row["product_name"] . '</p>' .
                     '           <p class="card-text mb-0"><i class="fa fa-archive text-primary"></i> : <b>' . $quantity  . ' </b></p>' .
