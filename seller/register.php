@@ -15,7 +15,7 @@ if (isset($_POST['register_submit'])) {
     $user_name = $_POST['username'];
     $password = sha1($_POST['password']);
 
-    $result = $conn->query("SELECT * FROM sellers ORDER BY id DESC LIMIT 1");
+    $result = $conn->query("SELECT * FROM sellers ORDER BY `count` DESC LIMIT 1");
     $row = $result->fetch_assoc();
 
     if ($row['count'] == null) {
@@ -41,6 +41,8 @@ if (isset($_POST['register_submit'])) {
     } else {
         $status = '<div class="alert alert-danger my-3">Error !!! Try Again</div>';
     }
+    echo $count;
+    echo $conn->error;
 }
 ?>
 

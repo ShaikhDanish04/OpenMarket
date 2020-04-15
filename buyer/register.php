@@ -14,7 +14,7 @@ if (isset($_POST['register_submit'])) {
     $user_name = $_POST['username'];
     $password = sha1($_POST['password']);
 
-    $result = $conn->query("SELECT * FROM buyers ORDER BY id DESC LIMIT 1");
+    $result = $conn->query("SELECT * FROM buyers ORDER BY `count` DESC LIMIT 1");
     $row = $result->fetch_assoc();
 
     if ($row['count'] == null) {
