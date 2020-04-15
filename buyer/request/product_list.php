@@ -60,6 +60,9 @@ if ($_POST['operation'] == "get_list") {
                     '</div>';
             }
 
+            if ($quantity == 0) {
+                $button = '<p class="mb-2 text-danger small text-center font-weight-bold">Out of Stock</p>';
+            }
             echo '' .
                 '<div class="col-6 mb-3">' .
                 '    <div class="card product-card" data-id="' . $row["product_name"] . '">' .
