@@ -70,7 +70,6 @@
     }
 </style>
 
-
 <div class="main collapse container cart-list pb-3"></div>
 <div class="main collapse show">
     <div id="buyer_process" class="carousel slide" data-ride="carousel" data-slide="false" data-interval="false" data-wrap="false">
@@ -88,6 +87,11 @@
                             display: flex;
                             flex-direction: row;
                             min-height: inherit;
+                            transform: scale(1.02);
+                        }
+
+                        .shop-card .shop-head:hover {
+                            transform: scale(1);
                         }
 
                         .rating i.fa {
@@ -180,7 +184,7 @@
                         $('.product-card-list').html(data);
 
                     }
-                })
+                });
                 console.log('product-carousel');
             }
             if ($('.cart-carousel').hasClass('active')) {

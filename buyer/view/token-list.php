@@ -10,8 +10,9 @@
 
     }
 </style>
+<?php include('../../connect.php') ?>
 
-<div class="container my-3">
+<div class="container py-3">
     <p class="display-4 text-center">My Tokens</p>
 
     <div class="mb-3 d-flex justify-content-between card-display">

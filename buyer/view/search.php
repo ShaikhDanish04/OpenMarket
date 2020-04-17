@@ -36,6 +36,7 @@
         color: #ffffff;
     }
 </style>
+<?php include('../../connect.php'); ?>
 
 <!--Make sure the form has the autocomplete function switched off:-->
 <form id="search_all_products" autocomplete="off" action="" class="mb-3">
@@ -79,6 +80,14 @@
 </style>
 <div class="all-product-card-list"></div>
 
+<?php $result = $conn->query("SELECT * FROM product_list");
+$product_list = array();
+
+while ($row = $result->fetch_assoc()) {
+    array_push($product_list, $row['product_name']);
+}
+?>
+
 <script>
     $('#search_all_products').submit(function(e) {
         $('#search_all_products .btn-success').hide();
@@ -109,13 +118,6 @@
     });
 
 
-    <?php $result = $conn->query("SELECT * FROM product_list");
-    $product_list = array();
-
-    while ($row = $result->fetch_assoc()) {
-        array_push($product_list, $row['product_name']);
-    }
-    ?>
     $(document).ready(function() {
         autocomplete($("#search_input")[0], <?php echo json_encode($product_list); ?>);
     })

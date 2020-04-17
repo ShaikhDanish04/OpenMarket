@@ -26,8 +26,8 @@
 
     .cart-display.cart-btn .badge {
         position: absolute;
-        top: -5px;
-        right: 5px;
+        top: -8px;
+        right: -12px;
     }
 </style>
 
@@ -36,40 +36,35 @@
     <input type="hidden" name="product_name">
 
     <div class="side-bar">
-        <div class="display">
-            <!-- <img src="" alt="" width="50px" height="50px" class="user-img"> -->
-            <p class="user-img"><i class="fa fa-shopping-bag"></i></p>
-            <p class="user-name"><?php echo $row['fname'] . " " . $row['lname'] ?> </p>
-            <p class="small font-weight-bold"><?php echo $row['username'] ?></p>
-            <div id="google_translate_element"></div>
-        </div>
+
         <div class="menu-list">
             <a href="?" class="list-item"><i class="fa fa-home"></i> Home</a>
             <a href="?page=token-list" class="list-item"><i class="fa fa-list-alt"></i> Token List</a>
             <a href="?page=location" class="list-item"><i class="fa fa-map-marker"></i> My Location</a>
-
         </div>
     </div>
 
     <div class="content-view">
         <div class="action-bar">
             <div class="start">
-                <button class="btn menu-toggle"><i class="fa fa-bars"></i></button>
-                <p class="text-light m-0 ml-3">Dashboard</p>
-            </div>
-            <div class="middle text-light">
+                <p class="text-light m-0 ml-1"><i class="fa fa-shopping-bag"></i> OpenMarket</p>
             </div>
             <div class="end">
                 <span class="cart-display cart-btn <?php echo ($_GET['page'] == '') ? '' : 'd-none' ?>" data-toggle="collapse" data-target=".main">
                     <a type="button" class="btn text-light"><i class="fa fa-shopping-cart"></i></a>
-                    <span class="badge badge-warning"></span>
                 </span>
                 <a type="button" class="btn text-light home-btn <?php echo ($_GET['page'] == '') ? '' : 'd-none' ?>" data-toggle="collapse" data-target=".main"><i class="fa fa-home"></i></a>
                 <a type="button" class="btn text-light" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
-                <div class="dropdown-menu mt-3 dropdown-menu-right">
-                    <a class="dropdown-item" href="?page=token-list"><i class="fa fa-list-alt"></i> Token List</a>
-                    <div class="dropdown-divider"></div>
+
+                <div class="dropdown-menu mt-3 dropdown-menu-right ">
                     <a class="dropdown-item" href="?logout=true"><i class="fa fa-sign-out"></i> Logout</a>
+                    <div class="dropdown-divider"></div>
+                    <div class="display alert-primary m-2 rounded p-2 text-center">
+                        <p class="m-0"><?php echo $row['fname'] . " " . $row['lname'] ?> </p>
+                        <p class="small font-weight-bold"><?php echo $row['username'] ?></p>
+                        <button class="btn btn-dark btn-sm" data-screen="settings"><i class="fa fa-cog"></i> Settings</button>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -86,38 +81,38 @@
             } ?>
         </div>
 
-        <div class="screen my-5">
-            <?php
-            if (isset($_GET['page'])) {
-                if ($_GET['page'] == '') {
-                    $page = "home";
-                } else {
-                    $page = $_GET['page'];
-                }
-            } else {
-                $page = "home";
-            }
-            include("view/" . $page . ".php");
+        <div class="screen my-5"></div>
+        <script>
+            $(document).ready(function() {
+                $('.screen').load('view/home.php');
 
-            ?>
+                $('[data-screen]').click(function() {
+                    $('[data-screen]').removeClass('active');
+                    $(this).addClass('active');
 
-        </div>
+                    $('.screen').load('view/' + $(this).attr('data-screen') + '.php');
+                })
+            })
+        </script>
         <div class="bottom-nav nav">
-            <a class="list-item" href="?page=token-list">
-                <i class="fa fa-list-alt"></i>
-                <p class="">Tokens</p>
-            </a>
-            <a class="list-item" href="?page=location">
+            <a class="list-item" data-screen="location">
                 <i class="fa fa-map-marker"></i>
                 <p class="">Location</p>
             </a>
-            <a class="list-item" href="?">
-                <i class="fa fa-home"></i>
-                <p class="">Home</p>
+            <a class="list-item" data-screen="token-list">
+                <i class="fa fa-list-alt"></i>
+                <p class="">Token</p>
             </a>
-            <a class="list-item" href="?" data-toggle="collapse" data-target=".main">
+            <a class="list-item active" data-screen="home">
+                <div class="home-nav">
+                    <i class="fa fa-home"></i>
+                    <p class="">Home</p>
+                </div>
+            </a>
+            <a class="list-item cart-display cart-btn" data-screen="cart">
                 <i class="fa fa-shopping-cart"></i>
                 <p class="">Cart</p>
+                <span class="badge badge-warning"></span>
             </a>
             <a class="list-item" href="?">
                 <i class="fa fa-search"></i>
@@ -128,9 +123,8 @@
         <style>
             .bottom-nav {
                 display: inline-grid;
-                justify-content: space-around;
                 background: #fff;
-                padding: 5px 0px;
+                padding: 8px 0px;
                 position: fixed;
                 bottom: 0;
                 left: 0;
@@ -138,6 +132,7 @@
                 grid-auto-flow: column;
                 grid-auto-columns: 1fr;
                 box-shadow: 0 0 5px #ccc;
+                justify-items: center;
             }
 
             .bottom-nav .list-item {
@@ -146,9 +141,31 @@
                 text-align: center;
             }
 
+
             .bottom-nav .list-item p {
                 font-size: 11px;
                 margin-bottom: 0px;
+            }
+
+            .bottom-nav a.list-item.active {
+                color: #351fb1;
+                text-shadow: 0 0 1px;
+            }
+
+            .home-nav {
+                position: relative;
+                top: -50%;
+                background: #1c0d70;
+                color: #fff;
+                border-radius: 50%;
+                height: 55px;
+                width: 55px;
+                margin-bottom: -50%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                box-shadow: 0 0 20px #aaa;
+
             }
         </style>
     </div>

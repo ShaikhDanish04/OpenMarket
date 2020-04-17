@@ -1,4 +1,4 @@
-<p class="display-4 text-center my-3"><i class="fa fa-shopping-cart"></i> Cart List</p>
+<p class="display-4 text-center"><i class="fa fa-shopping-cart"></i> Cart List</p>
 <?php
 include('../../connect.php');
 
