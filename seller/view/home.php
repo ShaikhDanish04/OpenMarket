@@ -38,7 +38,7 @@ if (isset($_POST['start_selling'])) {
                 $cart_product_list = "";
                 $total_cost = 0;
 
-                $result_cart = $conn->query("SELECT * FROM cart WHERE token_number = '$token_number'");
+                $result_cart = $conn->query("SELECT * FROM cart WHERE token_number = '$token_number' AND `shop_id`='$id' AND `status`='tokened'");
                 while ($row_cart = $result_cart->fetch_assoc()) {
 
                     $product_name = $row_cart['product_name'];

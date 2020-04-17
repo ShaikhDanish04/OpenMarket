@@ -40,11 +40,17 @@
     }
 
     .action-bar {
+        right: 0;
+        left: 0;
+        top: 0;
         display: flex;
         background: #ee1565;
         padding: 8px;
+        position: fixed;
         align-items: center;
         justify-content: space-between;
+        z-index: 9;
+        box-shadow: 0 0 5px #aaa;
     }
 
     .action-bar .start {

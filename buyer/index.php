@@ -47,7 +47,7 @@
             <a href="?" class="list-item"><i class="fa fa-home"></i> Home</a>
             <a href="?page=token-list" class="list-item"><i class="fa fa-list-alt"></i> Token List</a>
             <a href="?page=location" class="list-item"><i class="fa fa-map-marker"></i> My Location</a>
-            
+
         </div>
     </div>
 
@@ -86,7 +86,7 @@
             } ?>
         </div>
 
-        <div class="screen">
+        <div class="screen my-5">
             <?php
             if (isset($_GET['page'])) {
                 if ($_GET['page'] == '') {
@@ -102,6 +102,55 @@
             ?>
 
         </div>
+        <div class="bottom-nav nav">
+            <a class="list-item" href="?page=token-list">
+                <i class="fa fa-list-alt"></i>
+                <p class="">Tokens</p>
+            </a>
+            <a class="list-item" href="?page=location">
+                <i class="fa fa-map-marker"></i>
+                <p class="">Location</p>
+            </a>
+            <a class="list-item" href="?">
+                <i class="fa fa-home"></i>
+                <p class="">Home</p>
+            </a>
+            <a class="list-item" href="?" data-toggle="collapse" data-target=".main">
+                <i class="fa fa-shopping-cart"></i>
+                <p class="">Cart</p>
+            </a>
+            <a class="list-item" href="?">
+                <i class="fa fa-search"></i>
+                <p class="">search</p>
+            </a>
+        </div>
+
+        <style>
+            .bottom-nav {
+                display: inline-grid;
+                justify-content: space-around;
+                background: #fff;
+                padding: 5px 0px;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                grid-auto-flow: column;
+                grid-auto-columns: 1fr;
+                box-shadow: 0 0 5px #ccc;
+            }
+
+            .bottom-nav .list-item {
+                text-decoration: none;
+                color: #000;
+                text-align: center;
+            }
+
+            .bottom-nav .list-item p {
+                font-size: 11px;
+                margin-bottom: 0px;
+            }
+        </style>
     </div>
 
     <script>
