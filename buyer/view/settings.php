@@ -1,4 +1,4 @@
-  <?php include('../head.php') ?>
+  <?php include('../../head.php') ?>
 
   <div class="container py-3">
       <p class="display-4 text-center">Settings</p>

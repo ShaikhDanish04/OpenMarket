@@ -53,7 +53,7 @@ $row = $result->fetch_assoc();
                 <p class="h6 text-center mb-3"><i class="fa fa-map-marker text-danger"></i> Set Location Pointer</p>
                 <div class="form-group">
                     <label>Pincode</label>
-                    <input type="input" class="form-control" maxlength="6" value="<?php echo ($row['pincode'] == '0') ? '' : $row['pincode'] ?>" name="pincode" placeholder="000000" required>
+                    <input type="number" class="form-control" maxlength="6" value="<?php echo ($row['pincode'] == '0') ? '' : $row['pincode'] ?>" name="pincode" placeholder="000000" required>
                 </div>
                 <div class="form-group">
                     <label>State</label>
@@ -94,6 +94,7 @@ $row = $result->fetch_assoc();
         var searchField = $(this).val();
 
         if (searchField.length == 6) {
+            $('.overlay').fadeIn();
             $.ajax({
                 dataType: "json",
                 url: '../address_map.json',
@@ -109,6 +110,7 @@ $row = $result->fetch_assoc();
                             $('[name="area"]').append('<option class="dynamic" value="' + val.officeName + '">' + val.officeName + '</option>');
                         }
                     });
+                    $('.overlay').fadeOut();
                     $('[name="area"]').focus();
                 }
             });

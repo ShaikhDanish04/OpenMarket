@@ -80,9 +80,22 @@
                     '</div>';
             } ?>
         </div>
-
+        <div class="overlay" style="display: none">
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+        </div>
         <div class="screen my-5"></div>
         <script>
+            $(document).ajaxStart(function() {
+                console.log('loading');
+                $('.overlay').fadeIn();
+            });
+            $(document).ajaxComplete(function() {
+                $('.overlay').fadeOut();
+                console.log('complete');
+            })
+            $(document).ajaxError(function() {
+                location.reload();
+            })
             $(document).ready(function() {
                 $('.screen').load('view/home.php');
 
@@ -114,13 +127,30 @@
                 <p class="">Cart</p>
                 <span class="badge badge-warning"></span>
             </a>
-            <a class="list-item" href="?">
-                <i class="fa fa-search"></i>
-                <p class="">search</p>
+            <a class="list-item" data-screen="settings">
+                <i class="fa fa-cog"></i>
+                <p class="">settings</p>
             </a>
         </div>
 
         <style>
+            .overlay {
+
+
+                height: 100vh;
+                width: 100%;
+                background: rgba(0, 0, 0, .25);
+                position: fixed;
+                z-index: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                color: #212529;
+                font-size: 30px;
+
+            }
+
             .bottom-nav {
                 display: inline-grid;
                 background: #fff;
@@ -133,6 +163,7 @@
                 grid-auto-columns: 1fr;
                 box-shadow: 0 0 5px #ccc;
                 justify-items: center;
+                z-index: 9;
             }
 
             .bottom-nav .list-item {
@@ -153,6 +184,7 @@
             }
 
             .home-nav {
+                user-select: none;
                 position: relative;
                 top: -50%;
                 background: #1c0d70;

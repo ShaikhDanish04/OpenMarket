@@ -195,4 +195,18 @@
         display: inline-block;
         background: rgba(0, 0, 0, 0.45);
     }
+
+    .goog-tooltip {
+        display: none !important;
+    }
+
+    .goog-tooltip:hover {
+        display: none !important;
+    }
+
+    .goog-text-highlight {
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
 </style>
