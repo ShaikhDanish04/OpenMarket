@@ -30,26 +30,46 @@
                 <div class="row no-gutters product-card-list"></div>
             </div>
         </div>
-        <div class="carousel-item cart-carousel">
-            <div class="container py-3">
-                <div class="form-group d-flex align-items-center justify-content-between">
-                    <a href="#buyer_process" data-slide="prev" class="btn"><i class="fa fa-chevron-left text-dark"></i></a>
-                    <p class="h6 mb-0"><i class="fa fa-shopping-cart"></i> Cart</p>
-                    <a class="btn" data-toggle="collapse" data-target="#filter_product"><i class="fa fa-search text-dark"></i></a>
-                </div>
-
-                <div class="cart-card-list"></div>
-                <div class="card fixed-card mt-3">
-                    <div class="card-body p-2">
-                        <button class="btn btn-primary w-100" href="#buyer_process" data-slide="prev"><i class="fa fa-chevron-left"></i> Shop More</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <script>
     $(document).ready(function() {
+        $('#search_all_products').submit(function(e) {
+            $('#search_all_products .btn-success').hide();
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "request/get_from_all_products.php",
+                data: $(this).serialize(),
+                success: function(data) {
+                    $('.all-product-card-list').html(data);
+                    $('.shop-card-list').html('');
+                    $('#search_all_products .btn-danger').show();
+                }
+            });
+        });
+
+        $('#search_all_products .btn-danger').click(function() {
+            $('.shop-card-list').load('request/shop_list.php');
+            $(this).hide();
+            $('.all-product-card-list').html('');
+            $('#search_all_products input').val('');
+            $('#search_all_products .btn-success').show();
+        });
+        $('#search_all_products input').on('focus', function() {
+            $('#search_all_products .btn-success').show();
+            $('#search_all_products .btn-danger').hide();
+        });
+
+
+
+        fetch('request/get_product_list.php')
+            .then(function(response) {
+                response.json().then(function(data) {
+                    autocomplete($("#search_input")[0], data);
+                });
+            })
 
         $('.shop-card-list').load('request/shop_list.php');
 
@@ -74,20 +94,6 @@
                     }
                 });
                 // console.log('product-carousel');
-            }
-            if ($('.cart-carousel').hasClass('active')) {
-                $.ajax({
-                    type: "POST",
-                    url: "request/manage_cart.php",
-                    data: {
-                        "shop_id": $('[name="shop_id"]').val(),
-                        "operation": "get_cart_list"
-                    },
-                    success: function(data) {
-                        $('.cart-card-list').html(data);
-                    }
-                })
-                // console.log('cart-carousel');
             }
         });
 

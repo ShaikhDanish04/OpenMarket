@@ -1,41 +1,5 @@
 
 <script>
-    $('#search_all_products').submit(function(e) {
-        $('#search_all_products .btn-success').hide();
-        e.preventDefault();
-
-        $.ajax({
-            type: "POST",
-            url: "request/get_from_all_products.php",
-            data: $(this).serialize(),
-            success: function(data) {
-                $('.all-product-card-list').html(data);
-                $('.shop-card-list').html('');
-                $('#search_all_products .btn-danger').show();
-            }
-        });
-    });
-    $('#search_all_products .btn-danger').click(function() {
-        $('.shop-card-list').load('request/shop_list.php');
-        $(this).hide();
-        $('.all-product-card-list').html('');
-        $('#search_all_products input').val('');
-        $('#search_all_products .btn-success').show();
-    });
-    $('#search_all_products input').on('focus', function() {
-        $('#search_all_products .btn-success').show();
-        $('#search_all_products .btn-danger').hide();
-    });
-
-
-    $(document).ready(function() {
-        fetch('request/get_product_list.php')
-            .then(function(response) {
-                response.json().then(function(data) {
-                    autocomplete($("#search_input")[0], data);
-                });
-            })
-    })
 </script>
 
 <script>
