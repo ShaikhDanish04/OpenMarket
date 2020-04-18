@@ -361,6 +361,11 @@
 
     }
 
+    .card.product-card.open .card-img-top {
+        transform: scale(1.05, 1);
+
+    }
+
     .cart-card .card-side-img,
     .product-card .card-side-img {
         width: auto;
@@ -380,7 +385,13 @@
         font-size: 12px;
         right: 2px;
         top: 2px;
-        box-shadow: 2px 1px 5px #aaa;
+        box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.25);
+    }
+
+    .card.product-card.open .incart {
+        font-size: 16px;
+        right: 5px;
+        top: 10px;
     }
 
     .shop-card.card {

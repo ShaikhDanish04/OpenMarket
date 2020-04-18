@@ -34,6 +34,12 @@
 </div>
 <script>
     $(document).ready(function() {
+        $('#search_input').focusin(function() {
+            $.getJSON('request/get_product_list.php', function(json) {
+                autocomplete($("#search_input")[0], json);
+            })
+        })
+
         $('#search_all_products').submit(function(e) {
             $('#search_all_products .btn-success').hide();
             e.preventDefault();
@@ -61,36 +67,33 @@
             $('#search_all_products .btn-success').show();
             $('#search_all_products .btn-danger').hide();
         });
+    })
+</script> <!-- search products script -->
 
-
-
-        fetch('request/get_product_list.php')
-            .then(function(response) {
-                response.json().then(function(data) {
-                    autocomplete($("#search_input")[0], data);
-                });
-            })
-
+<script>
+    $(document).ready(function() {
         $('.shop-card-list').load('request/shop_list.php');
 
         $("#buyer_process").on('slid.bs.carousel', function() {
             if ($('.shop-carousel').hasClass('active')) {
+
                 $('#search_all_products .btn-success').show();
                 $('#search_all_products .btn-danger').hide();
+
                 $('.shop-card-list').load('request/shop_list.php');
+                $('.product-card-list').html('');
                 // console.log('shop-carousel');
             }
             if ($('.product-carousel').hasClass('active')) {
+
                 $.ajax({
                     type: "POST",
                     url: "request/product_list.php",
                     data: {
-                        "shop_id": $('[name="shop_id"]').val(),
-                        "operation": "get_list"
+                        "shop_id": window.sessionStorage.getItem('shop_id'),
                     },
                     success: function(data) {
                         $('.product-card-list').html(data);
-
                     }
                 });
                 // console.log('product-carousel');
@@ -102,8 +105,8 @@
                 type: "POST",
                 url: "request/product_detail.php",
                 data: {
-                    "shop_id": $('[name="shop_id"]').val(),
-                    "product_name": $('[name="product_name"]').val(),
+                    "shop_id": window.sessionStorage.getItem('shop_id'),
+                    "product_name": window.sessionStorage.getItem('product_id'),
                     "operation": "get_product"
                 },
                 success: function(data) {

@@ -7,7 +7,7 @@ while ($row = $result->fetch_assoc()) {
     echo '' .
         '<div class="card mb-3 shop-card" data-id="' . $row['id'] . '">' .
         '    <div class="shop-head card visit-btn">' .
-        '        <img class="card-side-img" src="holder.js/100x180/" alt="">' .
+        '        <img class="card-side-img" src="" alt="">' .
         '        <div class="card-body">' .
         '            <div class="">' .
         '                <p class="card-title">' . $row['name'] . '</p>' .
@@ -40,6 +40,7 @@ while ($row = $result->fetch_assoc()) {
         var shop_id = $card.attr('data-id');
 
         $('[name="shop_id"]').val(shop_id);
+        window.sessionStorage.setItem('shop_id', shop_id);
 
         $('#buyer_process').carousel("next");
     })

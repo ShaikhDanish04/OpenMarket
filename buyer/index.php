@@ -112,13 +112,13 @@
         $('.loading').fadeOut();
     })
     $(document).ajaxError(function() {
-        location.reload();
+        // location.reload();
     })
 
     $(document).ready(function() {
         $('.screen').load('view/home.php');
-
         $('.cart-btn .badge').load('request/count_carts.php');
+
 
         $('[data-screen]').click(function() {
             $('[data-screen]').removeClass('active');

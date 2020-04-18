@@ -31,7 +31,7 @@ if ($_POST['operation'] == "get_product") {
     }
 
     echo '' .
-        '<img class="card-img-top" src="img/shop_dummy.jpg" height="250px" alt="">' .
+        '<img class="card-img-top" src="../product_list/' . $row['product_name'] . '.jpg" height="250px" alt="">' .
         '<div class="card-body">' .
         '    <p class="card-title h5">' . $row['product_name'] . '</p>' .
         '    <p class="card-text small">Price : ₹ ' . $row['price_per_item'] . '</p>' .
@@ -57,7 +57,7 @@ if ($_POST['operation'] == "get_product") {
 } ?>
 
 <script>
-    $('.modal .card-img-top').attr("src", "../product_list/" + $('[name="product_name"]').val() + ".jpg");
+    // $('.modal .card-img-top').attr("src", "../product_list/" + $('[name="product_name"]').val() + ".jpg");
 
     $('#book_product form').submit(function(e) {
         e.preventDefault();
