@@ -24,6 +24,8 @@
         background-position: bottom;
         background-repeat: no-repeat;
         flex-shrink: 0;
+        box-shadow: 2px 2px 5px #ccc;
+        border-radius: .25rem;
     }
 
     .searched-product-card .card-body,
@@ -33,6 +35,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        overflow: hidden;
     }
 
 
@@ -51,22 +54,34 @@
         font-size: 12px;
     }
 
+    .card.product-card:not(.open) .card-body {
+        max-height: 38px;
+        padding-top: 10px;
+        overflow: hidden;
+    }
+
     .product-card.card {
         flex-direction: column;
         margin-left: 5px;
         margin-right: 5px;
-        height: 100%;
+        transform: scale(0.95);
     }
 
     .card.product-card .card-img-top {
         box-shadow: 0 0 10px #ccc;
         border-radius: 5px;
+        transform: scale(1.05);
+
     }
 
     .cart-card .card-side-img,
     .product-card .card-side-img {
         width: auto;
         height: 135px;
+    }
+
+    .card.product-card .card-img-top:active {
+        transform: scale(1);
     }
 </style>
 <div id="buyer_process" class="carousel slide" data-ride="carousel" data-slide="false" data-interval="false" data-wrap="false">
@@ -77,6 +92,7 @@
 
                 <style>
                     .shop-card.card {
+                        transform: scale(0.95, 0.97);
                         flex-direction: column;
                     }
 
@@ -84,10 +100,11 @@
                         display: flex;
                         flex-direction: row;
                         min-height: inherit;
-                        transform: scale(1.02);
+                        transform: scale(1.05, 1.03);
+                        margin-bottom: 5px;
                     }
 
-                    .shop-card .shop-head:hover {
+                    .shop-card .shop-head:active {
                         transform: scale(1);
                     }
 

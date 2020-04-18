@@ -19,30 +19,11 @@
 </head>
 
 <style>
-    .cart-display.cart-btn {
-        position: relative;
-        cursor: pointer;
-    }
-
-    .cart-display.cart-btn .badge {
-        position: absolute;
-        top: -8px;
-        right: -12px;
-    }
 </style>
 
 <body class="">
     <input type="hidden" name="shop_id">
     <input type="hidden" name="product_name">
-
-    <div class="side-bar">
-
-        <div class="menu-list">
-            <a href="?" class="list-item"><i class="fa fa-home"></i> Home</a>
-            <a href="?page=token-list" class="list-item"><i class="fa fa-list-alt"></i> Token List</a>
-            <a href="?page=location" class="list-item"><i class="fa fa-map-marker"></i> My Location</a>
-        </div>
-    </div>
 
     <div class="content-view">
         <div class="action-bar">
@@ -79,30 +60,8 @@
             } ?>
         </div>
         <div class="screen my-5"></div>
-        <script>
-            $(document).ajaxStart(function() {
-                console.log('loading');
-                $('.loading').fadeIn();
-            });
-            $(document).ajaxComplete(function() {
-                $('.loading').fadeOut();
-                console.log('complete');
-            })
-            $(document).ajaxError(function() {
-                location.reload();
-            })
-            $(document).ready(function() {
-                $('.screen').load('view/home.php');
 
-                $('[data-screen]').click(function() {
-                    $('[data-screen]').removeClass('active');
-                    $(this).addClass('active');
-
-                    $('.screen').load('view/' + $(this).attr('data-screen') + '.php');
-                })
-            })
-        </script>
-        <div class="bottom-nav nav">
+        <div class="bottom-nav">
             <a class="list-item" data-screen="location">
                 <i class="fa fa-map-marker"></i>
                 <p class="">Location</p>
@@ -128,77 +87,7 @@
                 <p class="">settings</p>
             </a>
         </div>
-
-        <style>
-            .loading {
-                position: absolute;
-                top: -5px;
-                left: -5px;
-                font-size: 65px;
-                font-weight: 100;
-                color: #ee1565;
-                display: none;
-            }
-
-            .bottom-nav {
-                display: inline-grid;
-                background: #fff;
-                padding: 8px 0px;
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                grid-auto-flow: column;
-                grid-auto-columns: 1fr;
-                box-shadow: 0 0 5px #ccc;
-                justify-items: center;
-                z-index: 9;
-            }
-
-            .bottom-nav .list-item {
-                text-decoration: none;
-                color: #000;
-                text-align: center;
-            }
-
-
-            .bottom-nav .list-item p {
-                font-size: 11px;
-                margin-bottom: 0px;
-            }
-
-            .bottom-nav a.list-item.active {
-                color: #351fb1;
-                text-shadow: 0 0 1px;
-            }
-
-            .home-nav {
-                user-select: none;
-                position: relative;
-                top: -50%;
-                background: #1c0d70;
-                color: #fff;
-                border-radius: 50%;
-                height: 55px;
-                width: 55px;
-                margin-bottom: -50%;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                box-shadow: 0 0 20px #aaa;
-
-            }
-        </style>
     </div>
-
-    <script>
-        $('.menu-toggle').click(function() {
-            $('body').toggleClass('menu-open');
-        })
-        $('.content-view .screen').click(function() {
-            $('body').removeClass('menu-open');
-        })
-    </script>
 
     <div class="modal" id="book_product">
         <div class="modal-dialog modal-dialog-centered">
@@ -218,8 +107,28 @@
             </div>
         </div>
     </div>
-
-
 </body>
+<script>
+    $(document).ajaxStart(function() {
+        $('.loading').fadeIn();
+    });
+    $(document).ajaxComplete(function() {
+        $('.loading').fadeOut();
+    })
+    $(document).ajaxError(function() {
+        location.reload();
+    })
+
+    $(document).ready(function() {
+        $('.screen').load('view/home.php');
+
+        $('[data-screen]').click(function() {
+            $('[data-screen]').removeClass('active');
+            $(this).addClass('active');
+
+            $('.screen').load('view/' + $(this).attr('data-screen') + '.php');
+        })
+    })
+</script>
 
 </html>

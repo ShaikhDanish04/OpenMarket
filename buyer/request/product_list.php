@@ -64,7 +64,7 @@ if ($_POST['operation'] == "get_list") {
                 $button = '<p class="mb-2 text-danger small text-center font-weight-bold">Out of Stock</p>';
             }
             echo '' .
-                '<div class="col-6 mb-3">' .
+                '<div class="col-6 ">' .
                 '    <div class="card product-card" data-id="' . $row["product_name"] . '">' .
                 '        <img class="card-img-top" defer src="../product_list/' . $row["product_name"] . '.jpg" alt="">' .
                 '        <div class="card-body">' .
@@ -101,6 +101,10 @@ if ($_POST['operation'] == "get_list") {
 
 
 <script>
+    $('.product-card .card-img-top').click(function() {
+        $($(this).closest('.product-card')).toggleClass('open');
+    })
+
     $('[name="search_product"]').on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $(".product-card-list .col-6").filter(function() {

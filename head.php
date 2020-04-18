@@ -138,6 +138,76 @@
     .alert-area .alert {
         box-shadow: 2px 2px 8px #ccc;
     }
+
+    .cart-display.cart-btn {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .cart-display.cart-btn .badge {
+        position: absolute;
+        top: -8px;
+        right: -12px;
+    }
+
+    .loading {
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        font-size: 65px;
+        font-weight: 100;
+        color: #ee1565;
+        display: none;
+    }
+
+    .bottom-nav {
+        display: inline-grid;
+        background: #fff;
+        padding: 8px 0px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+        box-shadow: 0 0 5px #ccc;
+        justify-items: center;
+        z-index: 9;
+    }
+
+    .bottom-nav .list-item {
+        text-decoration: none;
+        color: #000;
+        text-align: center;
+    }
+
+
+    .bottom-nav .list-item p {
+        font-size: 11px;
+        margin-bottom: 0px;
+    }
+
+    .bottom-nav a.list-item.active {
+        color: #351fb1;
+        text-shadow: 0 0 1px;
+    }
+
+    .home-nav {
+        user-select: none;
+        position: relative;
+        top: -50%;
+        background: #1c0d70;
+        color: #fff;
+        border-radius: 50%;
+        height: 55px;
+        width: 55px;
+        margin-bottom: -50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-shadow: 0 0 20px #aaa;
+
+    }
 </style>
 
 <script type="text/javascript">
