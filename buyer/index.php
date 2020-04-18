@@ -18,9 +18,6 @@
     ?>
 </head>
 
-<style>
-</style>
-
 <body class="">
     <input type="hidden" name="shop_id">
     <input type="hidden" name="product_name">
@@ -99,7 +96,6 @@
                                 <span><i class="fa fa-shopping-bag"></i> Book</span>
                                 <button type="button" class="close" data-dismiss="modal">×</button>
                             </div>
-
                             <div class="product-detail"></div>
                         </div>
                     </form>

@@ -70,26 +70,12 @@ if ($result->num_rows > 0) {
     echo '<div class="card mt-3 text-center"><div class="card-body"><p class="h6 m-0">!!! No Cart Available</p></div></div>';
 }
 ?>
-<style>
-    .cart-display {
-        position: relative;
-    }
-
-    .cart-display .badge {
-        position: absolute;
-        top: -8px;
-        right: -8px;
-    }
-</style>
-
-
-
 
 <!-- <div class="cart-card-list"></div> -->
 
 <script>
     $('.cart-btn .badge').load('request/count_carts.php');
-    
+
     $('.check-out-cart').click(function() {
 
         $(this).attr('disabled', 'true');

@@ -1,101 +1,3 @@
-<style>
-    .carousel-item {
-        min-height: 95vh;
-    }
-
-    .shop-card.card,
-    .product-card.card {
-        display: flex;
-        min-height: 150px;
-        flex-direction: row;
-        margin-bottom: 1rem;
-    }
-
-
-    .searched-product-card .card-side-img,
-    .cart-card .card-side-img,
-    .shop-card .card-side-img,
-    .product-card .card-side-img {
-        height: auto;
-        width: 135px;
-        background: #999997;
-        background: url(img/shop_dummy.jpg);
-        background-size: cover;
-        background-position: bottom;
-        background-repeat: no-repeat;
-        flex-shrink: 0;
-        box-shadow: 2px 2px 5px #ccc;
-        border-radius: .25rem;
-    }
-
-    .searched-product-card .card-body,
-    .shop-card .card-body,
-    .product-card .card-body {
-        padding: 0.75rem 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        overflow: hidden;
-    }
-
-
-    .searched-product-card .card-title,
-    .shop-card .card-title,
-    .product-card .card-title {
-        border-bottom: 1px solid #ccc;
-        padding-bottom: .25rem;
-        font-weight: 500;
-        margin-bottom: .25rem;
-    }
-
-    .searched-product-card .card-text,
-    .shop-card .card-text,
-    .product-card .card-text {
-        font-size: 12px;
-    }
-
-    .card.product-card:not(.open) .card-body {
-        max-height: 38px;
-        padding-top: 10px;
-        overflow: hidden;
-    }
-
-    .product-card.card {
-        flex-direction: column;
-        margin-left: 5px;
-        margin-right: 5px;
-        transform: scale(0.95);
-    }
-
-    .card.product-card .card-img-top {
-        box-shadow: 0 0 10px #ccc;
-        border-radius: 5px;
-        transform: scale(1.05);
-
-    }
-
-    .cart-card .card-side-img,
-    .product-card .card-side-img {
-        width: auto;
-        height: 135px;
-    }
-
-    .card.product-card .card-img-top:active {
-        transform: scale(1);
-    }
-
-    .card.product-card .incart {
-        color: #000;
-        position: absolute;
-        padding: 5px;
-        background: #ffc107;
-        border-radius: 5px;
-        font-size: 12px;
-        right: 2px;
-        top: 2px;
-        box-shadow: 2px 1px 5px #aaa;
-    }
-</style>
 <div id="buyer_process" class="carousel slide" data-ride="carousel" data-slide="false" data-interval="false" data-wrap="false">
     <div class="carousel-inner">
         <div class="carousel-item shop-carousel active">
@@ -103,43 +5,7 @@
                 <?php include("search.php") ?>
 
                 <style>
-                    .shop-card.card {
-                        transform: scale(0.95, 0.97);
-                        flex-direction: column;
-                    }
 
-                    .shop-card .shop-head {
-                        display: flex;
-                        flex-direction: row;
-                        min-height: inherit;
-                        transform: scale(1.05, 1.03);
-                        margin-bottom: 5px;
-                    }
-
-                    .shop-card .shop-head:active {
-                        transform: scale(1);
-                    }
-
-                    .rating i.fa {
-                        color: #f8c100;
-                    }
-
-                    .rating span.value {
-                        margin-right: .5rem;
-                        font-weight: 600;
-                        border-left: 1px solid rgba(0, 0, 0, .25);
-                        padding-left: .25rem;
-                    }
-
-                    .address {
-                        background: #f3f3f3;
-                        border-radius: .5rem;
-                        transition: .5s;
-                        /* margin-bottom: .5rem; */
-                        padding: .5rem 1rem;
-                        text-align: justify;
-                        box-shadow: 0px 4px 8px #ddd;
-                    }
                 </style>
 
                 <div class="shop-card-list">
@@ -181,7 +47,6 @@
     </div>
 </div>
 <script>
-
     $(document).ready(function() {
 
         $('.shop-card-list').load('request/shop_list.php');

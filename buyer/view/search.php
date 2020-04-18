@@ -1,41 +1,3 @@
-<style>
-    .autocomplete {
-        /*the container must be positioned relative:*/
-        position: relative;
-        /* display: inline-block; */
-    }
-
-
-    .autocomplete-items {
-        position: absolute;
-        border: 1px solid #d4d4d4;
-        border-bottom: none;
-        border-top: none;
-        z-index: 99;
-        /*position the autocomplete items to be the same width as the container:*/
-        top: 100%;
-        left: 0;
-        right: 0;
-    }
-
-    .autocomplete-items div {
-        padding: 10px;
-        cursor: pointer;
-        background-color: #fff;
-        border-bottom: 1px solid #d4d4d4;
-    }
-
-    .autocomplete-items div:hover {
-        /*when hovering an item:*/
-        background-color: #e9e9e9;
-    }
-
-    .autocomplete-active {
-        /*when navigating through the items using the arrow keys:*/
-        background-color: DodgerBlue !important;
-        color: #ffffff;
-    }
-</style>
 <?php include('../../connect.php'); ?>
 
 <!--Make sure the form has the autocomplete function switched off:-->
@@ -47,37 +9,7 @@
     </div>
 </form>
 
-<style>
-    .searched-product-card .address {
-        background: #f3f3f3;
-        border-radius: .5rem;
-        transition: .5s;
-        /* margin-bottom: .5rem; */
-        padding: .5rem 1rem;
-        text-align: justify;
-        box-shadow: 0px 4px 8px #ddd;
-    }
 
-    .searched-product-card .rating {
-        color: #f8c100;
-        margin-right: .5rem;
-    }
-
-    .searched-product-card .product {
-        display: flex;
-        min-height: 150px;
-        flex-direction: row;
-        margin-bottom: 0px;
-    }
-
-    .searched-product-card p {
-        margin-bottom: 0px;
-    }
-
-    .divider {
-        border-bottom: 1px solid rgba(0, 0, 0, .25);
-    }
-</style>
 <div class="all-product-card-list"></div>
 
 <?php $result = $conn->query("SELECT * FROM product_list");
