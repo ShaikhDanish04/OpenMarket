@@ -42,7 +42,5 @@ while ($row = $result->fetch_assoc()) {
         $('[name="shop_id"]').val(shop_id);
 
         $('#buyer_process').carousel("next");
-
-
     })
 </script>

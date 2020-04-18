@@ -1,6 +1,5 @@
 <?php include('../../connect.php'); ?>
 
-<!--Make sure the form has the autocomplete function switched off:-->
 <form id="search_all_products" autocomplete="off" action="" class="mb-3">
     <div class="autocomplete d-flex">
         <input id="search_input" class="form-control  mr-2" type="text" name="search" placeholder="Search for products" required>
