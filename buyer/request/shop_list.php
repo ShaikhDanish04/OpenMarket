@@ -21,8 +21,8 @@ while ($row = $result->fetch_assoc()) {
         '    </div>' .
         '    <div id="collapse_' . $row['id'] . '" class="small m-2 collapse">' .
         '        <div class="address"> ' .
-        '           <p class="mb-1"><b>Address : </b> '.$row['address'].'</p>'.
-        '           <i class="fa fa-map-marker text-danger"></i> ' . $row['area'] . ' - ' . $row['region'] . ', ' . $row['district'] . ', ' . $row['state'] . ' - ' . $row['pincode'] . 
+        '           <p class="mb-1"><b>Address : </b> ' . $row['address'] . '</p>' .
+        '           <i class="fa fa-map-marker text-danger"></i> ' . $row['area'] . ' - ' . $row['region'] . ', ' . $row['district'] . ', ' . $row['state'] . ' - ' . $row['pincode'] .
         '        </div>' .
         '    </div>' .
         '    <div class="d-flex align-items-center justify-content-between p-2">' .

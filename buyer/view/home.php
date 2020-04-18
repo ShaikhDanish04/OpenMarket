@@ -2,19 +2,22 @@
     <div class="carousel-inner">
         <div class="carousel-item shop-carousel active">
             <div class="container py-3">
+                <form id="search_all_products" autocomplete="off" action="" class="mb-3">
+                    <div class="autocomplete d-flex">
+                        <input id="search_input" class="form-control  mr-2" type="text" name="search" placeholder="Search for products" required>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn btn-danger" style="display: none"><i class="fa fa-times"></i></button>
+                    </div>
+                </form>
+
+
                 <?php include("search.php") ?>
 
-                <style>
-
-                </style>
-
-                <div class="shop-card-list">
-
-                </div>
+                <div class="all-product-card-list"></div>
+                <div class="shop-card-list"></div>
             </div>
         </div>
         <div class="carousel-item product-carousel">
-
             <div class="container py-3">
                 <div class="form-group d-flex align-items-center justify-content-between">
                     <a href="#buyer_process" data-slide="prev" class="btn"><i class="fa fa-chevron-left text-dark"></i></a>
@@ -24,7 +27,6 @@
                 <div id="filter_produc" class="container">
                     <input type="text" name="search_product" class="form-control mb-3" placeholder="Search">
                 </div>
-
                 <div class="row no-gutters product-card-list"></div>
             </div>
         </div>
@@ -56,7 +58,7 @@
                 $('#search_all_products .btn-success').show();
                 $('#search_all_products .btn-danger').hide();
                 $('.shop-card-list').load('request/shop_list.php');
-                console.log('shop-carousel');
+                // console.log('shop-carousel');
             }
             if ($('.product-carousel').hasClass('active')) {
                 $.ajax({
@@ -71,7 +73,7 @@
 
                     }
                 });
-                console.log('product-carousel');
+                // console.log('product-carousel');
             }
             if ($('.cart-carousel').hasClass('active')) {
                 $.ajax({
@@ -85,7 +87,7 @@
                         $('.cart-card-list').html(data);
                     }
                 })
-                console.log('cart-carousel');
+                // console.log('cart-carousel');
             }
         });
 
@@ -103,7 +105,7 @@
                     // console.log(data);
                 }
             })
-            console.log('product-modalshow');
+            // console.log('product-modalshow');
         });
         $("#book_product").on('hide.bs.modal', function() {
             $.ajax({
@@ -119,21 +121,7 @@
                     $('.cart-list').load('request/cart_list.php');
                 }
             })
-            console.log('product-modal-hide');
+            // console.log('product-modal-hide');
         });
-
-        $('.main').on('hidden.bs.collapse', function() {
-            if ($('.cart-list').hasClass('show')) {
-                $('.cart-btn').addClass('d-none');
-                $('.home-btn').removeClass('d-none');
-            } else {
-                $('.home-btn').addClass('d-none');
-                $('.cart-btn').removeClass('d-none');
-            }
-
-            $('.cart-list').load('request/cart_list.php');
-            $("#buyer_process").carousel(0);
-        });
-
     })
 </script>

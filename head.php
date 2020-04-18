@@ -329,6 +329,7 @@
         margin-bottom: .25rem;
     }
 
+
     .searched-product-card .card-text,
     .shop-card .card-text,
     .product-card .card-text {
@@ -339,6 +340,11 @@
         max-height: 38px;
         padding-top: 10px;
         overflow: hidden;
+
+        border-radius: 5px;
+        background: #ee1565;
+        color: #fff;
+        text-align: center;
     }
 
     .product-card.card {

@@ -1,23 +1,3 @@
-<?php include('../../connect.php'); ?>
-
-<form id="search_all_products" autocomplete="off" action="" class="mb-3">
-    <div class="autocomplete d-flex">
-        <input id="search_input" class="form-control  mr-2" type="text" name="search" placeholder="Search for products" required>
-        <button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
-        <button type="button" class="btn btn-danger" style="display: none"><i class="fa fa-times"></i></button>
-    </div>
-</form>
-
-
-<div class="all-product-card-list"></div>
-
-<?php $result = $conn->query("SELECT * FROM product_list");
-$product_list = array();
-
-while ($row = $result->fetch_assoc()) {
-    array_push($product_list, $row['product_name']);
-}
-?>
 
 <script>
     $('#search_all_products').submit(function(e) {
@@ -29,7 +9,6 @@ while ($row = $result->fetch_assoc()) {
             url: "request/get_from_all_products.php",
             data: $(this).serialize(),
             success: function(data) {
-                console.log(data);
                 $('.all-product-card-list').html(data);
                 $('.shop-card-list').html('');
                 $('#search_all_products .btn-danger').show();
@@ -50,7 +29,12 @@ while ($row = $result->fetch_assoc()) {
 
 
     $(document).ready(function() {
-        autocomplete($("#search_input")[0], <?php echo json_encode($product_list); ?>);
+        fetch('request/get_product_list.php')
+            .then(function(response) {
+                response.json().then(function(data) {
+                    autocomplete($("#search_input")[0], data);
+                });
+            })
     })
 </script>
 
