@@ -83,6 +83,18 @@
     .card.product-card .card-img-top:active {
         transform: scale(1);
     }
+
+    .card.product-card .incart {
+        color: #000;
+        position: absolute;
+        padding: 5px;
+        background: #ffc107;
+        border-radius: 5px;
+        font-size: 12px;
+        right: 2px;
+        top: 2px;
+        box-shadow: 2px 1px 5px #aaa;
+    }
 </style>
 <div id="buyer_process" class="carousel slide" data-ride="carousel" data-slide="false" data-interval="false" data-wrap="false">
     <div class="carousel-inner">
@@ -168,15 +180,11 @@
         </div>
     </div>
 </div>
-
 <script>
+
     $(document).ready(function() {
 
-        $('.home-btn').addClass('d-none');
-
         $('.shop-card-list').load('request/shop_list.php');
-
-        $('.cart-btn .badge').load('request/count_carts.php');
 
         $("#buyer_process").on('slid.bs.carousel', function() {
             if ($('.shop-carousel').hasClass('active')) {

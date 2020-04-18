@@ -67,6 +67,7 @@ if ($_POST['operation'] == "get_list") {
                 '<div class="col-6 ">' .
                 '    <div class="card product-card" data-id="' . $row["product_name"] . '">' .
                 '        <img class="card-img-top" defer src="../product_list/' . $row["product_name"] . '.jpg" alt="">' .
+                '        <i class="fa fa-shopping-cart ' . ((isset($product_row['product_name'])) ? '' : 'd-none') . ' incart"></i>' .
                 '        <div class="card-body">' .
                 '            <div class="">' .
                 '                <p class="card-title">' . $row['product_name'] . '</p>' .
