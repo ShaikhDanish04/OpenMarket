@@ -50,19 +50,17 @@
                 <p class="text-light m-0 ml-1"><i class="fa fa-shopping-bag"></i> OpenMarket</p>
             </div>
             <div class="end">
-                <span class="cart-display cart-btn <?php echo ($_GET['page'] == '') ? '' : 'd-none' ?>" data-toggle="collapse" data-target=".main">
-                    <a type="button" class="btn text-light"><i class="fa fa-shopping-cart"></i></a>
-                </span>
-                <a type="button" class="btn text-light home-btn <?php echo ($_GET['page'] == '') ? '' : 'd-none' ?>" data-toggle="collapse" data-target=".main"><i class="fa fa-home"></i></a>
                 <a type="button" class="btn text-light" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
 
                 <div class="dropdown-menu mt-3 dropdown-menu-right ">
-                    <a class="dropdown-item" href="?logout=true"><i class="fa fa-sign-out"></i> Logout</a>
-                    <div class="dropdown-divider"></div>
                     <div class="display alert-primary m-2 rounded p-2 text-center">
                         <p class="m-0"><?php echo $row['fname'] . " " . $row['lname'] ?> </p>
                         <p class="small font-weight-bold"><?php echo $row['username'] ?></p>
                         <button class="btn btn-dark btn-sm" data-screen="settings"><i class="fa fa-cog"></i> Settings</button>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="p-2">
+                        <a class="dropdown-item alert-danger rounded" href="?logout=true"><i class="fa fa-sign-out"></i> Logout</a>
                     </div>
 
                 </div>
@@ -80,17 +78,14 @@
                     '</div>';
             } ?>
         </div>
-        <div class="overlay" style="display: none">
-            <i class="fa fa-circle-o-notch fa-spin"></i>
-        </div>
         <div class="screen my-5"></div>
         <script>
             $(document).ajaxStart(function() {
                 console.log('loading');
-                $('.overlay').fadeIn();
+                $('.loading').fadeIn();
             });
             $(document).ajaxComplete(function() {
-                $('.overlay').fadeOut();
+                $('.loading').fadeOut();
                 console.log('complete');
             })
             $(document).ajaxError(function() {
@@ -120,6 +115,7 @@
                 <div class="home-nav">
                     <i class="fa fa-home"></i>
                     <p class="">Home</p>
+                    <i class="fa fa-circle-o-notch fa-spin loading"></i>
                 </div>
             </a>
             <a class="list-item cart-display cart-btn" data-screen="cart">
@@ -127,28 +123,21 @@
                 <p class="">Cart</p>
                 <span class="badge badge-warning"></span>
             </a>
-            <a class="list-item" data-screen="settings">
+            <a class="list-item" data-screen="">
                 <i class="fa fa-cog"></i>
                 <p class="">settings</p>
             </a>
         </div>
 
         <style>
-            .overlay {
-
-
-                height: 100vh;
-                width: 100%;
-                background: rgba(0, 0, 0, .25);
-                position: fixed;
-                z-index: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                color: #212529;
-                font-size: 30px;
-
+            .loading {
+                position: absolute;
+                top: -5px;
+                left: -5px;
+                font-size: 65px;
+                font-weight: 100;
+                color: #ee1565;
+                display: none;
             }
 
             .bottom-nav {
@@ -211,7 +200,7 @@
         })
     </script>
 
-    <div class="modal fade" id="book_product">
+    <div class="modal" id="book_product">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body p-0">

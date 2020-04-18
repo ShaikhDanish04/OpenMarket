@@ -69,86 +69,82 @@
         height: 135px;
     }
 </style>
+<div id="buyer_process" class="carousel slide" data-ride="carousel" data-slide="false" data-interval="false" data-wrap="false">
+    <div class="carousel-inner">
+        <div class="carousel-item shop-carousel active">
+            <div class="container py-3">
+                <?php include("search.php") ?>
 
-<div class="main collapse container cart-list pb-3"></div>
-<div class="main collapse show">
-    <div id="buyer_process" class="carousel slide" data-ride="carousel" data-slide="false" data-interval="false" data-wrap="false">
-        <div class="carousel-inner">
-            <div class="carousel-item shop-carousel active">
-                <div class="container py-3">
-                    <?php include("search.php") ?>
+                <style>
+                    .shop-card.card {
+                        flex-direction: column;
+                    }
 
-                    <style>
-                        .shop-card.card {
-                            flex-direction: column;
-                        }
+                    .shop-card .shop-head {
+                        display: flex;
+                        flex-direction: row;
+                        min-height: inherit;
+                        transform: scale(1.02);
+                    }
 
-                        .shop-card .shop-head {
-                            display: flex;
-                            flex-direction: row;
-                            min-height: inherit;
-                            transform: scale(1.02);
-                        }
+                    .shop-card .shop-head:hover {
+                        transform: scale(1);
+                    }
 
-                        .shop-card .shop-head:hover {
-                            transform: scale(1);
-                        }
+                    .rating i.fa {
+                        color: #f8c100;
+                    }
 
-                        .rating i.fa {
-                            color: #f8c100;
-                        }
+                    .rating span.value {
+                        margin-right: .5rem;
+                        font-weight: 600;
+                        border-left: 1px solid rgba(0, 0, 0, .25);
+                        padding-left: .25rem;
+                    }
 
-                        .rating span.value {
-                            margin-right: .5rem;
-                            font-weight: 600;
-                            border-left: 1px solid rgba(0, 0, 0, .25);
-                            padding-left: .25rem;
-                        }
+                    .address {
+                        background: #f3f3f3;
+                        border-radius: .5rem;
+                        transition: .5s;
+                        /* margin-bottom: .5rem; */
+                        padding: .5rem 1rem;
+                        text-align: justify;
+                        box-shadow: 0px 4px 8px #ddd;
+                    }
+                </style>
 
-                        .address {
-                            background: #f3f3f3;
-                            border-radius: .5rem;
-                            transition: .5s;
-                            /* margin-bottom: .5rem; */
-                            padding: .5rem 1rem;
-                            text-align: justify;
-                            box-shadow: 0px 4px 8px #ddd;
-                        }
-                    </style>
+                <div class="shop-card-list">
 
-                    <div class="shop-card-list">
-
-                    </div>
                 </div>
             </div>
-            <div class="carousel-item product-carousel">
+        </div>
+        <div class="carousel-item product-carousel">
 
-                <div class="container py-3">
-                    <div class="form-group d-flex align-items-center justify-content-between">
-                        <a href="#buyer_process" data-slide="prev" class="btn"><i class="fa fa-chevron-left text-dark"></i></a>
-                        <p class="h6 mb-0">Products</p>
-                        <a class="btn" data-toggle="collapse" data-target="#filter_product"><i class="fa fa-search text-dark"></i></a>
-                    </div>
-                    <div id="filter_produc" class="container">
-                        <input type="text" name="search_product" class="form-control mb-3" placeholder="Search">
-                    </div>
-
-                    <div class="row no-gutters product-card-list"></div>
+            <div class="container py-3">
+                <div class="form-group d-flex align-items-center justify-content-between">
+                    <a href="#buyer_process" data-slide="prev" class="btn"><i class="fa fa-chevron-left text-dark"></i></a>
+                    <p class="h6 mb-0">Products</p>
+                    <a class="btn" data-toggle="collapse" data-target="#filter_product"><i class="fa fa-search text-dark"></i></a>
                 </div>
-            </div>
-            <div class="carousel-item cart-carousel">
-                <div class="container py-3">
-                    <div class="form-group d-flex align-items-center justify-content-between">
-                        <a href="#buyer_process" data-slide="prev" class="btn"><i class="fa fa-chevron-left text-dark"></i></a>
-                        <p class="h6 mb-0"><i class="fa fa-shopping-cart"></i> Cart</p>
-                        <a class="btn" data-toggle="collapse" data-target="#filter_product"><i class="fa fa-search text-dark"></i></a>
-                    </div>
+                <div id="filter_produc" class="container">
+                    <input type="text" name="search_product" class="form-control mb-3" placeholder="Search">
+                </div>
 
-                    <div class="cart-card-list"></div>
-                    <div class="card fixed-card mt-3">
-                        <div class="card-body p-2">
-                            <button class="btn btn-primary w-100" href="#buyer_process" data-slide="prev"><i class="fa fa-chevron-left"></i> Shop More</button>
-                        </div>
+                <div class="row no-gutters product-card-list"></div>
+            </div>
+        </div>
+        <div class="carousel-item cart-carousel">
+            <div class="container py-3">
+                <div class="form-group d-flex align-items-center justify-content-between">
+                    <a href="#buyer_process" data-slide="prev" class="btn"><i class="fa fa-chevron-left text-dark"></i></a>
+                    <p class="h6 mb-0"><i class="fa fa-shopping-cart"></i> Cart</p>
+                    <a class="btn" data-toggle="collapse" data-target="#filter_product"><i class="fa fa-search text-dark"></i></a>
+                </div>
+
+                <div class="cart-card-list"></div>
+                <div class="card fixed-card mt-3">
+                    <div class="card-body p-2">
+                        <button class="btn btn-primary w-100" href="#buyer_process" data-slide="prev"><i class="fa fa-chevron-left"></i> Shop More</button>
                     </div>
                 </div>
             </div>
