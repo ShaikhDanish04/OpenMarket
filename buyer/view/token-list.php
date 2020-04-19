@@ -1,15 +1,3 @@
-<style>
-    .cart-display {
-        position: relative;
-    }
-
-    .cart-display .badge {
-        position: absolute;
-        top: -8px;
-        right: -8px;
-
-    }
-</style>
 <?php include('../../connect.php') ?>
 
 <div class="container py-3">

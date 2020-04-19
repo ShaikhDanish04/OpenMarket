@@ -1,6 +1,4 @@
-<p class="display-4 text-center"><i class="fa fa-shopping-cart"></i> Cart List</p>
-<?php
-include('../../connect.php');
+<?php include('../../connect.php');
 
 $shop_list = array();
 $result = $conn->query("SELECT DISTINCT sellers.* FROM sellers INNER JOIN cart ON cart.shop_id = sellers.id WHERE buyer_id = '$id' AND `status` = 'in'");
@@ -58,7 +56,7 @@ if ($result->num_rows > 0) {
             '                <button class="btn btn-primary" href="#shop_' . $row['id'] . '" data-toggle="collapse" aria-expanded="true"><i class="fa fa-shopping-cart"></i></button>' .
             '            </div>' .
             '        </div>' .
-            '        <div id="shop_' . $row['id'] . '" class="collapse pt-3">' .
+            '        <div id="shop_' . $row['id'] . '" class="collapse pt-3 show">' .
             '        <div class="divider mt-1 mb-2"></div>' . $cart_product_list .
             '            <p class="h6 p-2 text-center">Total Price : ₹ <b>' . $total_cost . '</b></p>' .
             '            <button class="btn btn-success w-100 check-out-cart" data-shop-id="' . $row['id'] . '"><i class=" fa fa-list-alt"></i> Get Token</button>' .
@@ -70,26 +68,12 @@ if ($result->num_rows > 0) {
     echo '<div class="card mt-3 text-center"><div class="card-body"><p class="h6 m-0">!!! No Cart Available</p></div></div>';
 }
 ?>
-<style>
-    .cart-display {
-        position: relative;
-    }
 
-    .cart-display .badge {
-        position: absolute;
-        top: -8px;
-        right: -8px;
-    }
-</style>
-
-
-
-
-<!-- <div class="cart-card-list"></div> -->
 
 <script>
     $('.cart-btn .badge').load('request/count_carts.php');
-    
+
+
     $('.check-out-cart').click(function() {
 
         $(this).attr('disabled', 'true');
@@ -101,22 +85,19 @@ if ($result->num_rows > 0) {
                 "shop_id": $(this).attr('data-shop-id'),
                 "operation": "generate_token"
             },
-            success: function(data) {}
+            success: function(data) {
+                $('.screen').load('view/token-list.php');
+            }
         })
-        location.href = "?page=token-list";
     });
 
     $('.cart-list-card .edit-product').click(function() {
+        $('.screen').load('view/home.php');
+        var $card = $(this).closest('.card');
 
-        var $card = $(this).closest('.card.cart-list-card');
-
-        var shop_id = $card.attr('data-shop-id');
-        var product_id = $(this).attr('data-product-id');
-
-        $('[name="shop_id"]').val(shop_id);
-        $('[name="product_name"]').val(product_id);
-
-        $('#book_product').modal('show');
+        window.sessionStorage.setItem('shop_id', $card.attr('data-shop-id'));
+        window.sessionStorage.setItem('product_id', $(this).attr('data-product-id'));
+        window.sessionStorage.setItem('carousel', '1');
     });
 
     $('.cart-list-card .delete-product').click(function() {
@@ -132,7 +113,7 @@ if ($result->num_rows > 0) {
                     "operation": "remove_from_cart"
                 },
                 success: function(data) {
-                    $('.cart-list').load('request/cart_list.php');
+                    $('.cart-card-list').load('request/cart_list.php');
                 }
             })
         }

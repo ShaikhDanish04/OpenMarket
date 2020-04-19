@@ -17,14 +17,6 @@ $result = $conn->query("SELECT * FROM buyers WHERE id = '$id'");
 $row = $result->fetch_assoc();
 
 ?>
-<style>
-    [name="pincode"] {
-        font-size: 30px;
-        letter-spacing: 15px;
-        padding-left: 30px;
-        text-align: center;
-    }
-</style>
 
 <div class="container py-3">
     <p class="display-4 text-center">Location</p>

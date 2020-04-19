@@ -1,154 +1,23 @@
-<style>
-    .carousel-item {
-        min-height: 95vh;
-    }
-
-    .shop-card.card,
-    .product-card.card {
-        display: flex;
-        min-height: 150px;
-        flex-direction: row;
-        margin-bottom: 1rem;
-    }
-
-
-    .searched-product-card .card-side-img,
-    .cart-card .card-side-img,
-    .shop-card .card-side-img,
-    .product-card .card-side-img {
-        height: auto;
-        width: 135px;
-        background: #999997;
-        background: url(img/shop_dummy.jpg);
-        background-size: cover;
-        background-position: bottom;
-        background-repeat: no-repeat;
-        flex-shrink: 0;
-        box-shadow: 2px 2px 5px #ccc;
-        border-radius: .25rem;
-    }
-
-    .searched-product-card .card-body,
-    .shop-card .card-body,
-    .product-card .card-body {
-        padding: 0.75rem 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        overflow: hidden;
-    }
-
-
-    .searched-product-card .card-title,
-    .shop-card .card-title,
-    .product-card .card-title {
-        border-bottom: 1px solid #ccc;
-        padding-bottom: .25rem;
-        font-weight: 500;
-        margin-bottom: .25rem;
-    }
-
-    .searched-product-card .card-text,
-    .shop-card .card-text,
-    .product-card .card-text {
-        font-size: 12px;
-    }
-
-    .card.product-card:not(.open) .card-body {
-        max-height: 38px;
-        padding-top: 10px;
-        overflow: hidden;
-    }
-
-    .product-card.card {
-        flex-direction: column;
-        margin-left: 5px;
-        margin-right: 5px;
-        transform: scale(0.95);
-    }
-
-    .card.product-card .card-img-top {
-        box-shadow: 0 0 10px #ccc;
-        border-radius: 5px;
-        transform: scale(1.05);
-
-    }
-
-    .cart-card .card-side-img,
-    .product-card .card-side-img {
-        width: auto;
-        height: 135px;
-    }
-
-    .card.product-card .card-img-top:active {
-        transform: scale(1);
-    }
-
-    .card.product-card .incart {
-        color: #000;
-        position: absolute;
-        padding: 5px;
-        background: #ffc107;
-        border-radius: 5px;
-        font-size: 12px;
-        right: 2px;
-        top: 2px;
-        box-shadow: 2px 1px 5px #aaa;
-    }
-</style>
 <div id="buyer_process" class="carousel slide" data-ride="carousel" data-slide="false" data-interval="false" data-wrap="false">
     <div class="carousel-inner">
         <div class="carousel-item shop-carousel active">
             <div class="container py-3">
+                <form id="search_all_products" autocomplete="off" action="" class="mb-3">
+                    <div class="autocomplete d-flex">
+                        <input id="search_input" class="form-control  mr-2" type="text" name="search" placeholder="Search for products" required>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn btn-danger" style="display: none"><i class="fa fa-times"></i></button>
+                    </div>
+                </form>
+
+
                 <?php include("search.php") ?>
 
-                <style>
-                    .shop-card.card {
-                        transform: scale(0.95, 0.97);
-                        flex-direction: column;
-                    }
-
-                    .shop-card .shop-head {
-                        display: flex;
-                        flex-direction: row;
-                        min-height: inherit;
-                        transform: scale(1.05, 1.03);
-                        margin-bottom: 5px;
-                    }
-
-                    .shop-card .shop-head:active {
-                        transform: scale(1);
-                    }
-
-                    .rating i.fa {
-                        color: #f8c100;
-                    }
-
-                    .rating span.value {
-                        margin-right: .5rem;
-                        font-weight: 600;
-                        border-left: 1px solid rgba(0, 0, 0, .25);
-                        padding-left: .25rem;
-                    }
-
-                    .address {
-                        background: #f3f3f3;
-                        border-radius: .5rem;
-                        transition: .5s;
-                        /* margin-bottom: .5rem; */
-                        padding: .5rem 1rem;
-                        text-align: justify;
-                        box-shadow: 0px 4px 8px #ddd;
-                    }
-                </style>
-
-                <div class="shop-card-list">
-
-                </div>
+                <div class="all-product-card-list"></div>
+                <div class="shop-card-list"></div>
             </div>
         </div>
         <div class="carousel-item product-carousel">
-
             <div class="container py-3">
                 <div class="form-group d-flex align-items-center justify-content-between">
                     <a href="#buyer_process" data-slide="prev" class="btn"><i class="fa fa-chevron-left text-dark"></i></a>
@@ -158,69 +27,80 @@
                 <div id="filter_produc" class="container">
                     <input type="text" name="search_product" class="form-control mb-3" placeholder="Search">
                 </div>
-
                 <div class="row no-gutters product-card-list"></div>
-            </div>
-        </div>
-        <div class="carousel-item cart-carousel">
-            <div class="container py-3">
-                <div class="form-group d-flex align-items-center justify-content-between">
-                    <a href="#buyer_process" data-slide="prev" class="btn"><i class="fa fa-chevron-left text-dark"></i></a>
-                    <p class="h6 mb-0"><i class="fa fa-shopping-cart"></i> Cart</p>
-                    <a class="btn" data-toggle="collapse" data-target="#filter_product"><i class="fa fa-search text-dark"></i></a>
-                </div>
-
-                <div class="cart-card-list"></div>
-                <div class="card fixed-card mt-3">
-                    <div class="card-body p-2">
-                        <button class="btn btn-primary w-100" href="#buyer_process" data-slide="prev"><i class="fa fa-chevron-left"></i> Shop More</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
 <script>
-
     $(document).ready(function() {
+        $('#search_input').focusin(function() {
+            $.getJSON('request/get_product_list.php', function(json) {
+                autocomplete($("#search_input")[0], json);
+            })
+        })
 
+        $('#search_all_products').submit(function(e) {
+            $('#search_all_products .btn-success').hide();
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "request/get_from_all_products.php",
+                data: $(this).serialize(),
+                success: function(data) {
+                    $('.all-product-card-list').html(data);
+                    $('.shop-card-list').html('');
+                    $('#search_all_products .btn-danger').show();
+                }
+            });
+        });
+
+        $('#search_all_products .btn-danger').click(function() {
+            $('.shop-card-list').load('request/shop_list.php');
+            $(this).hide();
+            $('.all-product-card-list').html('');
+            $('#search_all_products input').val('');
+            $('#search_all_products .btn-success').show();
+        });
+        $('#search_all_products input').on('focus', function() {
+            $('#search_all_products .btn-success').show();
+            $('#search_all_products .btn-danger').hide();
+        });
+    })
+</script> <!-- search products script -->
+
+<script>
+    $(document).ready(function() {
         $('.shop-card-list').load('request/shop_list.php');
+        $('#buyer_process').carousel(Number(window.sessionStorage.getItem('carousel')));
+
 
         $("#buyer_process").on('slid.bs.carousel', function() {
             if ($('.shop-carousel').hasClass('active')) {
+
                 $('#search_all_products .btn-success').show();
                 $('#search_all_products .btn-danger').hide();
+
+                // console.log('shop-carousel');
+                $('.product-card-list').html('');
                 $('.shop-card-list').load('request/shop_list.php');
-                console.log('shop-carousel');
             }
             if ($('.product-carousel').hasClass('active')) {
+                $('.all-product-card-list').html('');
+                window.sessionStorage.setItem('carousel', '0');
+
                 $.ajax({
                     type: "POST",
                     url: "request/product_list.php",
                     data: {
-                        "shop_id": $('[name="shop_id"]').val(),
-                        "operation": "get_list"
+                        "shop_id": window.sessionStorage.getItem('shop_id'),
                     },
                     success: function(data) {
                         $('.product-card-list').html(data);
-
                     }
                 });
-                console.log('product-carousel');
-            }
-            if ($('.cart-carousel').hasClass('active')) {
-                $.ajax({
-                    type: "POST",
-                    url: "request/manage_cart.php",
-                    data: {
-                        "shop_id": $('[name="shop_id"]').val(),
-                        "operation": "get_cart_list"
-                    },
-                    success: function(data) {
-                        $('.cart-card-list').html(data);
-                    }
-                })
-                console.log('cart-carousel');
+                // console.log('product-carousel');
             }
         });
 
@@ -229,8 +109,8 @@
                 type: "POST",
                 url: "request/product_detail.php",
                 data: {
-                    "shop_id": $('[name="shop_id"]').val(),
-                    "product_name": $('[name="product_name"]').val(),
+                    "shop_id": window.sessionStorage.getItem('shop_id'),
+                    "product_name": window.sessionStorage.getItem('product_id'),
                     "operation": "get_product"
                 },
                 success: function(data) {
@@ -238,7 +118,7 @@
                     // console.log(data);
                 }
             })
-            console.log('product-modalshow');
+            // console.log('product-modalshow');
         });
         $("#book_product").on('hide.bs.modal', function() {
             $.ajax({
@@ -254,21 +134,7 @@
                     $('.cart-list').load('request/cart_list.php');
                 }
             })
-            console.log('product-modal-hide');
+            // console.log('product-modal-hide');
         });
-
-        $('.main').on('hidden.bs.collapse', function() {
-            if ($('.cart-list').hasClass('show')) {
-                $('.cart-btn').addClass('d-none');
-                $('.home-btn').removeClass('d-none');
-            } else {
-                $('.home-btn').addClass('d-none');
-                $('.cart-btn').removeClass('d-none');
-            }
-
-            $('.cart-list').load('request/cart_list.php');
-            $("#buyer_process").carousel(0);
-        });
-
     })
 </script>
