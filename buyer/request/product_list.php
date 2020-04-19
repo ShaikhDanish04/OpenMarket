@@ -63,20 +63,6 @@ if ($result->num_rows > 0) {
         if ($quantity == 0) {
             $button = '<p class="mb-2 text-danger small text-center font-weight-bold">Out of Stock</p>';
         }
-        // echo '' .
-        //     '<div class="col-6 ">' .
-        //     '    <div class="card product-card" data-id="' . $row["product_name"] . '">' .
-        //     '        <img class="card-img-top" defer src="../product_list/' . $row["product_name"] . '.jpg" alt="">' .
-        //     '        <i class="fa fa-shopping-cart ' . ((isset($product_row['product_name'])) ? '' : 'd-none') . ' incart"></i>' .
-        //     '        <div class="card-body">' .
-        //     '            <div class="">' .
-        //     '                <p class="card-title">' . $row['product_name'] . '</p>' .
-        //     '                <p class="card-text mb-0"><i class="fa fa-archive text-primary"></i> : <b>' . $quantity  . '</b></p>' .
-        //     '                <p class="card-text mb-0"><i class="fa fa-money text-success"></i> : ₹ <b>' . $row['price_per_item'] . ' / <span class="sold_by">' . $row['sold_by'] . '</span></b></p>' .
-        //     '            </div>' . $button .
-        //     '        </div>' .
-        //     '    </div>' .
-        //     '</div>';
 
         echo '' .
             '<div class="col-6">' .
@@ -127,16 +113,7 @@ if ($result->num_rows > 0) {
 ?>
 
 
-<style>
-    .update_product {
-        display: flex;
-    }
-</style>
 <script>
-    $('.product-card .card-img-top').click(function() {
-        $($(this).closest('.product-card')).toggleClass('open');
-        $($(this).closest('.col-6')).toggleClass('col-12');
-    })
     $('[name="quantity_of_items"]').focusout(function() {
         $($(this).closest('.product_form')).submit()
     })

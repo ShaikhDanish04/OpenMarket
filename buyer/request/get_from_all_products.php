@@ -35,18 +35,26 @@ if ($search_product != '') {
 
             echo '' .
                 '<div class="card searched-product-card mb-3" data-product-id="' . $row['product_name'] . '" data-shop-id="' . $row['shop_id'] . '">' .
-                '    <div class="card product" data-toggle="collapse" data-target="#collapse_' . $row['shop_id'] . '_' . $row['product_name'] . '">' .
-                '        <img class="card-side-img" src="../product_list/' . $row['product_name'] . '.jpg" alt="">' .
+                '    <div class="card product" >' .
+                '        <img class="card-side-img" src="../product_list/' . $row['product_name'] . '.jpg" alt="" data-toggle="collapse" data-target="#collapse_' . $row['shop_id'] . '_' . $row['product_name'] . '">' .
+                '        <i class="fa fa-shopping-cart ' . (($product_incart) ? '' : 'd-none') . ' incart"></i>' .
                 '        <div class="card-body">' .
                 '            <p class="card-title">' . $row['product_name'] . '</p>' .
                 '            <p class="card-text"><i class="fa fa-archive text-primary"></i> : <b>' . $quantity . ' </b></p>' .
                 '            <p class="card-text"><i class="fa fa-money text-success"></i> : ₹ <b>' . $row['price_per_item'] . ' / <span class="sold_by">' . $row['sold_by'] . '</span></b></p>' .
-                (($product_incart) ?
-                    '               <p class="mb-2 small text-center text-danger font-weight-bold">Already In Cart</p>' :
-                    '            <button class="mt-3 btn btn-success btn-sm w-100 book-btn"><i class="fa fa-shopping-bag"></i> Book</button> ') .
+                '            <form action="" class="product_form mt-3" method="post">' .
+                '                <input type="hidden" name="sold_by" value="' . $row['sold_by'] . '">' .
+                '                <input type="hidden" name="price_per_item" value="' . $row['price_per_item'] . '">' .
+                '                <button ' . (($product_incart) ? 'style="display:none"' : '') . ' class="add_product btn btn-sm btn-success w-100" data-op="add_product"><i class="fa fa-shopping-bag"></i> Book</button>' .
+                '                <div  ' . ((!$product_incart) ? 'style="display:none"' : '') . ' class="update_product">' .
+                '                    <button data-op="update_product" class="btn btn-danger btn-sm minus-val" tabindex="-1"><i class="fa fa-minus"></i></button>' .
+                '                    <input type="number" step="0.005" value="' . $row['quantity_of_items'] . '" name="quantity_of_items" class="form-control btn-sm mx-1 text-center">' .
+                '                    <button data-op="update_product" class="btn btn-success btn-sm plus-val" tabindex="-1"><i class="fa fa-plus"></i></button>' .
+                '                </div>' .
+                '            </form>' .
                 '        </div>' .
                 '    </div>' .
-                '    <div id="collapse_' . $row['shop_id'] . '_' . $row['product_name'] . '" class="collapse small m-2">' .
+                '    <div id="collapse_' . $row['shop_id'] . '_' . $row['product_name'] . '" class="collapse small m-2 mt-3">' .
                 '        <div class="d-flex align-items-center justify-content-between p-1 mb-2">' .
                 '            <p class="ml-1"><b>' . $conn->query("SELECT * FROM seller_product_stock WHERE shop_id='$shop_id'")->num_rows . '</b> Product in stock</p>' .
                 '            <button class="btn btn-primary btn-sm visit-btn"><i class="fa fa-shopping-basket"></i></button>' .
@@ -63,6 +71,7 @@ if ($search_product != '') {
                 '        </div>' .
                 '        <div class="rating">' .
                 '            <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-o"></i> <i class="fa fa-star-o"></i>' .
+                '            <span class="value">4.5</span>' .
                 '        </div>' .
                 '    </div>' .
                 '</div>';
@@ -72,21 +81,93 @@ if ($search_product != '') {
     }
 } ?>
 <script>
-    $('.searched-product-card .book-btn').click(function() {
-        var $card = $(this).closest('.card.searched-product-card');
-        var product_id = $card.attr('data-product-id');
-        var shop_id = $card.attr('data-shop-id');
+    $('[name="quantity_of_items"]').focusout(function() {
+        $($(this).closest('.product_form')).submit()
+    })
 
-        // console.log(product_id);
-        $('[name="shop_id"]').val(shop_id);
-        $('[name="product_name"]').val(product_id);
+    $('.product_form').submit(function(e) {
+        e.preventDefault();
 
-        $('#book_product').modal('show');
-    });
+        var $card = $(this).closest('.searched-product-card');
+        var $product_name = $card.attr('data-product-id');
+        var $shop_id = $card.attr('data-shop-id');
+        var $input = $card.find('[name="quantity_of_items"]');
+        var $button = $(this).find("button:focus");
+        var $operation = 'update_cart';
+
+        console.log($card);
+
+        if ($button.attr('data-op') == 'add_product') {
+            $input.val(Number(1));
+            $operation = 'add_to_cart';
+        }
+        if ($button.attr('data-op') == 'update_product') {
+            $operation = 'update_cart';
+
+            if ($button.hasClass('plus-val')) {
+                $input.val(Number($($input).val()) + Number(1));
+
+            } else if ($button.hasClass('minus-val')) {
+                $input.val(Number($($input).val()) - Number(1));
+
+            }
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "request/manage_cart.php",
+            data: $(this).serialize() + '&' + $.param({
+                "shop_id": $shop_id,
+                "product_name": $product_name,
+                "operation": $operation
+            }),
+            success: function(data) {
+                console.log(data);
+                $('.cart-btn .badge').load('request/count_carts.php');
+            }
+        });
+
+        $sold_by = $card.find('[name="sold_by"]');
+        $price_per_item = $card.find('[name="price_per_item"]');
+        $estimation = $card.find('.estimation');
+        $price = $card.find('.price');
+
+        var value = $input.val();
+        var unit = value.toString().split(".");
+
+        if ($sold_by.val() == "Kg") {
+            $estimation.text(unit[0] + ' kilo ' + Number((value * 1000).toString().slice(-3)) + ' gram');
+        }
+        if ($sold_by.val() == "Liter") {
+            $estimation.text(unit[0] + ' liter ' + Number((value * 1000).toString().slice(-3)) + ' ml');
+        }
+        if ($sold_by.val() == "Unit") {
+            $estimation.text(unit[0] + ' Unit ');
+            $(this).attr('step', '1');
+        } else {
+            $(this).attr('step', '0.005');
+        }
+        $price.text("Total Price : ₹ " + parseFloat(Number($price_per_item.val() * value)).toFixed(2));
+
+        if (Number($input.val()) > 0) {
+            $card.find('.update_product').fadeIn();
+            $card.find('.add_product').fadeOut();
+            $card.find('.incart').removeClass('d-none');
+        } else {
+            $card.find('.update_product').fadeOut();
+            $card.find('.add_product').fadeIn();
+            $card.find('.incart').addClass('d-none');
+            $price.html('');
+            $estimation.html('');
+        }
+
+    })
+
     $('.searched-product-card .visit-btn').click(function() {
         var $card = $(this).closest('.card');
         var shop_id = $card.attr('data-shop-id');
 
+        window.sessionStorage.setItem('shop_id', shop_id);
         $('[name="shop_id"]').val(shop_id);
 
         $('#buyer_process').carousel("next");

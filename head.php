@@ -208,6 +208,10 @@
         box-shadow: 0 0 20px #aaa;
 
     }
+
+    .update_product {
+        display: flex;
+    }
 </style>
 
 <script type="text/javascript">
@@ -305,8 +309,13 @@
         background-position: bottom;
         background-repeat: no-repeat;
         flex-shrink: 0;
-        box-shadow: 2px 2px 5px #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+        z-index: 1;
         border-radius: .25rem;
+        transform: scale(1, 1.05);
+    }
+    .searched-product-card .card-side-img {
+        transform: scale(1.05);
     }
 
     .searched-product-card .card-body,
@@ -316,7 +325,13 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        overflow: hidden;
+        /* overflow: hidden; */
+        background: linear-gradient(43deg, #ffffff, #d4d4d4);
+        border-radius: 0px 5px 5px 0px;
+    }
+
+    .product-card .card-body {
+        border-radius: 0px 0px 5px 5px;
     }
 
 
@@ -341,7 +356,6 @@
         padding-top: 10px;
         overflow: hidden;
 
-        border-radius: 5px;
         background: #ee1565;
         color: #fff;
         text-align: center;
@@ -355,7 +369,7 @@
     }
 
     .card.product-card .card-img-top {
-        box-shadow: 0 0 10px #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
         border-radius: 5px;
         transform: scale(1.05);
 
@@ -363,7 +377,6 @@
 
     .card.product-card.open .card-img-top {
         transform: scale(1.05, 1);
-
     }
 
     .cart-card .card-side-img,
@@ -376,6 +389,7 @@
         transform: scale(1);
     }
 
+    .searched-product-card .incart,
     .card.product-card .incart {
         color: #000;
         position: absolute;
@@ -383,8 +397,8 @@
         background: #ffc107;
         border-radius: 5px;
         font-size: 12px;
-        right: 2px;
-        top: 2px;
+        right: 5px;
+        top: 5px;
         box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.25);
     }
 
@@ -394,6 +408,7 @@
         top: 10px;
     }
 
+    .searched-product-card,
     .shop-card.card {
         transform: scale(0.95, 0.97);
         flex-direction: column;
@@ -407,6 +422,7 @@
         margin-bottom: 5px;
     }
 
+    .searched-product-card .card-side-img:active,
     .shop-card .shop-head:active {
         transform: scale(1);
     }
@@ -486,16 +502,14 @@
         box-shadow: 0px 4px 8px #ddd;
     }
 
-    .searched-product-card .rating {
-        color: #f8c100;
-        margin-right: .5rem;
-    }
 
     .searched-product-card .product {
         display: flex;
         min-height: 150px;
         flex-direction: row;
         margin-bottom: 0px;
+        /* overflow: hidden; */
+        transform: scale(1.05,1);
     }
 
     .searched-product-card p {

@@ -73,6 +73,8 @@
 <script>
     $(document).ready(function() {
         $('.shop-card-list').load('request/shop_list.php');
+        $('#buyer_process').carousel(Number(window.sessionStorage.getItem('carousel')));
+
 
         $("#buyer_process").on('slid.bs.carousel', function() {
             if ($('.shop-carousel').hasClass('active')) {
@@ -80,11 +82,13 @@
                 $('#search_all_products .btn-success').show();
                 $('#search_all_products .btn-danger').hide();
 
-                $('.shop-card-list').load('request/shop_list.php');
-                $('.product-card-list').html('');
                 // console.log('shop-carousel');
+                $('.product-card-list').html('');
+                $('.shop-card-list').load('request/shop_list.php');
             }
             if ($('.product-carousel').hasClass('active')) {
+                $('.all-product-card-list').html('');
+                window.sessionStorage.setItem('carousel', '0');
 
                 $.ajax({
                     type: "POST",
