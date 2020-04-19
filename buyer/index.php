@@ -63,9 +63,10 @@
                 <i class="fa fa-map-marker"></i>
                 <p class="">Location</p>
             </a>
-            <a class="list-item" data-screen="token-list">
+            <a class="list-item cart-display token-btn" data-screen="token-list">
                 <i class="fa fa-list-alt"></i>
                 <p class="">Token</p>
+                <span class="badge badge-primary">0</span>
             </a>
             <a class="list-item active" data-screen="home">
                 <div class="home-nav">
@@ -118,6 +119,7 @@
     $(document).ready(function() {
         $('.screen').load('view/home.php');
         $('.cart-btn .badge').load('request/count_carts.php');
+        $('.token-btn .badge').load('request/count_tokens.php');
 
 
         $('[data-screen]').click(function() {

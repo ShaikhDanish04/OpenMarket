@@ -74,17 +74,17 @@ $row = $result->fetch_assoc();
             //     theMarker = L.marker([lat, lon]).addTo(map);
             // });
 
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                x = "Geolocation is not supported by this browser.";
-            }
+            // if (navigator.geolocation) {
+            //     navigator.geolocation.getCurrentPosition(showPosition);
+            // } else {
+            //     x = "Geolocation is not supported by this browser.";
+            // }
 
-            function showPosition(position) {
-                x = "Latitude: " + position.coords.latitude +
-                    "<br>Longitude: " + position.coords.longitude;
-                console.log(x);
-            }
+            // function showPosition(position) {
+            //     x = "Latitude: " + position.coords.latitude +
+            //         "<br>Longitude: " + position.coords.longitude;
+            //     console.log(x);
+            // }
 
             navigator.geolocation.getCurrentPosition(function(location) {
                 var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
@@ -97,6 +97,9 @@ $row = $result->fetch_assoc();
                     accessToken: 'pk.eyJ1IjoiYmJyb29rMTU0IiwiYSI6ImNpcXN3dnJrdDAwMGNmd250bjhvZXpnbWsifQ.Nf9Zkfchos577IanoKMoYQ'
                 }).addTo(mymap);
 
+                mymap.attributionControl.setPrefix(''); // Don't show the 'Powered by Leaflet' text. Attribution overload
+
+
                 // var marker = L.marker(['51.062061699999997', '72.878826']).addTo(mymap);
                 var marker = L.marker(latlng).addTo(mymap);
             });
@@ -106,6 +109,7 @@ $row = $result->fetch_assoc();
         #mapid {
             height: 200px;
             z-index: 1;
+            width: 100%;
         }
     </style>
 
