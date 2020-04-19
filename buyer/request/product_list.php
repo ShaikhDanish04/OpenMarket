@@ -96,7 +96,7 @@ if ($result->num_rows > 0) {
         echo '' .
             '<div class="card fixed-card w-100">' .
             '    <div class="card-body p-2">' .
-            '        <button class="btn btn-primary w-100 view-cart" ><i class="fa fa-shopping-cart"></i> View Cart</button>' .
+            '        <button class="btn btn-primary w-100 view-cart" ' . (($product_result->num_rows > 0) ? '' : 'disabled') . '><i class="fa fa-shopping-cart"></i> View Cart</button>' .
             '    </div>' .
             '</div>';
     }
@@ -191,6 +191,19 @@ if ($result->num_rows > 0) {
             $price.html('');
             $estimation.html('');
         }
+
+        $.ajax({
+            type: "POST",
+            url: "request/selected_count_cart.php",
+            data: {
+                "shop_id": window.sessionStorage.getItem('shop_id'),
+            },
+            success: function(data) {
+                console.log(data);
+                if (data > 0) $('.view-cart').removeAttr('disabled')
+                else $('.view-cart').attr('disabled', 'true')
+            }
+        });
 
     })
 

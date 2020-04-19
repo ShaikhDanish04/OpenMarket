@@ -1,5 +1,6 @@
 <?php include('../../connect.php');
 
+
 $shop_list = array();
 $result = $conn->query("SELECT DISTINCT sellers.* FROM sellers INNER JOIN cart ON cart.shop_id = sellers.id WHERE buyer_id = '$id' AND `status` = 'in'");
 
@@ -56,7 +57,7 @@ if ($result->num_rows > 0) {
             '                <button class="btn btn-primary" href="#shop_' . $row['id'] . '" data-toggle="collapse" aria-expanded="true"><i class="fa fa-shopping-cart"></i></button>' .
             '            </div>' .
             '        </div>' .
-            '        <div id="shop_' . $row['id'] . '" class="collapse pt-3 show">' .
+            '        <div id="shop_' . $row['id'] . '" class="collapse pt-3">' .
             '        <div class="divider mt-1 mb-2"></div>' . $cart_product_list .
             '            <p class="h6 p-2 text-center">Total Price : ₹ <b>' . $total_cost . '</b></p>' .
             '            <button class="btn btn-success w-100 check-out-cart" data-shop-id="' . $row['id'] . '"><i class=" fa fa-list-alt"></i> Get Token</button>' .
@@ -68,11 +69,10 @@ if ($result->num_rows > 0) {
     echo '<div class="card mt-3 text-center"><div class="card-body"><p class="h6 m-0">!!! No Cart Available</p></div></div>';
 }
 ?>
-
-
 <script>
     $('.cart-btn .badge').load('request/count_carts.php');
 
+    $('[id="shop_' + window.sessionStorage.getItem('shop_id') + '"]').addClass('show')
 
     $('.check-out-cart').click(function() {
 

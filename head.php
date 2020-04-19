@@ -573,6 +573,12 @@
         text-shadow: 0 0 1px;
     }
 
+    .btn-secondary {
+        color: #fff;
+        background: linear-gradient(45deg, #414243, #6c757d);
+        border-color: #6c757d;
+    }
+
     .card:not(.open) .card-side-img::after,
     .card-img-top::after {
         content: ' ';
