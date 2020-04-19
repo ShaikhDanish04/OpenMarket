@@ -83,7 +83,7 @@ $row = $result->fetch_assoc();
             function showPosition(position) {
                 x = "Latitude: " + position.coords.latitude +
                     "<br>Longitude: " + position.coords.longitude;
-                // console.log(x);
+                console.log(x);
             }
 
             navigator.geolocation.getCurrentPosition(function(location) {
@@ -97,6 +97,7 @@ $row = $result->fetch_assoc();
                     accessToken: 'pk.eyJ1IjoiYmJyb29rMTU0IiwiYSI6ImNpcXN3dnJrdDAwMGNmd250bjhvZXpnbWsifQ.Nf9Zkfchos577IanoKMoYQ'
                 }).addTo(mymap);
 
+                // var marker = L.marker(['51.062061699999997', '72.878826']).addTo(mymap);
                 var marker = L.marker(latlng).addTo(mymap);
             });
         })
