@@ -1,4 +1,5 @@
 <?php
+include('../../connect.php'); 
 
 if (isset($_POST['address_submit'])) {
 
@@ -12,6 +13,9 @@ if (isset($_POST['address_submit'])) {
     $conn->query("UPDATE `sellers` SET `address` = '$address',`state` = '$state', `district` = '$district', `area` = '$area',`region` = '$region', `pincode`='$pincode' WHERE `id` = '$id'");
     echo "<script>location.reload()</script>";
 }
+$result = $conn->query("SELECT * FROM sellers WHERE id = '$id'");
+$row = $result->fetch_assoc();
+
 ?>
 <style>
     [name="pincode"] {
@@ -22,8 +26,8 @@ if (isset($_POST['address_submit'])) {
     }
 </style>
 
-<div class="container">
-    <p class="display-4 text-center mt-3">Location</p>
+<div class="container py-3">
+    <p class="display-4 text-center">Location</p>
     <div class="card my-3 <?php echo ($row['pincode'] == '0') ? 'd-none' : ''; ?> ">
 
         <div class="card-body small">

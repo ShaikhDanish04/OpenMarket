@@ -1,3 +1,4 @@
+<?php include('../../connect.php');?>
 <style>
     .cart-display {
         position: relative;
@@ -11,8 +12,8 @@
     }
 </style>
 
-<div class="container my-3">
-    <p class="display-4 text-center">History</p>
+<div class="container py-3">
+    <p class="display-4 text-center">My Tokens</p>
 
     <div class="mb-3 d-flex justify-content-between card-display">
         <button data-trigger="pending" class="btn btn-primary btn-sm w-100 mx-1">Pending</button>

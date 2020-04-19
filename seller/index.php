@@ -19,35 +19,27 @@
 </head>
 
 <body class="">
-    <div class="side-bar">
-        <div class="display">
-            <!-- <img src="" alt="" width="50px" height="50px" class="user-img"> -->
-            <p class="user-img"><i class="fa fa-shopping-bag"></i></p>
-            <p class="user-name"><?php echo $row['name'] ?></p>
-            <p class="small text-uppercase"><?php echo $row['category'] ?></p>
-            <p class="small font-weight-bold"><?php echo $row['username'] ?></p>
-            <div id="google_translate_element"></div>
-
-        </div>
-        <div class="menu-list">
-            <a href="?" class="list-item"><i class="fa fa-home"></i> Home</a>
-            <a href="?page=product-list" class="list-item"><i class="fa fa-archive"></i> Products In Shop</a>
-            <a href="?page=location" class="list-item"><i class="fa fa-map-marker"></i> My Location</a>
-            <a href="?page=token-history" class="list-item"><i class="fa fa-list-alt"></i> Token History</a>
-        </div>
-    </div>
     <div class="content-view">
         <div class="action-bar">
             <div class="start">
-                <button class="btn menu-toggle"><i class="fa fa-bars"></i></button>
-            </div>
-            <div class="middle text-light">
-                Dashboard
+                <p class="text-light m-0 ml-1"><i class="fa fa-shopping-bag"></i> OpenMarket</p>
             </div>
             <div class="end">
-                <button type="button" class="btn" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></button>
-                <div class="dropdown-menu mt-3">
-                    <a class="dropdown-item" href="?logout=true"><i class="fa fa-sign-out"></i> Logout</a>
+                <a type="button" class="btn text-light" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
+
+                <div class="dropdown-menu mt-3 dropdown-menu-right ">
+                    <div class="display alert-primary m-2 rounded p-2 text-center">
+                        <p class="m-0"><?php echo $row['name'] ?> </p>
+                        <p class="small text-uppercase mb-1"><?php echo $row['category'] ?></p>
+                        <div class="divider"></div>
+                        <p class="small font-weight-bold"><?php echo $row['username'] ?></p>
+                        <button class="btn btn-dark btn-sm" data-screen="settings"><i class="fa fa-cog"></i> Settings</button>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="p-2">
+                        <a class="dropdown-item alert-danger rounded" href="?logout=true"><i class="fa fa-sign-out"></i> Logout</a>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -63,34 +55,62 @@
                     '</div>';
             } ?>
         </div>
-        <div class="screen">
-            <?php
-            if (isset($_GET['page'])) {
-                if ($_GET['page'] == '') {
-                    $page = "home";
-                } else {
-                    $page = $_GET['page'];
-                }
-            } else {
-                $page = "home";
-            }
-            include("view/" . $page . ".php");
+        <div class="screen my-5"></div>
 
-            ?>
+        <div class="bottom-nav">
+            <a class="list-item" data-screen="location">
+                <i class="fa fa-map-marker"></i>
+                <p class="">Location</p>
+            </a>
+            <a class="list-item cart-display token-btn" data-screen="token-list">
+                <i class="fa fa-list-alt"></i>
+                <p class="">Token</p>
+                <span class="badge badge-primary">0</span>
+            </a>
+            <a class="list-item active" data-screen="home">
+                <div class="home-nav">
+                    <i class="fa fa-home"></i>
+                    <p class="">Home</p>
+                    <i class="fa fa-circle-o-notch fa-spin loading"></i>
+                </div>
+            </a>
+            <a class="list-item cart-display cart-btn" data-screen="product-list">
+                <i class="fa fa-archive"></i>
+                <p class="">Products</p>
+                <span class="badge badge-warning"></span>
+            </a>
+            <a class="list-item" data-screen="">
+                <i class="fa fa-cog"></i>
+                <p class="">settings</p>
+            </a>
         </div>
     </div>
-
-    <script>
-        $('.menu-toggle').click(function() {
-            $('body').toggleClass('menu-open');
-        })
-        $('.content-view .screen').click(function() {
-            $('body').removeClass('menu-open');
-        })
-    </script>
-
-
-
 </body>
+<script>
+    $(document).ajaxStart(function() {
+        $('.loading').fadeIn();
+    });
+    $(document).ajaxComplete(function() {
+        $('.loading').fadeOut();
+    })
+    $(document).ajaxError(function() {
+        // location.reload();
+    })
+
+    $(document).ready(function() {
+        $('.screen').load('view/home.php');
+        $('.cart-btn .badge').load('request/count_carts.php');
+        $('.token-btn .badge').load('request/count_tokens.php');
+
+
+        $('[data-screen]').click(function() {
+            $('[data-screen]').removeClass('active');
+            $(this).addClass('active');
+
+            $('.screen').load('view/' + $(this).attr('data-screen') + '.php');
+        })
+    })
+</script>
+
 
 </html>

@@ -1,3 +1,5 @@
+<?php include('../../connect.php'); ?>
+
 <style>
     .product {
         padding: .25rem !important;
@@ -106,6 +108,23 @@
         </div>
     </div>
     <div class="product-list row no-gutters">
+        <div class="col-6">
+            <div class="card product-card" data-id="Amul Butter (100 Grams)">
+                <div class="card-img-top"><img width="100%" src="../product_list/Amul Butter (100 Grams).jpg" alt=""></div> <i class="fa fa-shopping-cart d-none incart"></i>
+                <div class="card-body">
+                    <div class="">
+                        <p class="card-title">Amul Butter (100 Grams)</p>
+                        <p class="card-text mb-0"><i class="fa fa-archive text-primary"></i> : <b>13 Unit </b></p>
+                        <p class="card-text mb-0"><i class="fa fa-money text-success"></i> : ₹ <b>40 / <span class="sold_by">Unit</span></b></p>
+                    </div>
+                    <form action="" class="product_form mt-3" method="post"> <input type="hidden" name="sold_by" value="Unit"> <input type="hidden" name="price_per_item" value="40"> <button class="add_product btn btn-success w-100" data-op="add_product"><i class="fa fa-shopping-bag"></i> Add to Cart</button>
+                        <div style="display:none" class="update_product"> <button data-op="update_product" class="btn btn-danger minus-val" tabindex="-1"><i class="fa fa-minus"></i></button> <input type="number" step="0.005" value="" name="quantity_of_items" class="form-control mx-2 text-center"> <button data-op="update_product" class="btn btn-success plus-val" tabindex="-1"><i class="fa fa-plus"></i></button> </div>
+                    </form>
+                    <div class="estimation text-center font-weight-bold small mt-2"></div>
+                    <div class="price text-center"></div>
+                </div>
+            </div>
+        </div>
 
         <?php
         $result = $conn->query("SELECT * FROM `seller_product_stock` WHERE shop_id='$id'");
@@ -165,89 +184,6 @@
                 <p class="small text-justify"><b>Note :</b> Your Token number will be set rejected and all your items will be sent back to your cart.</p>
             </div>
 
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="edit_product">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal body -->
-            <div class="modal-body p-0">
-                <form action="" method="post">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <span><i class="fa fa-edit"></i> Edit Product</span>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div>
-                            <img class="card-img-top" src="" alt="">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-title"></p>
-                            <input type="hidden" name="operation">
-                            <input type="hidden" name="product_name">
-
-                            <div class="form-group mt-3">
-                                <label for="">Sold By</label>
-                                <select name="sold_by" class="form-control" required>
-                                    <option value="">--- Select ---</option>
-                                    <option value="Unit">Unit</option>
-                                    <option value="Kg">Kg</option>
-                                    <option value="Liter">Liter</option>
-                                </select>
-                                <small class="text-muted">*Required</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="">Enter Quantity in Number</label>
-                                <div class="d-flex">
-                                    <button type="button" class="btn btn-danger minus-val btn-lg" tabindex="-1"><i class="fa fa-minus"></i></button>
-                                    <input type="number" step="0.005" value="0" min="0" name="quantity_of_items" class="form-control mx-2 btn-lg text-center" required>
-                                    <button type="button" class="btn btn-success plus-val btn-lg" tabindex="-1"><i class="fa fa-plus"></i></button>
-                                </div>
-                                <p class="h4 mt-3 text-center estimation"></p>
-                                <small class="text-muted">*Required</small>
-                            </div>
-                            <script>
-                                $('.minus-val').click(function() {
-                                    $(this).next().val(Number($(this).next().val()) - Number(1));
-                                    $(this).next().change();
-                                })
-                                $('.plus-val').click(function() {
-                                    $(this).prev().val(Number($(this).prev().val()) + Number(1));
-                                    $(this).prev().change();
-                                })
-                                $('[name="quantity_of_items"],.modal-body').on('change click', function() {
-                                    var value = $('[name="quantity_of_items"]').val();
-                                    var unit = value.toString().split(".");
-
-                                    if ($('[name="sold_by"]').val() == "Kg") {
-                                        $('.estimation').text(unit[0] + ' kilo ' + Number((value * 1000).toString().slice(-3)) + ' gram');
-                                    }
-                                    if ($('[name="sold_by"]').val() == "Liter") {
-                                        $('.estimation').text(unit[0] + ' liter ' + Number((value * 1000).toString().slice(-3)) + ' ml');
-                                    }
-                                    if ($('[name="sold_by"]').val() == "Unit") {
-                                        $('.estimation').text(unit[0] + ' Unit ');
-                                        $(this).attr('step', '1');
-                                    } else {
-                                        $(this).attr('step', '0.005');
-                                    }
-                                })
-                            </script>
-                            <div class="form-group">
-                                <label for="">Enter Price Per Quantity</label>
-                                <input type="number" name="price_per_item" class="form-control" required>
-                                <small class="text-muted">*Required</small>
-                            </div>
-                            <div class="form-group d-flex justify-content-between">
-                                <button type="button" class="btn btn-danger " data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-success">Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
 </div>
@@ -378,5 +314,20 @@
                 location.reload();
             }
         });
+    })
+</script>
+
+<script>
+    $('.product-card .card-img-top').click(function() {
+        $('.product-card').removeClass('open');
+        $('.col-6').removeClass('col-12');
+
+        if ($(this).hasClass('active')) {
+            $('.product-card .card-img-top').removeClass('active');
+        } else {
+            $($(this).closest('.product-card')).toggleClass('open');
+            $($(this).closest('.col-6')).toggleClass('col-12');
+            $(this).addClass('active');
+        }
     })
 </script>
