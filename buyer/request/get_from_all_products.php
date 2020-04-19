@@ -36,7 +36,7 @@ if ($search_product != '') {
             echo '' .
                 '<div class="card searched-product-card mb-3" data-product-id="' . $row['product_name'] . '" data-shop-id="' . $row['shop_id'] . '">' .
                 '    <div class="card product" >' .
-                '        <img class="card-side-img" src="../product_list/' . $row['product_name'] . '.jpg" alt="" data-toggle="collapse" data-target="#collapse_' . $row['shop_id'] . '_' . $row['product_name'] . '">' .
+                '        <div class="card-side-img" data-toggle="collapse" data-target="#collapse_' . $row['shop_id'] . '_' . $row['product_name'] . '"><img height="100%" width="100%" src="../product_list/' . $row['product_name'] . '.jpg" alt=""></div>' .
                 '        <i class="fa fa-shopping-cart ' . (($product_incart) ? '' : 'd-none') . ' incart"></i>' .
                 '        <div class="card-body">' .
                 '            <p class="card-title">' . $row['product_name'] . '</p>' .
@@ -45,7 +45,7 @@ if ($search_product != '') {
                 '            <form action="" class="product_form mt-3" method="post">' .
                 '                <input type="hidden" name="sold_by" value="' . $row['sold_by'] . '">' .
                 '                <input type="hidden" name="price_per_item" value="' . $row['price_per_item'] . '">' .
-                '                <button ' . (($product_incart) ? 'style="display:none"' : '') . ' class="add_product btn btn-sm btn-success w-100" data-op="add_product"><i class="fa fa-shopping-bag"></i> Book</button>' .
+                '                <button ' . (($product_incart) ? 'style="display:none"' : '') . ' class="add_product btn btn-sm btn-success w-100" data-op="add_product"><i class="fa fa-shopping-bag"></i> Add to Cart</button>' .
                 '                <div  ' . ((!$product_incart) ? 'style="display:none"' : '') . ' class="update_product">' .
                 '                    <button data-op="update_product" class="btn btn-danger btn-sm minus-val" tabindex="-1"><i class="fa fa-minus"></i></button>' .
                 '                    <input type="number" step="0.005" value="' . $row['quantity_of_items'] . '" name="quantity_of_items" class="form-control btn-sm mx-1 text-center">' .

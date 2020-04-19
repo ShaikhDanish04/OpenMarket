@@ -314,8 +314,10 @@
         border-radius: .25rem;
         transform: scale(1, 1.05);
     }
+
     .searched-product-card .card-side-img {
         transform: scale(1.05);
+        overflow: hidden;
     }
 
     .searched-product-card .card-body,
@@ -369,7 +371,8 @@
     }
 
     .card.product-card .card-img-top {
-        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, .5);
+        overflow: hidden;
         border-radius: 5px;
         transform: scale(1.05);
 
@@ -386,6 +389,7 @@
     }
 
     .card.product-card .card-img-top:active {
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, .5);
         transform: scale(1);
     }
 
@@ -509,7 +513,7 @@
         flex-direction: row;
         margin-bottom: 0px;
         /* overflow: hidden; */
-        transform: scale(1.05,1);
+        transform: scale(1.05, 1);
     }
 
     .searched-product-card p {
@@ -539,5 +543,44 @@
         position: absolute;
         top: -8px;
         right: -8px;
+    }
+
+    .btn-success {
+        color: #fff;
+        background: linear-gradient(45deg, #115320, #28a745);
+        border-color: #28a745;
+        text-shadow: 0 0 1px;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background: linear-gradient(45deg, #7d2a32, #dc3545);
+        border-color: #dc3545;
+        text-shadow: 0 0 1px;
+    }
+
+    .btn-warning {
+        color: #212529;
+        background: linear-gradient(45deg, #c29c28, #ffc107);
+        border-color: #ffc107;
+        text-shadow: 0 0 1px;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background: linear-gradient(45deg, #0b3766, #0069d9);
+        border-color: #0062cc;
+        text-shadow: 0 0 1px;
+    }
+
+    .card:not(.open) .card-side-img::after,
+    .card-img-top::after {
+        content: ' ';
+        position: absolute;
+        background: linear-gradient(135deg, rgba(242, 246, 248, 0) 0%, rgba(224, 239, 249, 0) 0%, rgba(216, 225, 231, 0.2) 50%, rgba(181, 198, 208, 0.21) 51%, rgba(181, 198, 208, 0) 100%);
+        height: 100%;
+        width: 100%;
+        left: 0;
+
     }
 </style>

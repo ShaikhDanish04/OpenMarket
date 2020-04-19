@@ -67,7 +67,7 @@ if ($result->num_rows > 0) {
         echo '' .
             '<div class="col-6">' .
             '    <div class="card product-card" data-id="' . $row["product_name"] . '">' .
-            '        <img class="card-img-top" defer="" src="../product_list/' . $row["product_name"] . '.jpg" alt=""> <i class="fa fa-shopping-cart d-none incart"></i>' .
+            '        <div class="card-img-top"><img width="100%" src="../product_list/' . $row["product_name"] . '.jpg" alt=""></div>' .
             '        <i class="fa fa-shopping-cart ' . ((isset($product_row['product_name'])) ? '' : 'd-none') . ' incart"></i>' .
             '        <div class="card-body">' .
             '            <div class="">' .
@@ -78,7 +78,7 @@ if ($result->num_rows > 0) {
             '            <form action="" class="product_form mt-3" method="post">' .
             '                <input type="hidden" name="sold_by" value="' . $row['sold_by'] . '">' .
             '                <input type="hidden" name="price_per_item" value="' . $row['price_per_item'] . '">' .
-            '                <button ' . ((isset($product_row['product_name'])) ? 'style="display:none"' : '') . ' class="add_product btn btn-success w-100" data-op="add_product"><i class="fa fa-shopping-bag"></i> Book</button>' .
+            '                <button ' . ((isset($product_row['product_name'])) ? 'style="display:none"' : '') . ' class="add_product btn btn-success w-100" data-op="add_product"><i class="fa fa-shopping-bag"></i> Add to Cart</button>' .
             '                <div  ' . ((!isset($product_row['product_name'])) ? 'style="display:none"' : '') . ' class="update_product">' .
             '                    <button data-op="update_product" class="btn btn-danger minus-val" tabindex="-1"><i class="fa fa-minus"></i></button>' .
             '                    <input type="number" step="0.005" value="' . $product_row['quantity_of_items'] . '" name="quantity_of_items" class="form-control mx-2 text-center">' .
@@ -96,7 +96,7 @@ if ($result->num_rows > 0) {
         echo '' .
             '<div class="card fixed-card w-100">' .
             '    <div class="card-body p-2">' .
-            '        <button class="btn btn-primary w-100" href="#buyer_process" data-slide="next"><i class="fa fa-shopping-cart"></i> View Cart</button>' .
+            '        <button class="btn btn-primary w-100 view-cart" ><i class="fa fa-shopping-cart"></i> View Cart</button>' .
             '    </div>' .
             '</div>';
     }
@@ -205,5 +205,9 @@ if ($result->num_rows > 0) {
             $($(this).closest('.col-6')).toggleClass('col-12');
             $(this).addClass('active');
         }
+    })
+
+    $('.view-cart').click(function() {
+        $('.screen').load('view/cart.php');
     })
 </script>
