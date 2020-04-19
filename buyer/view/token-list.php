@@ -13,7 +13,37 @@
         <button data-trigger="accepted" class="btn btn-success btn-sm w-100 mx-1">Accepted</button>
         <button data-trigger="rejected" class="btn btn-danger btn-sm w-100 mx-1">Rejected</button>
     </div>
+    <div class="form-group d-flex align-items-center alert-dark p-2 alert">
+        <label class="font-weight-bold mb-0 small" style="flex-shrink: 0">Select Date : </label>
+        <input type="date" value="" class="mx-1 form-control form-control-sm" name="date_of_tokens">
+        <button class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i></button>
+    </div>
 
+    <div class="divider my-3"></div>
+    <p class="date-val text-center my-3 h5"></p>
+
+    <script>
+        var d = new Date();
+        var date = ("0" + d.getDate()).slice(-2);
+        var month = ("0" + (d.getMonth() + 1)).slice(-2); // Since getMonth() returns month from 0-11 not 1-12
+        var year = d.getFullYear();
+
+        var monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        $('[name="date_of_tokens"]').val(year + "-" + month + "-" + date);
+        $('.date-val').text(Number(date) + ' ' + monthNames[Number(month) - 1] + ' ' + Number(year));
+
+        $('[name="date_of_tokens"]').on('change input keyup focusout', function() {
+            var date = $(this).val().split('-');
+            console.log(date[0]);
+            console.log(date[1]);
+            console.log(date[2]);
+
+            $('.date-val').text(Number(date[2]) + ' ' + monthNames[Number(date[1]) - 1] + ' ' + Number(date[0]));
+        });
+    </script>
     <script>
         $('.card-display button').click(function() {
             $(this).toggleClass('btn-light');
