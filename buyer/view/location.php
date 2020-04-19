@@ -19,6 +19,96 @@ $row = $result->fetch_assoc();
 ?>
 
 <div class="container py-3">
+    <script>
+        $(document).ready(function() {
+
+            // Where you want to render the map.
+            // var element = document.getElementById('osm-map');
+
+            // // Height has to be set. You can do this in CSS too.
+            // element.style = 'height:300px;';
+
+
+            // // Create Leaflet map on map element.
+            // var map = new L.map(element);
+
+            // Add OSM tile leayer to the Leaflet map.
+            // L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            //     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            // }).addTo(map);
+            // L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+
+            // Target's GPS coordinates.
+            // var target = L.latLng('27.2038', '77.5011');
+
+            // // Set map's center to target with zoom 14.
+            // map.setView(target, 14);
+
+            // Place a marker on the same location.
+            // L.marker(target).addTo(map);
+
+            // map.on('click', function(e) {
+            //     var coord = e.latlng;
+            //     var lat = coord.lat;
+            //     var lng = coord.lng;
+            //     console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
+
+            //     target = L.latLng(lat, lng);
+            //     L.marker(target).addTo(map);
+
+            // });
+            // var theMarker = {};
+
+            // map.on('click', function(e) {
+            //     lat = e.latlng.lat;
+            //     lon = e.latlng.lng;
+
+            //     console.log("You clicked the map at LAT: " + lat + " and LONG: " + lon);
+            //     //Clear existing marker, 
+
+            //     if (theMarker != undefined) {
+            //         map.removeLayer(theMarker);
+            //     };
+
+            //     //Add a marker to show where you clicked.
+            //     theMarker = L.marker([lat, lon]).addTo(map);
+            // });
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x = "Geolocation is not supported by this browser.";
+            }
+
+            function showPosition(position) {
+                x = "Latitude: " + position.coords.latitude +
+                    "<br>Longitude: " + position.coords.longitude;
+                // console.log(x);
+            }
+
+            navigator.geolocation.getCurrentPosition(function(location) {
+                var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+
+                var mymap = L.map('mapid').setView(latlng, 16)
+                L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                    // attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://mapbox.com">Mapbox</a>',
+                    maxZoom: 18,
+                    id: 'mapbox.streets',
+                    accessToken: 'pk.eyJ1IjoiYmJyb29rMTU0IiwiYSI6ImNpcXN3dnJrdDAwMGNmd250bjhvZXpnbWsifQ.Nf9Zkfchos577IanoKMoYQ'
+                }).addTo(mymap);
+
+                var marker = L.marker(latlng).addTo(mymap);
+            });
+        })
+    </script>
+    <style>
+        #mapid {
+            height: 200px;
+            z-index: 1;
+        }
+    </style>
+
+
     <p class="display-4 text-center">Location</p>
     <div class="card my-3 <?php echo ($row['pincode'] == '0') ? 'd-none' : ''; ?> ">
         <div class="card-body small">
@@ -30,6 +120,10 @@ $row = $result->fetch_assoc();
             </p>
 
         </div>
+    </div>
+    <div class="card mb-3">
+        <div id="mapid"></div>
+        <div id="osm-map"></div>
     </div>
 
     <div class="card">
