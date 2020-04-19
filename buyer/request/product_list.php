@@ -16,7 +16,7 @@ if ($result->num_rows > 0) {
         '       </div>' .
         '       <div class="card-body d-flex align-items-center flex-column">' .
         '           <p class="text-justify small mb-0"><b>Note : </b> You cannot book more items with pending token, Complete your order or Delete Token.</p>' .
-        '           <a class="btn btn-primary mt-3 btn-sm w-100" href="?page=token-list"><i class="fa fa-list-alt"></i> Token List</a>' .
+        '           <a class="btn btn-primary mt-3 btn-sm w-100 view-token text-light"><i class="fa fa-list-alt"></i> Token List</a>' .
         '       </div>' .
         '   </div>' .
         '</div>';
@@ -222,5 +222,8 @@ if ($result->num_rows > 0) {
 
     $('.view-cart').click(function() {
         $('.screen').load('view/cart.php');
+    })
+    $('.view-token').click(function() {
+        $('.screen').load('view/token-list.php');
     })
 </script>

@@ -65,10 +65,18 @@
 
                 $total_cost = ($row_product['price_per_item'] * $items_in_cart) + $total_cost;
                 $cart_product_list .= '' .
-                    '<p class="m-0 h6 small"><i class="fa fa-dot-circle-o text-primary"></i> ' . $product_name . '</p>' .
-                    '<div class="d-flex align-items-center justify-content-between p-2">' .
-                    '      <p class="card-title small font-weight-bold">' . $quantity . '</p>' .
-                    '      <p class="card-title small font-weight-bold">₹ ' . ($row_product['price_per_item'] * $items_in_cart) . '</p>' .
+                    '<div class="d-flex mb-3">' .
+                    '   <div class="card-side-img" ><img height="100%" width="100%" src="../product_list/' . $row_product['product_name'] . '.jpg" alt=""></div>' .
+                    '   <div class="pl-2 pt-2 w-100">' .
+                    '       <div class="d-flex align-items-center justify-content-between pl-1 mb-1">' .
+                    '           <p class="mb-1 h6 small">' . $product_name . '</p>' .
+                    '           <button class="btn btn-sm btn-danger delete-product small" data-product-id="' . $row_product['product_name'] . '"><i class=" fa fa-times"></i></button>' .
+                    '       </div>' .
+                    '       <div class="d-flex align-items-center justify-content-between pl-1">' .
+                    '           <p class=" mb-0 card-title small font-weight-bold">₹' . ($row_product['price_per_item'] * $items_in_cart) . ' </p>' .
+                    '           <p class=" mb-0 card-title small font-weight-bold">' . $quantity . '</p>' .
+                    '       </div>' .
+                    '   </div>' .
                     '</div>';
             }
 
@@ -119,7 +127,7 @@
                     $delete_token = '<button class="btn btn-danger btn-sm delete_token"><i class="fa fa-times"></i></button>';
             }
             echo '' .
-                '<div class="card mb-3 ' . $token_status . '" data-shop-id="' . $row_shop['id'] . '" data-token-number="' . $token_number . '">' .
+                '<div class="token-card card mb-3 ' . $token_status . '" data-shop-id="' . $row_shop['id'] . '" data-token-number="' . $token_number . '">' .
                 '   <div class="card-header">' .
                 '       <div class="d-flex align-items-center justify-content-between">' .
                 '             <p class="card-title h6 mb-0">Your Token No : ' . $token_number . '</p>' . $delete_token .
@@ -167,6 +175,18 @@
         </div>
     </div>
 </div>
+<style>
+    .token-card .card-side-img {
+        width: 70px;
+        height: 70px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+        flex-shrink: 0;
+    }
+</style>
+
 
 <script>
     $('.delete_token').click(function() {

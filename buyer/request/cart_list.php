@@ -33,16 +33,19 @@ if ($result->num_rows > 0) {
 
             $total_cost = ($row_product['price_per_item'] * $items_in_cart) + $total_cost;
             $cart_product_list .= '' .
-                '<p class="m-0 h6 small"><i class="fa fa-dot-circle-o text-primary"></i> ' . $product_name . '</p>' .
-                '<div class="d-flex align-items-center justify-content-between p-2">' .
-                '      <p class=" mb-0 card-title small font-weight-bold">' . $quantity . '</p>' .
-                '      <p class=" mb-0 card-title small font-weight-bold">₹ ' . ($row_product['price_per_item'] * $items_in_cart) . '</p>' .
-                '</div>' .
-                '<div class="d-flex align-items-center justify-content-between p-2">' .
-                '    <button class="btn btn-sm btn-warning edit-product" data-product-id="' . $row_product['product_name'] . '"><i class=" fa fa-edit"></i> Edit</button>' .
-                '    <button class="btn btn-sm btn-danger delete-product" data-product-id="' . $row_product['product_name'] . '"><i class=" fa fa-times"></i> Delete</button>' .
-                '</div>' .
-                '<div class="divider mt-1 mb-2"></div>';
+                '<div class="d-flex mb-3">' .
+                '   <div class="card-side-img" ><img height="100%" width="100%" src="../product_list/' . $row_product['product_name'] . '.jpg" alt=""></div>' .
+                '   <div class="pl-2 pt-2 w-100">' .
+                '       <div class="d-flex align-items-center justify-content-between pl-1 mb-1">' .
+                '           <p class="mb-1 h6 small">' . $product_name . '</p>' .
+                '           <button class="btn btn-sm btn-danger delete-product small" data-product-id="' . $row_product['product_name'] . '"><i class=" fa fa-times"></i></button>' .
+                '       </div>' .
+                '       <div class="d-flex align-items-center justify-content-between pl-1">' .
+                '           <p class=" mb-0 card-title small font-weight-bold">₹' . ($row_product['price_per_item'] * $items_in_cart) . ' </p>' .
+                '           <p class=" mb-0 card-title small font-weight-bold">' . $quantity . '</p>' .
+                '       </div>' .
+                '   </div>' .
+                '</div>';
         }
         echo '' .
             '<div class="cart-list-card card mb-2" data-shop-id="' . $row['id'] . '" >' .
@@ -52,13 +55,16 @@ if ($result->num_rows > 0) {
             '                <p class="card-title h6 mb-1">' . $row['name'] . '</p>' .
             '                <p class="card-sub-title small text-uppercase mb-0">' . $row['category'] . '</p>' .
             '            </div>' .
-            '            <div class="cart-display">' .
-            '                <div class="badge badge-warning">' . $result_cart->num_rows . '</div>' .
-            '                <button class="btn btn-primary" href="#shop_' . $row['id'] . '" data-toggle="collapse" aria-expanded="true"><i class="fa fa-shopping-cart"></i></button>' .
+            '           <div class="d-flex">' .
+            '               <button class="btn btn-warning edit-cart"><i class=" fa fa-edit"></i></button>' .
+            '               <div class="cart-display ml-1">' .
+            '                   <div class="badge badge-warning">' . $result_cart->num_rows . '</div>' .
+            '                   <button class="btn btn-primary" href="#shop_' . $row['id'] . '" data-toggle="collapse" aria-expanded="true"><i class="fa fa-shopping-cart"></i></button>' .
+            '               </div>' .
             '            </div>' .
             '        </div>' .
             '        <div id="shop_' . $row['id'] . '" class="collapse pt-3">' .
-            '        <div class="divider mt-1 mb-2"></div>' . $cart_product_list .
+            '        <div class="divider mt-1 mb-3"></div>' . $cart_product_list .
             '            <p class="h6 p-2 text-center">Total Price : ₹ <b>' . $total_cost . '</b></p>' .
             '            <button class="btn btn-success w-100 check-out-cart" data-shop-id="' . $row['id'] . '"><i class=" fa fa-list-alt"></i> Get Token</button>' .
             '        </div>' .
@@ -69,6 +75,17 @@ if ($result->num_rows > 0) {
     echo '<div class="card mt-3 text-center"><div class="card-body"><p class="h6 m-0">!!! No Cart Available</p></div></div>';
 }
 ?>
+<style>
+    .cart-list-card .card-side-img {
+        width: 70px;
+        height: 70px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+        flex-shrink: 0;
+    }
+</style>
 <script>
     $('.cart-btn .badge').load('request/count_carts.php');
 
@@ -91,7 +108,7 @@ if ($result->num_rows > 0) {
         })
     });
 
-    $('.cart-list-card .edit-product').click(function() {
+    $('.cart-list-card .edit-cart').click(function() {
         $('.screen').load('view/home.php');
         var $card = $(this).closest('.card');
 

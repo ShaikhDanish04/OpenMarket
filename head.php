@@ -579,6 +579,12 @@
         border-color: #6c757d;
     }
 
+    .btn-light {
+        color: #212529;
+        background: linear-gradient(45deg, #cdcdcd, #f8f9fa);
+        border-color: #f8f9fa;
+    }
+
     .card:not(.open) .card-side-img::after,
     .card-img-top::after {
         content: ' ';
