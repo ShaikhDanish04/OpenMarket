@@ -38,7 +38,7 @@
                     </div>
                     <div class="dropdown-divider"></div>
                     <div class="p-2">
-                        <a class="dropdown-item alert-danger rounded" href="?logout=true"><i class="fa fa-sign-out"></i> Logout</a>
+                        <a class="dropdown-item alert-danger rounded" href="?logout=true" data-ajax="false"><i class="fa fa-sign-out"></i> Logout</a>
                     </div>
 
                 </div>

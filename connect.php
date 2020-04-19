@@ -19,6 +19,7 @@ ob_start();
 if (isset($_GET['logout'])) {
     session_unset();
     session_destroy();
+    echo "<script type='text/javascript'>document.location.href = 'login.php';</script>";
 }
 
 if (isset($_SESSION['id'])) {

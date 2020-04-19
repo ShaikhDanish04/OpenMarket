@@ -39,7 +39,7 @@ if (isset($_POST['login_submit'])) {
         }
     </style>
 
-    <form action="" method="post" class="container">
+    <form action="" method="post" class="container" data-ajax="false">
         <div class="login-card">
             <?php echo $status; ?>
         </div>

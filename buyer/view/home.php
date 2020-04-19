@@ -70,6 +70,11 @@
     })
 </script> <!-- search products script -->
 
+<style>
+    .product-card-list {
+        transition: all .3s;
+    }
+</style>
 <script>
     $(document).ready(function() {
         $('.shop-card-list').load('request/shop_list.php');
@@ -101,6 +106,29 @@
                     }
                 });
                 // console.log('product-carousel');
+            }
+        });
+
+        var mousedownX, mousemoveX, $div;
+        $("body").on({
+            "vmousedown": function(event) {
+                $div = $(event.target).closest('.product-card-list');
+                mousedownX = event.clientX;
+                console.log($div);
+            },
+            "vmousemove": function(event) {
+                if ($div.hasClass('product-card-list')) {
+                    Xpos = (event.clientX - (mousedownX));
+                    if (Xpos > 50) {
+                        if (Xpos > 180) {
+                            $('#buyer_process').carousel("prev");
+                        }
+                        $div.css('transform', 'translateX(' + (Xpos - 50) + 'px)');
+                    }
+                }
+            },
+            "vmouseup": function(event) {
+                $div.css('transform', 'translateX(0px)');
             }
         });
 

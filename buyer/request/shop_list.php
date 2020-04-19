@@ -36,6 +36,11 @@ while ($row = $result->fetch_assoc()) {
         '    </div>' .
         '</div>';
 } ?>
+<style>
+    .shop-card {
+        transition: .3s all;
+    }
+</style>
 
 <script>
     $('.shop-card .visit-btn').click(function() {
@@ -46,5 +51,29 @@ while ($row = $result->fetch_assoc()) {
         window.sessionStorage.setItem('shop_id', shop_id);
 
         $('#buyer_process').carousel("next");
+    })
+
+    var mousedownX, mousemoveX, $card;
+    $("body").on({
+        "vmousedown": function(event) {
+            $card = $(event.target).closest('.shop-card');
+            mousedownX = event.clientX;
+        },
+        "vmousemove": function(event) {
+            if ($card.hasClass('shop-card')) {
+                Xpos = (event.clientX - (mousedownX));
+                if (Xpos < 0) {
+                    if (Xpos < -180) {
+                        var shop_id = $card.attr('data-id');
+                        window.sessionStorage.setItem('shop_id', shop_id);
+                        $('#buyer_process').carousel("next");
+                    }
+                    $card.css('transform', 'translateX(' + Xpos + 'px)');
+                }
+            }
+        },
+        "vmouseup": function(event) {
+            $card.css('transform', 'translateX(0px)');
+        }
     });
 </script>
