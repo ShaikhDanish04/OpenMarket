@@ -23,14 +23,29 @@ if ($result->num_rows > 0) {
 }
 
 $row_seller = $conn->query("SELECT * FROM `sellers` WHERE id='$shop_id'")->fetch_assoc();
-echo '<p class="col-12 text-center m-0 h5">' . $row_seller['name'] . '</p>';
-echo '<p class="col-12 text-center m-0 text-uppercase small">' . $row_seller['category'] . '</p>';
-echo '<div class="col-12 divider my-2"></div>';
+echo '' .
+    '<img class="card-side-img" src="" alt="">' .
+    '<div class="col-12 d-flex align-items-center justify-content-between">' .
+    '    <div class="d-flex align-items-center">' .
+    '        <a href="#buyer_process" data-slide="prev" class="btn btn-dark"><i class="fa fa-chevron-left"></i> Shops</a>' .
+    '    </div>' .
+    '    <div class="text-right">' .
+    '        <p class="m-0 h5">' . $row_seller['name'] . '</p>' .
+    '        <p class="m-0 text-uppercase small">' . $row_seller['category'] . '</p>' .
+    '    </div>' .
+    '</div>' .
+    '<div class="col-12 divider my-2"></div>';
 
 $result = $conn->query("SELECT * FROM `seller_product_stock` WHERE shop_id='$shop_id'");
 
 if ($result->num_rows > 0) {
-    echo '<div class="col-12"><p class="text-center"><i class="fa fa-archive text-primary"></i> There are <b>' . $result->num_rows . '</b> Item in Shop</p></div>';
+    echo '<div class="col-12 d-flex align-items-center justify-content-center mb-2">' .
+        '   <a class="btn" data-toggle="collapse" data-target="#filter_product"><i class="fa fa-search text-dark"></i></a>' .
+        '   <p class="text-center mb-0"><i class="fa fa-archive text-primary"></i> There are <b>' . $result->num_rows . '</b> Item in Shop</p>' .
+        '</div>' .
+        '<div id="filter_product" class="container collapse mb-3">' .
+        '   <input type="text" name="search_product" class="form-control" placeholder="Search">' .
+        '</div>';
     while ($row = $result->fetch_assoc()) {
         $quantity = $row['quantity_of_items'];
         $product_name = $row['product_name'];

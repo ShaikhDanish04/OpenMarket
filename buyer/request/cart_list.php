@@ -64,9 +64,16 @@ if ($result->num_rows > 0) {
             '            </div>' .
             '        </div>' .
             '        <div id="shop_' . $row['id'] . '" class="collapse pt-3">' .
-            '        <div class="divider mt-1 mb-3"></div>' . $cart_product_list .
-            '            <p class="h6 p-2 text-center">Total Price : ₹ <b>' . $total_cost . '</b></p>' .
-            '            <button class="btn btn-success w-100 check-out-cart" data-shop-id="' . $row['id'] . '"><i class=" fa fa-list-alt"></i> Get Token</button>' .
+            '        <div class="divider mt-1 mb-3"></div>' . $cart_product_list . '<div class="divider mt-3 mb-3"></div>' .
+            '            <select class="form-control mb-3" name="collect_options">' .
+            '                <option value="">Self-Service</option>' .
+            '                <option value="" disabled>Home Delivery</option>' .
+            '            </select>' .
+            '            <p class="h6 text-center">Sub-Total Price : ₹ <b>' . $total_cost . '</b></p>' .
+            '            <p class="text-center small">Shipping Chargers : ₹ <b>0</b></p>' .
+            '            <p class="h5 text-center mb-3">Total Cost : ₹ <b>' . $total_cost . '</b></p>' .
+            '            <button class="btn btn-success w-100 check-out-cart" data-shop-id="' . $row['id'] . '"><i class=" fa fa-list-alt"></i> Check Out Order</button>' .
+            '            <p class="text-muted mb-0 mt-2 text-justify" style="font-size: 11px;">*In self-service you will get a token number and code and have to collected the product by your self from shop using valid credentials.</p>' .
             '        </div>' .
             '    </div>' .
             '</div>';

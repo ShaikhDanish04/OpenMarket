@@ -69,8 +69,8 @@
                     </li>
                 </ul>
 
-                <a class="btn btn-primary w-100 mb-3" href="buyer/">Login for Buyer</a>
-                <a class="btn btn-success w-100 mb-3" href="seller/">Login for Seller</a>
+                <a class="btn btn-primary w-100 mb-3" data-ajax="false" href="buyer/">Login for Buyer</a>
+                <a class="btn btn-success w-100 mb-3" data-ajax="false" href="seller/">Login for Seller</a>
             </div>
         </div>
         <div class="d-flex align-items-baseline justify-content-center">

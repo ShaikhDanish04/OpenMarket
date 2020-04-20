@@ -40,7 +40,6 @@
                     <div class="p-2">
                         <a class="dropdown-item alert-danger rounded" href="?logout=true" data-ajax="false"><i class="fa fa-sign-out"></i> Logout</a>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -56,7 +55,7 @@
                     '</div>';
             } ?>
         </div>
-        <div class="screen my-5"></div>
+        <div class="screen"></div>
 
         <div class="bottom-nav">
             <a class="list-item" data-screen="location">
@@ -65,7 +64,7 @@
             </a>
             <a class="list-item cart-display token-btn" data-screen="token-list">
                 <i class="fa fa-list-alt"></i>
-                <p class="">Token</p>
+                <p class="">My Orders</p>
                 <span class="badge badge-primary">0</span>
             </a>
             <a class="list-item active" data-screen="home">
@@ -106,6 +105,18 @@
     </div>
 </body>
 <script>
+    window.onscroll = function(e) {
+        // print "false" if direction is down and "true" if up
+        if (scrollY > 40) {
+            $('.action-bar').css('margin-top', '-' + Number($('.action-bar').innerHeight()) + 'px');
+        } else {
+            $('.action-bar').css('margin-top', '0px');
+        }
+        if (this.oldScroll > this.scrollY) {
+            $('.action-bar').css('margin-top', '0px');
+        }
+        this.oldScroll = this.scrollY;
+    }
     $(document).ajaxStart(function() {
         $('.loading').fadeIn();
     });
@@ -117,6 +128,9 @@
     })
 
     $(document).ready(function() {
+        $('.content-view').css('margin-top', $('.action-bar').innerHeight());
+        $('.content-view').css('margin-bottom', $('.bottom-nav').innerHeight());
+
         $('.screen').load('view/home.php');
         $('.cart-btn .badge').load('request/count_carts.php');
         $('.token-btn .badge').load('request/count_tokens.php');

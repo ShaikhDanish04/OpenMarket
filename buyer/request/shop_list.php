@@ -34,11 +34,24 @@ while ($row = $result->fetch_assoc()) {
         '           <div><i class="fa fa-bookmark-o"></i></div>' .
         '       </div>   ' .
         '    </div>' .
+        '    <div class="next_span btn btn-primary btn-sm"> <i class="fa fa-chevron-right"></i> </div>' .
         '</div>';
 } ?>
 <style>
     .shop-card {
         transition: .3s all;
+        z-index: 2;
+    }
+
+    .shop-card .shop-head {
+        z-index: 1;
+    }
+
+    .next_span {
+        position: absolute;
+        right: 40px;
+        top: 50px;
+        transform: translateY(50%);
     }
 </style>
 
@@ -53,10 +66,11 @@ while ($row = $result->fetch_assoc()) {
         $('#buyer_process').carousel("next");
     })
 
-    var mousedownX, mousemoveX, $card, $process = false;
+    var mousedownX, mousemoveX, $card, $slide_left = false;
     $("body").on({
         "vmousedown": function(event) {
             $card = $(event.target).closest('.shop-card');
+            $next = $card.find('.next_span');
             mousedownX = event.clientX;
         },
         "vmousemove": function(event) {
@@ -64,22 +78,26 @@ while ($row = $result->fetch_assoc()) {
                 Xpos = (event.clientX - (mousedownX));
                 if (Xpos < 0 && Xpos > -100) {
                     if (Xpos < -80) {
-                        $process = true;
+                        $slide_left = true;
                     } else {
-                        $process = false;
-
+                        $slide_left = false;
                     }
+                    $card.css('transform', 'translateX(' + Xpos + 'px)');
+                    $next.css('right', 'calc(' + Xpos + 'px + 35px)');
+                }
+                if (Xpos > 0 && Xpos < 80) {
                     $card.css('transform', 'translateX(' + Xpos + 'px)');
                 }
             }
         },
         "vmouseup": function(event) {
-            if ($process) {
+            if ($slide_left) {
                 var shop_id = $card.attr('data-id');
                 window.sessionStorage.setItem('shop_id', shop_id);
                 $('#buyer_process').carousel("next");
             }
             $card.css('transform', '');
+            $next.css('right', '50px');
         }
     });
 </script>

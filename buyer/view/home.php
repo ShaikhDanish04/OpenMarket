@@ -1,7 +1,7 @@
 <div id="buyer_process" class="carousel slide" data-ride="carousel" data-slide="false" data-interval="false" data-wrap="false">
     <div class="carousel-inner">
         <div class="carousel-item shop-carousel active">
-            <div class="container py-3">
+            <div class="container py-2">
                 <form id="search_all_products" autocomplete="off" action="" class="mb-3">
                     <div class="autocomplete d-flex">
                         <input id="search_input" class="form-control  mr-2" type="text" name="search" placeholder="Search for products" required>
@@ -9,8 +9,6 @@
                         <button type="button" class="btn btn-danger" style="display: none"><i class="fa fa-times"></i></button>
                     </div>
                 </form>
-
-
                 <?php include("search.php") ?>
 
                 <div class="all-product-card-list"></div>
@@ -18,17 +16,7 @@
             </div>
         </div>
         <div class="carousel-item product-carousel">
-            <div class="container py-3">
-                <div class="form-group d-flex align-items-center justify-content-between">
-                    <a href="#buyer_process" data-slide="prev" class="btn"><i class="fa fa-chevron-left text-dark"></i></a>
-                    <p class="h6 mb-0">Products</p>
-                    <a class="btn" data-toggle="collapse" data-target="#filter_product"><i class="fa fa-search text-dark"></i></a>
-                </div>
-                <div id="filter_product" class="container collapse">
-                    <input type="text" name="search_product" class="form-control mb-3" placeholder="Search">
-                </div>
-                <div class="row no-gutters product-card-list"></div>
-            </div>
+            <div class="row no-gutters product-card-list py-2 container"></div>
         </div>
     </div>
 </div>

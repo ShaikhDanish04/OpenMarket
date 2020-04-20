@@ -76,6 +76,7 @@
         justify-content: space-between;
         z-index: 9;
         box-shadow: 0 0 5px #aaa;
+        transition: .15s ease-out;
     }
 
     .action-bar .start {
@@ -103,6 +104,11 @@
         overflow: hidden;
         margin: 0px;
         transition: .5s;
+        outline: none;
+    }
+
+    .ui-page.ui-page-theme-a.ui-page-active {
+        outline: none;
     }
 
     .menu-open .side-bar {
@@ -353,7 +359,7 @@
         flex-direction: column;
         justify-content: space-between;
         /* overflow: hidden; */
-        background: linear-gradient(43deg, #ffffff, #d4d4d4);
+        background: linear-gradient(43deg, #ffffff, #f0f0f0);
         border-radius: 0px 5px 5px 0px;
     }
 
@@ -577,41 +583,50 @@
     .btn-success {
         color: #fff;
         background: linear-gradient(45deg, #115320, #28a745);
-        border-color: #28a745;
         text-shadow: 0 0 1px;
+        border: 0;
     }
 
     .btn-danger {
         color: #fff;
         background: linear-gradient(45deg, #7d2a32, #dc3545);
-        border-color: #dc3545;
+        border: 0;
         text-shadow: 0 0 1px;
     }
 
     .btn-warning {
         color: #212529;
         background: linear-gradient(45deg, #c29c28, #ffc107);
-        border-color: #ffc107;
         text-shadow: 0 0 1px;
+        border: 0;
     }
 
     .btn-primary {
         color: #fff;
         background: linear-gradient(45deg, #0b3766, #0069d9);
-        border-color: #0062cc;
+        border: 0;
         text-shadow: 0 0 1px;
     }
 
     .btn-secondary {
         color: #fff;
         background: linear-gradient(45deg, #414243, #6c757d);
-        border-color: #6c757d;
+        border: 0;
+        text-shadow: 0 0 1px;
     }
 
     .btn-light {
         color: #212529;
         background: linear-gradient(45deg, #cdcdcd, #f8f9fa);
-        border-color: #f8f9fa;
+        border: 0;
+        text-shadow: 0 0 1px;
+    }
+
+    .btn-dark {
+        color: #fff;
+        background: linear-gradient(45deg, #000000, #343a40);
+        border: 0;
+        text-shadow: 0 0 1px;
     }
 
     .card:not(.open) .card-side-img::after,
