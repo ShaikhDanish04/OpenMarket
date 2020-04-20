@@ -22,6 +22,10 @@ if ($result->num_rows > 0) {
         '</div>';
 }
 
+$row_seller = $conn->query("SELECT * FROM `sellers` WHERE id='$shop_id'")->fetch_assoc();
+echo '<p class="col-12 text-center m-0 h5">' . $row_seller['name'] . '</p>';
+echo '<p class="col-12 text-center m-0 text-uppercase small">' . $row_seller['category'] . '</p>';
+echo '<div class="col-12 divider my-2"></div>';
 
 $result = $conn->query("SELECT * FROM `seller_product_stock` WHERE shop_id='$shop_id'");
 

@@ -439,20 +439,24 @@
 
     .searched-product-card,
     .shop-card.card {
-        transform: scale(0.95, 0.97);
         flex-direction: column;
+        transform: scale(0.95, 0.97);
     }
 
     .shop-card .shop-head {
         display: flex;
         flex-direction: row;
         min-height: inherit;
-        transform: scale(1.05, 1.03);
         margin-bottom: 5px;
+        transform: scale(1.05, 1.03);
+    }
+
+    .shop-card .card-side-img {
+        transform: scale(1.05, 1.03);
     }
 
     .searched-product-card .card-side-img:active,
-    .shop-card .shop-head:active {
+    .shop-card .card-side-img:active {
         transform: scale(1);
     }
 

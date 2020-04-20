@@ -6,9 +6,9 @@ while ($row = $result->fetch_assoc()) {
     // print_r($row);
     echo '' .
         '<div class="card mb-3 shop-card" data-id="' . $row['id'] . '">' .
-        '    <div class="shop-head card visit-btn">' .
-        '        <img class="card-side-img" src="" alt="">' .
-        '        <div class="card-body">' .
+        '    <div class="shop-head card">' .
+        '        <img class="card-side-img" src="" alt="" data-toggle="collapse" data-target="#collapse_' . $row['id'] . '">' .
+        '        <div class="card-body visit-btn">' .
         '            <div class="">' .
         '                <p class="card-title">' . $row['name'] . '</p>' .
         '                <p class="small text-uppercase">' . $row['category'] . '</p>' .
@@ -26,13 +26,13 @@ while ($row = $result->fetch_assoc()) {
         '        </div>' .
         '    </div>' .
         '    <div class="d-flex align-items-center justify-content-between p-2">' .
-        '    <div class="d-flex">   ' .
-        '        <button class="btn btn-sm btn-secondary" data-toggle="collapse" data-target="#collapse_' . $row['id'] . '"><i class="fa fa-map-marker"></i></button>' .
         '        <div class="badge badge-warning p-2 ml-1"><i class="fa fa-shopping-bag"></i> ' . $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id' AND shop_id='$shop_id' AND `status`='in'")->num_rows . '</div>' .
-        '    </div>   ' .
-        '        <div class="rating">' .
-        '            <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-o"></i> <i class="fa fa-star-o"></i> <span class="value">4.5</span>' .
-        '        </div>' .
+        '        <div class="d-flex">   ' .
+        '           <div class="rating">' .
+        '               <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-o"></i> <i class="fa fa-star-o"></i> <span class="value">4.5</span>' .
+        '           </div>' .
+        '           <div><i class="fa fa-bookmark-o"></i></div>' .
+        '       </div>   ' .
         '    </div>' .
         '</div>';
 } ?>
@@ -53,7 +53,7 @@ while ($row = $result->fetch_assoc()) {
         $('#buyer_process').carousel("next");
     })
 
-    var mousedownX, mousemoveX, $card;
+    var mousedownX, mousemoveX, $card, $process = false;
     $("body").on({
         "vmousedown": function(event) {
             $card = $(event.target).closest('.shop-card');
@@ -62,18 +62,24 @@ while ($row = $result->fetch_assoc()) {
         "vmousemove": function(event) {
             if ($card.hasClass('shop-card')) {
                 Xpos = (event.clientX - (mousedownX));
-                if (Xpos < 0) {
-                    if (Xpos < -180) {
-                        var shop_id = $card.attr('data-id');
-                        window.sessionStorage.setItem('shop_id', shop_id);
-                        $('#buyer_process').carousel("next");
+                if (Xpos < 0 && Xpos > -100) {
+                    if (Xpos < -80) {
+                        $process = true;
+                    } else {
+                        $process = false;
+
                     }
                     $card.css('transform', 'translateX(' + Xpos + 'px)');
                 }
             }
         },
         "vmouseup": function(event) {
-            $card.css('transform', 'translateX(0px)');
+            if ($process) {
+                var shop_id = $card.attr('data-id');
+                window.sessionStorage.setItem('shop_id', shop_id);
+                $('#buyer_process').carousel("next");
+            }
+            $card.css('transform', '');
         }
     });
 </script>

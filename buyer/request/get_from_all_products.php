@@ -80,6 +80,12 @@ if ($search_product != '') {
         echo "No results found";
     }
 } ?>
+
+<style>
+    .searched-product-card {
+        transition: all .3s;
+    }
+</style>
 <script>
     $('[name="quantity_of_items"]').focusout(function() {
         $($(this).closest('.product_form')).submit()
@@ -174,4 +180,33 @@ if ($search_product != '') {
 
 
     })
+
+    var mousedownX, mousemoveX, $card, $process = false;
+    $("body").on({
+        "vmousedown": function(event) {
+            $card = $(event.target).closest('.searched-product-card');
+            mousedownX = event.clientX;
+        },
+        "vmousemove": function(event) {
+            if ($card.hasClass('searched-product-card')) {
+                Xpos = (event.clientX - (mousedownX));
+                if (Xpos < 0 && Xpos > -100) {
+                    if (Xpos < -80) {
+                        $process = true;
+                    } else {
+                        $process = false;
+                    }
+                    $card.css('transform', 'translateX(' + Xpos + 'px)');
+                }
+            }
+        },
+        "vmouseup": function(event) {
+            if ($process) {
+                var shop_id = $card.attr('data-shop-id');
+                window.sessionStorage.setItem('shop_id', shop_id);
+                $('#buyer_process').carousel("next");
+            }
+            $card.css('transform', '');
+        }
+    });
 </script>

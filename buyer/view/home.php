@@ -24,7 +24,7 @@
                     <p class="h6 mb-0">Products</p>
                     <a class="btn" data-toggle="collapse" data-target="#filter_product"><i class="fa fa-search text-dark"></i></a>
                 </div>
-                <div id="filter_produc" class="container">
+                <div id="filter_product" class="container collapse">
                     <input type="text" name="search_product" class="form-control mb-3" placeholder="Search">
                 </div>
                 <div class="row no-gutters product-card-list"></div>
@@ -92,7 +92,7 @@
                 $('.shop-card-list').load('request/shop_list.php');
             }
             if ($('.product-carousel').hasClass('active')) {
-                $('.all-product-card-list').html('');
+                // $('.all-product-card-list').html('');
                 window.sessionStorage.setItem('carousel', '0');
 
                 $.ajax({
@@ -114,12 +114,11 @@
             "vmousedown": function(event) {
                 $div = $(event.target).closest('.product-card-list');
                 mousedownX = event.clientX;
-                console.log($div);
             },
             "vmousemove": function(event) {
                 if ($div.hasClass('product-card-list')) {
                     Xpos = (event.clientX - (mousedownX));
-                    if (Xpos > 50) {
+                    if (Xpos > 100) {
                         if (Xpos > 180) {
                             $('#buyer_process').carousel("prev");
                         }
@@ -128,7 +127,7 @@
                 }
             },
             "vmouseup": function(event) {
-                $div.css('transform', 'translateX(0px)');
+                $div.css('transform', '');
             }
         });
 
