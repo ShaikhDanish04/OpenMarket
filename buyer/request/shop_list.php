@@ -39,7 +39,7 @@ while ($row = $result->fetch_assoc()) {
 } ?>
 <style>
     .shop-card {
-        transition: .3s all;
+        transition: .15s all;
         z-index: 2;
     }
 
@@ -67,16 +67,17 @@ while ($row = $result->fetch_assoc()) {
     })
 
     var mousedownX, mousemoveX, $card, $slide_left = false;
-    $("body").on({
+    $(".shop-card-list").on({
         "vmousedown": function(event) {
             $card = $(event.target).closest('.shop-card');
             $next = $card.find('.next_span');
+            $img = $card.find('.card-side-img');
             mousedownX = event.clientX;
         },
         "vmousemove": function(event) {
             if ($card.hasClass('shop-card')) {
                 Xpos = (event.clientX - (mousedownX));
-                if (Xpos < 0 && Xpos > -100) {
+                if (Xpos < -50 && Xpos > -120) {
                     if (Xpos < -80) {
                         $slide_left = true;
                     } else {
@@ -85,10 +86,12 @@ while ($row = $result->fetch_assoc()) {
                     $card.css('transform', 'translateX(' + Xpos + 'px)');
                     $next.css('right', 'calc(' + Xpos + 'px + 35px)');
                 }
-                if (Xpos > 0 && Xpos < 80) {
+                if (Xpos > 50 && Xpos < 80) {
                     $card.css('transform', 'translateX(' + Xpos + 'px)');
+                    $img.click();
                 }
             }
+            console.log('shop_list');
         },
         "vmouseup": function(event) {
             if ($slide_left) {

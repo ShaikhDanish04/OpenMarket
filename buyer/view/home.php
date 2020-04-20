@@ -6,7 +6,6 @@
                     <div class="autocomplete d-flex">
                         <input id="search_input" class="form-control  mr-2" type="text" name="search" placeholder="Search for products" required>
                         <button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
-                        <button type="button" class="btn btn-danger" style="display: none"><i class="fa fa-times"></i></button>
                     </div>
                 </form>
                 <?php include("search.php") ?>
@@ -29,7 +28,6 @@
         })
 
         $('#search_all_products').submit(function(e) {
-            $('#search_all_products .btn-success').hide();
             e.preventDefault();
 
             $.ajax({
@@ -39,21 +37,15 @@
                 success: function(data) {
                     $('.all-product-card-list').html(data);
                     $('.shop-card-list').html('');
-                    $('#search_all_products .btn-danger').show();
                 }
             });
         });
 
-        $('#search_all_products .btn-danger').click(function() {
-            $('.shop-card-list').load('request/shop_list.php');
-            $(this).hide();
-            $('.all-product-card-list').html('');
-            $('#search_all_products input').val('');
-            $('#search_all_products .btn-success').show();
-        });
-        $('#search_all_products input').on('focus', function() {
-            $('#search_all_products .btn-success').show();
-            $('#search_all_products .btn-danger').hide();
+        $('#search_all_products input').on('focus keyup', function() {
+            if ($(this).val() == '') {
+                $('.shop-card-list').load('request/shop_list.php');
+                $('.all-product-card-list').html('');
+            }
         });
     })
 </script> <!-- search products script -->
@@ -68,18 +60,20 @@
         $('.shop-card-list').load('request/shop_list.php');
         $('#buyer_process').carousel(Number(window.sessionStorage.getItem('carousel')));
 
-
         $("#buyer_process").on('slid.bs.carousel', function() {
             if ($('.shop-carousel').hasClass('active')) {
 
-                $('#search_all_products .btn-success').show();
-                $('#search_all_products .btn-danger').hide();
+                console.log('shop-carousel');
+                if ($('#search_all_products input').val() != '') {
+                    $('.shop-card-list').html('');
+                } else {
+                    $('.product-card-list').html('');
+                    $('.shop-card-list').load('request/shop_list.php');
+                }
 
-                // console.log('shop-carousel');
-                $('.product-card-list').html('');
-                $('.shop-card-list').load('request/shop_list.php');
             }
             if ($('.product-carousel').hasClass('active')) {
+
                 // $('.all-product-card-list').html('');
                 window.sessionStorage.setItem('carousel', '0');
 
@@ -98,7 +92,7 @@
         });
 
         var mousedownX, mousemoveX, $div;
-        $("body").on({
+        $(".product-card-list").on({
             "vmousedown": function(event) {
                 $div = $(event.target).closest('.product-card-list');
                 mousedownX = event.clientX;
@@ -113,6 +107,8 @@
                         $div.css('transform', 'translateX(' + (Xpos - 50) + 'px)');
                     }
                 }
+                console.log('product');
+
             },
             "vmouseup": function(event) {
                 $div.css('transform', '');

@@ -24,11 +24,13 @@ if ($search_product != '') {
             }
 
             $product_incart = false;
+            $product_quantity = 0;
             $product_result = $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id' AND `status`='in'");
             while ($product_row = $product_result->fetch_assoc()) {
 
                 if ($row['shop_id'] == $product_row['shop_id'] && $row['product_name'] == $product_row['product_name']) {
                     $product_incart = true;
+                    $product_quantity = $product_row['quantity_of_items'];
                 }
             }
             $shop_id = $row['shop_id'];
@@ -48,7 +50,7 @@ if ($search_product != '') {
                 '                <button ' . (($product_incart) ? 'style="display:none"' : '') . ' class="add_product btn btn-sm btn-success w-100" data-op="add_product"><i class="fa fa-shopping-bag"></i> Add to Cart</button>' .
                 '                <div  ' . ((!$product_incart) ? 'style="display:none"' : '') . ' class="update_product">' .
                 '                    <button data-op="update_product" class="btn btn-danger btn-sm minus-val" tabindex="-1"><i class="fa fa-minus"></i></button>' .
-                '                    <input type="number" step="0.005" value="' . $row['quantity_of_items'] . '" name="quantity_of_items" class="form-control btn-sm mx-1 text-center">' .
+                '                    <input type="number" step="0" value="' . $product_quantity . '" name="quantity_of_items" class="form-control btn-sm mx-1 text-center">' .
                 '                    <button data-op="update_product" class="btn btn-success btn-sm plus-val" tabindex="-1"><i class="fa fa-plus"></i></button>' .
                 '                </div>' .
                 '            </form>' .
@@ -74,6 +76,7 @@ if ($search_product != '') {
                 '            <span class="value">4.5</span>' .
                 '        </div>' .
                 '    </div>' .
+                '    <div class="next_span btn btn-primary btn-sm"> <i class="fa fa-chevron-right"></i> </div>' .
                 '</div>';
         }
     } else {
@@ -83,7 +86,19 @@ if ($search_product != '') {
 
 <style>
     .searched-product-card {
-        transition: all .3s;
+        transition: .15s all;
+        z-index: 2;
+    }
+
+    .searched-product-card .product {
+        z-index: 1;
+    }
+
+    .next_span {
+        position: absolute;
+        right: 40px;
+        top: 50px;
+        transform: translateY(50%);
     }
 </style>
 <script>
@@ -177,36 +192,45 @@ if ($search_product != '') {
         $('[name="shop_id"]').val(shop_id);
 
         $('#buyer_process').carousel("next");
-
-
     })
 
     var mousedownX, mousemoveX, $card, $process = false;
-    $("body").on({
+    $(".all-product-card-list").on({
         "vmousedown": function(event) {
             $card = $(event.target).closest('.searched-product-card');
+            $next = $card.find('.next_span');
+            $img = $card.find('.card-side-img');
             mousedownX = event.clientX;
         },
         "vmousemove": function(event) {
             if ($card.hasClass('searched-product-card')) {
                 Xpos = (event.clientX - (mousedownX));
-                if (Xpos < 0 && Xpos > -100) {
+                if (Xpos < -50 && Xpos > -120) {
                     if (Xpos < -80) {
                         $process = true;
                     } else {
                         $process = false;
                     }
                     $card.css('transform', 'translateX(' + Xpos + 'px)');
+                    $next.css('right', 'calc(' + Xpos + 'px + 35px)');
+                }
+                if (Xpos > 50 && Xpos < 80) {
+                    $card.css('transform', 'translateX(' + Xpos + 'px)');
+                    $img.click();
                 }
             }
+            console.log(Xpos);
         },
         "vmouseup": function(event) {
             if ($process) {
                 var shop_id = $card.attr('data-shop-id');
                 window.sessionStorage.setItem('shop_id', shop_id);
                 $('#buyer_process').carousel("next");
+                $process = false;
             }
             $card.css('transform', '');
+            $next.css('right', '50px');
+
         }
     });
 </script>

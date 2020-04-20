@@ -27,7 +27,7 @@ echo '' .
     '<img class="card-side-img" src="" alt="">' .
     '<div class="col-12 d-flex align-items-center justify-content-between">' .
     '    <div class="d-flex align-items-center">' .
-    '        <a href="#buyer_process" data-slide="prev" class="btn btn-dark"><i class="fa fa-chevron-left"></i> Shops</a>' .
+    '        <a href="#buyer_process" data-slide="prev" class="btn btn-dark"><i class="fa fa-chevron-left"></i> Back</a>' .
     '    </div>' .
     '    <div class="text-right">' .
     '        <p class="m-0 h5">' . $row_seller['name'] . '</p>' .
