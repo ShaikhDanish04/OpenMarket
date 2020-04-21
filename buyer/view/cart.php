@@ -1,5 +1,5 @@
 <div class="container py-3">
-    <p class="display-4 text-center"><i class="fa fa-shopping-cart"></i> Cart List</p>
+    <p class="h1 font-weight-light text-center mb-3"><i class="fa fa-shopping-cart"></i> Your Cart</p>
 
     <div class="cart-card-list"></div>
 

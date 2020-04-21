@@ -1,186 +1,102 @@
 <?php include('../../connect.php') ?>
 
 <div class="container py-3">
-    <p class="display-4 text-center">My Tokens</p>
+    <p class="font-weight-light text-center h3 mb-3"><i class="fa fa-list-alt small"></i> Pending Tokens</p>
 
-    <div class="mb-3 d-flex justify-content-between card-display">
-        <button data-trigger="pending" class="btn btn-primary btn-sm w-100 mx-1">Pending</button>
-        <button data-trigger="active" class="btn btn-success btn-sm w-100 mx-1">Active</button>
-        <button data-trigger="deleted" class="btn btn-warning btn-sm w-100 mx-1">Deleted</button>
-    </div>
-    <div class="mb-3 d-flex justify-content-between card-display align-items-center">
-        <span class="small font-weight-bold ml-1" style="flex-shrink:0">From Seller :</span>
-        <button data-trigger="accepted" class="btn btn-success btn-sm w-100 mx-1">Accepted</button>
-        <button data-trigger="rejected" class="btn btn-danger btn-sm w-100 mx-1">Rejected</button>
-    </div>
-    <div class="form-group d-flex align-items-center alert-dark p-2 alert">
-        <label class="font-weight-bold mb-0 small" style="flex-shrink: 0">Select Date : </label>
-        <input type="date" value="" class="mx-1 form-control form-control-sm" name="date_of_tokens">
-        <button class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i></button>
-    </div>
-
-    <div class="divider my-3"></div>
-    <p class="date-val text-center my-3 h5"></p>
-
-    <script>
-        var d = new Date();
-        var date = ("0" + d.getDate()).slice(-2);
-        var month = ("0" + (d.getMonth() + 1)).slice(-2); // Since getMonth() returns month from 0-11 not 1-12
-        var year = d.getFullYear();
-
-        var monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ];
-
-        $('[name="date_of_tokens"]').val(year + "-" + month + "-" + date);
-        $('.date-val').text(Number(date) + ' ' + monthNames[Number(month) - 1] + ' ' + Number(year));
-
-        $('[name="date_of_tokens"]').on('change input keyup focusout', function() {
-            var date = $(this).val().split('-');
-            console.log(date[0]);
-            console.log(date[1]);
-            console.log(date[2]);
-
-            $('.date-val').text(Number(date[2]) + ' ' + monthNames[Number(date[1]) - 1] + ' ' + Number(date[0]));
-        });
-    </script>
-    <script>
-        $('.card-display button').click(function() {
-            $(this).toggleClass('btn-light');
-            $('.card.' + $(this).attr('data-trigger')).toggle();
-        })
-    </script>
     <!-- list my tokens -->
-    <?php $result = $conn->query("SELECT * FROM token_list WHERE buyer_id='$id'");
+    <?php $result = $conn->query("SELECT DISTINCT shop_id FROM token_list WHERE buyer_id='$id' AND `status`='pending'");
 
     if ($result->num_rows > 0) {
 
         while ($row = $result->fetch_assoc()) {
 
-            $token_number = $row['token_number'];
             $shop_id = $row['shop_id'];
-            $token_status = $row['status'];
 
             $row_shop = $conn->query("SELECT * FROM sellers WHERE id = '$shop_id'")->fetch_assoc();
 
-            $cart_product_list = "";
-            $total_cost = 0;
+            $shop_name = $row_shop['name'];
+            $category = $row_shop['category'];
+            $username = $row_shop['username'];
 
-            $row_token = $conn->query("SELECT * FROM token_list WHERE shop_id = '$shop_id' AND `status`='active'")->fetch_assoc();
-            if (isset($row_token['token_number'])) $active_token = $row_token['token_number'];
-            else $active_token = '<span class="badge badge-secondary p-2">No Active Token</span>';
+            $result_token = $conn->query("SELECT DISTINCT token_number FROM token_list WHERE buyer_id='$id' AND shop_id= '$shop_id'AND `status`='pending'");
+            while ($row_token = $result_token->fetch_assoc()) {
+                $token_number = $row_token['token_number'];
 
-            $result_cart = $conn->query("SELECT * FROM cart WHERE token_number = '$token_number' AND `shop_id`='$shop_id' AND `status`='tokened'");
-            while ($row_cart = $result_cart->fetch_assoc()) {
-                // echo "<pre>";
-                // print_r($row_cart);
-                // echo "</pre>";
+                $product_list = "";
+                $total_cost = 0;
 
-                $product_name = $row_cart['product_name'];
-                $items_in_cart = $row_cart['quantity_of_items'];
+                $result_product = $conn->query("SELECT * FROM token_list WHERE buyer_id='$id' AND shop_id= '$shop_id' AND token_number='$token_number' AND `status`='pending'");
+                while ($row_product = $result_product->fetch_assoc()) {
 
-                $result_product = $conn->query("SELECT * FROM seller_product_stock WHERE shop_id='$shop_id' AND product_name = '$product_name'");
-                $row_product = $result_product->fetch_assoc();
+                    $product_name = $row_product['product_name'];
+                    $items_in_cart = $row_product['quantity_of_items'];
 
-                $unit = explode('.', strval($row_cart['quantity_of_items']));
-                if ($row_product['sold_by'] == "Kg") {
-                    $quantity = $unit[0] . ' kilo ' . substr(strval($row_cart['quantity_of_items'] * 1000), '-3') . ' gram';
+                    $row_product_seller = $conn->query("SELECT * FROM seller_product_stock WHERE shop_id='$shop_id' AND product_name = '$product_name'")->fetch_assoc();
+
+                    $unit = explode('.', strval($row_product['quantity_of_items']));
+                    if ($row_product_seller['sold_by'] == "Kg") {
+                        $quantity = $unit[0] . ' kilo ' . substr(strval($row_product['quantity_of_items'] * 1000), '-3') . ' gram';
+                    }
+                    if ($row_product_seller['sold_by'] == "Liter") {
+                        $quantity = $unit[0] . ' liter ' . substr(strval($row_product['quantity_of_items'] * 1000), '-3') . ' ml';
+                    }
+                    if ($row_product_seller['sold_by'] == "Unit") {
+                        $quantity = $unit[0] . ' Unit ';
+                    }
+
+                    $total_cost = ($row_product_seller['price_per_item'] * $items_in_cart) + $total_cost;
+                    $product_list .= '' .
+                        '<div class="d-flex mb-3">' .
+                        '   <div class="card-side-img" ><img height="100%" width="100%" src="../product_list/' . $row_product['product_name'] . '.jpg" alt=""></div>' .
+                        '   <div class="pl-2 pt-2 w-100">' .
+                        '       <div class="d-flex align-items-center justify-content-between pl-1 mb-1">' .
+                        '           <p class="mb-1 h6 small">' . $product_name . '</p>' .
+                        '           <p class="text-warning px-2 mb-0"><i class="fa fa-exclamation-circle"></i></p>' .
+                        '       </div>' .
+                        '       <div class="d-flex align-items-center justify-content-between pl-1">' .
+                        '           <p class=" mb-0 card-title small font-weight-bold">₹' . ($row_product_seller['price_per_item'] * $items_in_cart) . ' </p>' .
+                        '           <p class=" mb-0 card-title small font-weight-bold">' . $quantity . '</p>' .
+                        '       </div>' .
+                        '   </div>' .
+                        '</div>';
                 }
-                if ($row_product['sold_by'] == "Liter") {
-                    $quantity = $unit[0] . ' liter ' . substr(strval($row_cart['quantity_of_items'] * 1000), '-3') . ' ml';
-                }
-                if ($row_product['sold_by'] == "Unit") {
-                    $quantity = $unit[0] . ' Unit ';
-                }
-
-                $total_cost = ($row_product['price_per_item'] * $items_in_cart) + $total_cost;
-                $cart_product_list .= '' .
-                    '<div class="d-flex mb-3">' .
-                    '   <div class="card-side-img" ><img height="100%" width="100%" src="../product_list/' . $row_product['product_name'] . '.jpg" alt=""></div>' .
-                    '   <div class="pl-2 pt-2 w-100">' .
-                    '       <div class="d-flex align-items-center justify-content-between pl-1 mb-1">' .
-                    '           <p class="mb-1 h6 small">' . $product_name . '</p>' .
-                    '           <button class="btn btn-sm btn-danger delete-product small" data-product-id="' . $row_product['product_name'] . '"><i class=" fa fa-times"></i></button>' .
+                echo '' .
+                    '<div class="token-card card mb-3" data-shop-id="' . $shop_id . '" data-token-number="' . $token_number . '">' .
+                    '   <div class="card-header">' .
+                    '       <div class="d-flex align-items-center justify-content-between">' .
+                    '             <div>' .
+                    '               <p class="card-title h6 mb-0">Your Token No : ' . $token_number . '</p>' .
+                    '               <p class="card-title mb-0 small">27 / 02 / 2020 - 10:00 AM</p>' .
+                    '             </div>' .
+                    '             <button class="btn btn-danger btn-sm delete_token"><i class="fa fa-times"></i></button>' .
                     '       </div>' .
-                    '       <div class="d-flex align-items-center justify-content-between pl-1">' .
-                    '           <p class=" mb-0 card-title small font-weight-bold">₹' . ($row_product['price_per_item'] * $items_in_cart) . ' </p>' .
-                    '           <p class=" mb-0 card-title small font-weight-bold">' . $quantity . '</p>' .
+                    '   </div>' .
+                    '   <div class="card-body py-3">' .
+                    '       <div class="d-flex align-items-center justify-content-between">' .
+                    '         <div class="">' .
+                    '             <p class="card-title h6 mb-1">' . $row_shop['name'] . '</p>' .
+                    '             <p class="card-sub-title small text-uppercase mb-0">' . $row_shop['category'] . '</p>' .
+                    '         </div>' .
+                    '         <div class="cart-display">' .
+                    '             <div class="badge badge-warning">' . $result_product->num_rows . '</div>' .
+                    '             <button class="btn btn-primary" href="#shop_' . $shop_id . '_' . $token_number . '" data-toggle="collapse"><i class="fa fa-shopping-cart"></i></button>' .
+                    '         </div>' .
+                    '       </div>' .
+                    '       <div id="shop_' . $shop_id . '_' . $token_number . '" class="collapse mt-3">' . $product_list .
+                    '           <p class="h6 p-2 text-center mb-0">Total Price : ₹ <b>' . $total_cost . '</b></p>' .
                     '       </div>' .
                     '   </div>' .
                     '</div>';
             }
 
-            switch ($token_status) {
-                case "pending":
-                    $active_status = 'Active Token No : <b>' . $active_token . '</b>';
-                    $delete_token = '<button class="btn btn-danger btn-sm delete_token"><i class="fa fa-times"></i></button>';
-                    $cart = '' .
-                        '         <div class="cart-display">' .
-                        '             <div class="badge badge-warning">' . $result_cart->num_rows . '</div>' .
-                        '             <button class="btn btn-primary" href="#shop_' . $row_shop['id'] . '" data-toggle="collapse"><i class="fa fa-shopping-cart"></i></button>' .
-                        '         </div>' .
-                        '       </div>' .
-                        '       <div id="shop_' . $row_shop['id'] . '" class="collapse my-3">' . $cart_product_list .
-                        '           <p class="h6 p-2 text-center">Total Price : ₹ <b>' . $total_cost . '</b></p>' .
-                        '       </div>';
-                    break;
 
-                case "active":
-                    $active_status = '<span class="badge badge-success p-2">Token Active</span>';
-                    $delete_token = '<button class="btn btn-danger btn-sm delete_token"><i class="fa fa-times"></i></button>';
-                    $cart = '' .
-                        '         <div class="cart-display">' .
-                        '             <div class="badge badge-warning">' . $result_cart->num_rows . '</div>' .
-                        '             <button class="btn btn-primary" href="#shop_' . $row_shop['id'] . '" data-toggle="collapse"><i class="fa fa-shopping-cart"></i></button>' .
-                        '         </div>' .
-                        '       </div>' .
-                        '       <div id="shop_' . $row_shop['id'] . '" class="collapse my-3">' . $cart_product_list .
-                        '           <p class="h6 p-2 text-center">Total Price : ₹ <b>' . $total_cost . '</b></p>' .
-                        '       </div>';
-                    break;
-
-                case "deleted":
-                    $active_status = '<span class="badge badge-warning p-2">Token Deleted</span>';
-                    $cart = '</div>';
-                    $delete_token = '';
-                    break;
-
-                case "rejected":
-                    $active_status = '<span class="badge badge-danger p-2">Token Rejected</span>';
-                    $cart = '</div>';
-                    $delete_token = '';
-                    break;
-
-                default:
-                    $active_status = '';
-                    $cart = '</div>';
-                    $delete_token = '<button class="btn btn-danger btn-sm delete_token"><i class="fa fa-times"></i></button>';
-            }
-            echo '' .
-                '<div class="token-card card mb-3 ' . $token_status . '" data-shop-id="' . $row_shop['id'] . '" data-token-number="' . $token_number . '">' .
-                '   <div class="card-header">' .
-                '       <div class="d-flex align-items-center justify-content-between">' .
-                '             <p class="card-title h6 mb-0">Your Token No : ' . $token_number . '</p>' . $delete_token .
-                '       </div>' .
-                '   </div>' .
-                '   <div class="card-body">' .
-                '       <div class="d-flex align-items-center justify-content-between">' .
-                '         <div class="">' .
-                '             <p class="card-title h6 mb-1">' . $row_shop['name'] . '</p>' .
-                '             <p class="card-sub-title small text-uppercase mb-0">' . $row_shop['category'] . '</p>' .
-                '         </div>' .
-                '   ' . $cart .
-                '   <p class="mt-3 mb-0 text-center">' . $active_status . '</p>' .
-                '   </div>' .
-                '</div>';
         }
     } else {
         echo '' .
             '<div class="card mx-auto">' .
             '    <div class="card-body d-flex align-items-center flex-column">' .
             '        <p class="display-4">Empty</p>' .
-            '        <p class="h6">No Token Available</p>' .
-            '        <a class="btn btn-primary mt-3" href="?"><i class="fa fa-home"></i> Home</a>' .
+            '        <p class="h6">No Pending Token Available</p>' .
             '    </div>' .
             '</div>';
     }

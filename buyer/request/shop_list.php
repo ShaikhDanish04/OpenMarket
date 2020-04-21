@@ -26,7 +26,7 @@ while ($row = $result->fetch_assoc()) {
         '        </div>' .
         '    </div>' .
         '    <div class="d-flex align-items-center justify-content-between p-2">' .
-        '        <div class="badge badge-warning p-2 ml-1"><i class="fa fa-shopping-bag"></i> ' . $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id' AND shop_id='$shop_id' AND `status`='in'")->num_rows . '</div>' .
+        '        <div class="badge badge-warning p-2 ml-1"><i class="fa fa-shopping-bag"></i> ' . $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id' AND shop_id='$shop_id'")->num_rows . '</div>' .
         '        <div class="d-flex">   ' .
         '           <div class="rating">' .
         '               <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-o"></i> <i class="fa fa-star-o"></i> <span class="value">4.5</span>' .

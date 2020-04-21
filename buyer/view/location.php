@@ -126,10 +126,10 @@ $row = $result->fetch_assoc();
 
         </div>
     </div>
-    <div class="card mb-3">
+    <!-- <div class="card mb-3">
         <div id="mapid"></div>
         <div id="osm-map"></div>
-    </div>
+    </div> -->
 
     <div class="card">
         <div class="card-body">

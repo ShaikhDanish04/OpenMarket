@@ -62,10 +62,9 @@
                 <i class="fa fa-map-marker"></i>
                 <p class="">Location</p>
             </a>
-            <a class="list-item cart-display token-btn" data-screen="token-list">
+            <a class="list-item cart-display" data-screen="token-list">
                 <i class="fa fa-list-alt"></i>
-                <p class="">My Orders</p>
-                <span class="badge badge-primary">0</span>
+                <p class="">Tokens</p>
             </a>
             <a class="list-item active" data-screen="home">
                 <div class="home-nav">
@@ -79,9 +78,9 @@
                 <p class="">Cart</p>
                 <span class="badge badge-warning"></span>
             </a>
-            <a class="list-item" data-screen="">
-                <i class="fa fa-cog"></i>
-                <p class="">settings</p>
+            <a class="list-item" data-screen="orders">
+                <i class="fa fa-calendar-check-o"></i>
+                <p class="">Orders</p>
             </a>
         </div>
     </div>

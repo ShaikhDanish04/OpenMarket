@@ -3,24 +3,6 @@
 $shop_id = $_POST['shop_id'];
 $token_pending = false;
 $product_list = array();
-$result = $conn->query("SELECT * FROM `token_list` WHERE (shop_id='$shop_id' AND buyer_id='$id' AND `status`='pending') OR (shop_id='$shop_id' AND buyer_id='$id' AND `status`='active')");
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    // print_r($row);
-    $token_pending = true;
-    echo '' .
-        '<div class="col-12">' .
-        '   <div class="card mb-3">' .
-        '       <div class="card-header">' .
-        '           <p class="h6 mb-0">Your Token No : ' . $row['token_number'] . '</p>' .
-        '       </div>' .
-        '       <div class="card-body d-flex align-items-center flex-column">' .
-        '           <p class="text-justify small mb-0"><b>Note : </b> You cannot book more items with pending token, Complete your order or Delete Token.</p>' .
-        '           <a class="btn btn-primary mt-3 btn-sm w-100 view-token text-light"><i class="fa fa-list-alt"></i> Token List</a>' .
-        '       </div>' .
-        '   </div>' .
-        '</div>';
-}
 
 $row_seller = $conn->query("SELECT * FROM `sellers` WHERE id='$shop_id'")->fetch_assoc();
 echo '' .
@@ -36,8 +18,38 @@ echo '' .
     '</div>' .
     '<div class="col-12 divider my-2"></div>';
 
-$result = $conn->query("SELECT * FROM `seller_product_stock` WHERE shop_id='$shop_id'");
+$result = $conn->query("SELECT DISTINCT token_number FROM `token_list` WHERE shop_id='$shop_id' AND buyer_id='$id' AND `status`='pending'");
+if ($result->num_rows > 0) {
+    $token_list = "";
+    $token_pending = true;
 
+    while ($row = $result->fetch_assoc()) {
+        // print_r($row);
+        $token_list .= '' .
+            '<div class="card mb-2 px-3 py-2" style="background:#f7f7f7">' .
+            '    <div class="d-flex align-items-center justify-content-between">' .
+            '    <div>' .
+            '        <p class="h6 mb-0">Token No : ' . $row['token_number'] . '</p>' .
+            '        <p class="card-title mb-0 small">27 / 02 / 2020 - 10:00 AM</p>' .
+            '    </div>' .
+            '    <button class="btn btn-danger btn-sm delete_token"><i class="fa fa-times"></i></button>' .
+            '    </div>' .
+            '</div>';
+    }
+    // echo $token_list;
+    echo '' .
+        '<div class="col-12 my-2">' .
+        '   <div class="card">' .
+        '      <div class="card-body d-flex align-items-center flex-column">' .
+        '         <p class="text-justify small mb-3"><b>Note : </b> You have token from this shop check it before you proccess for more order.</p>' .
+        '         <div class="w-100 m-2">' . $token_list . '</div>' .
+        '         <a class="btn btn-primary btn-sm w-100 view-token text-light"><i class="fa fa-list-alt"></i> Token List</a>' .
+        '      </div>' .
+        '   </div>' .
+        '</div>';
+}
+
+$result = $conn->query("SELECT * FROM `seller_product_stock` WHERE shop_id='$shop_id'");
 if ($result->num_rows > 0) {
     echo '<div class="col-12 d-flex align-items-center justify-content-center mb-2">' .
         '   <a class="btn" data-toggle="collapse" data-target="#filter_product"><i class="fa fa-search text-dark"></i></a>' .
@@ -62,22 +74,10 @@ if ($result->num_rows > 0) {
             $quantity = $unit[0] . ' Unit ';
         }
 
-        $product_result = $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id' AND shop_id='$shop_id' AND product_name='$product_name' AND `status`='in'");
+        $product_result = $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id' AND shop_id='$shop_id' AND product_name='$product_name'");
         $product_row = $product_result->fetch_assoc();
         // print_r($product_row);
 
-        if ($token_pending) {
-            $button = '';
-        } else {
-
-            if (!isset($product_row['product_name']))
-                $button = '<button class="mt-3 btn btn-success btn-sm w-100 book-btn"><i class="fa fa-shopping-bag"></i> Book</button>';
-            else $button = '' .
-                '<div class="text-center mt-3">' .
-                '   <p class="mb-2 small text-danger font-weight-bold">Added to Cart</p>' .
-                '   <button class="btn btn-warning btn-sm w-100 edit-btn"><i class="fa fa-edit"></i> Edit</button>' .
-                '</div>';
-        }
 
         if ($quantity == 0) {
             $button = '<p class="mb-2 text-danger small text-center font-weight-bold">Out of Stock</p>';

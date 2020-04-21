@@ -2,7 +2,7 @@
 
 
 $shop_list = array();
-$result = $conn->query("SELECT DISTINCT sellers.* FROM sellers INNER JOIN cart ON cart.shop_id = sellers.id WHERE buyer_id = '$id' AND `status` = 'in'");
+$result = $conn->query("SELECT DISTINCT sellers.* FROM sellers INNER JOIN cart ON cart.shop_id = sellers.id WHERE buyer_id = '$id'");
 
 if ($result->num_rows > 0) {
 
@@ -11,7 +11,7 @@ if ($result->num_rows > 0) {
         $total_cost = 0;
         $shop_id = $row['id'];
 
-        $result_cart = $conn->query("SELECT * FROM cart WHERE shop_id='$shop_id' AND buyer_id = '$id' AND `status` = 'in'");
+        $result_cart = $conn->query("SELECT * FROM cart WHERE shop_id='$shop_id' AND buyer_id = '$id' ");
         while ($row_cart = $result_cart->fetch_assoc()) {
 
             $product_name = $row_cart['product_name'];
@@ -110,7 +110,10 @@ if ($result->num_rows > 0) {
                 "operation": "generate_token"
             },
             success: function(data) {
+                $('.token-btn .badge').load('request/count_tokens.php');
+                $('.cart-btn .badge').load('request/count_carts.php');
                 $('.screen').load('view/token-list.php');
+                // console.log(data);
             }
         })
     });
