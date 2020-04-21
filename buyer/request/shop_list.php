@@ -4,6 +4,10 @@ $result = $conn->query("SELECT * FROM sellers");
 while ($row = $result->fetch_assoc()) {
     $shop_id = $row['id'];
     // print_r($row);
+    $count_token = $conn->query("SELECT DISTINCT token_number FROM `token_list` WHERE buyer_id='$id' AND shop_id='$shop_id'")->num_rows;
+    if ($count_token > 0) $count_token = '<div class="badge badge-primary p-2 ml-1"><i class="fa fa-list-alt"></i> ' . $count_token . '</div>';
+    else $count_token = '';
+
     echo '' .
         '<div class="card mb-3 shop-card" data-id="' . $row['id'] . '">' .
         '    <div class="shop-head card">' .
@@ -26,7 +30,9 @@ while ($row = $result->fetch_assoc()) {
         '        </div>' .
         '    </div>' .
         '    <div class="d-flex align-items-center justify-content-between p-2">' .
-        '        <div class="badge badge-warning p-2 ml-1"><i class="fa fa-shopping-bag"></i> ' . $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id' AND shop_id='$shop_id'")->num_rows . '</div>' .
+        '        <div class="d-flex">   ' .
+        '           <div class="badge badge-warning p-2 ml-1"><i class="fa fa-shopping-bag"></i> ' . $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id' AND shop_id='$shop_id'")->num_rows . '</div>' . $count_token .
+        '        </div>   ' .
         '        <div class="d-flex">   ' .
         '           <div class="rating">' .
         '               <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-o"></i> <i class="fa fa-star-o"></i> <span class="value">4.5</span>' .
