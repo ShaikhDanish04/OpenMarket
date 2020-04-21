@@ -25,7 +25,7 @@ if ($search_product != '') {
 
             $product_incart = false;
             $product_quantity = 0;
-            $product_result = $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id' AND `status`='in'");
+            $product_result = $conn->query("SELECT * FROM `cart` WHERE buyer_id='$id'");
             while ($product_row = $product_result->fetch_assoc()) {
 
                 if ($row['shop_id'] == $product_row['shop_id'] && $row['product_name'] == $product_row['product_name']) {
@@ -102,6 +102,11 @@ if ($search_product != '') {
     }
 </style>
 <script>
+    $('[name="quantity_of_items"]').click(function() {
+        $(this).select();
+    })
+
+
     $('[name="quantity_of_items"]').focusout(function() {
         $($(this).closest('.product_form')).submit()
     })

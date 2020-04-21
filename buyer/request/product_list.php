@@ -133,6 +133,10 @@ if ($result->num_rows > 0) {
 
 
 <script>
+    $('[name="quantity_of_items"]').click(function() {
+        $(this).select();
+    })
+
     $('[name="quantity_of_items"]').focusout(function() {
         $($(this).closest('.product_form')).submit()
     })

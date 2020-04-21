@@ -4,7 +4,7 @@ $result = $conn->query("SELECT * FROM sellers");
 while ($row = $result->fetch_assoc()) {
     $shop_id = $row['id'];
     // print_r($row);
-    $count_token = $conn->query("SELECT DISTINCT token_number FROM `token_list` WHERE buyer_id='$id' AND shop_id='$shop_id'")->num_rows;
+    $count_token = $conn->query("SELECT DISTINCT token_number FROM `token_list` WHERE buyer_id='$id' AND shop_id='$shop_id' AND `status`='pending'")->num_rows;
     if ($count_token > 0) $count_token = '<div class="badge badge-primary p-2 ml-1"><i class="fa fa-list-alt"></i> ' . $count_token . '</div>';
     else $count_token = '';
 

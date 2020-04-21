@@ -639,4 +639,32 @@
         left: 0;
 
     }
+
+    .token-card {
+        transform: scale(0.95);
+    }
+
+    .token-card .card-header:active {
+        transform: scale(1);
+    }
+
+    .token-card .card-header {
+        background-color: #f7f7f7;
+        border-bottom: 0;
+        transform: scale(1.05);
+        box-shadow: 0 0 5px rgba(0, 0, 0, .25);
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .token-card .card-side-img {
+        transform: scale(0.95);
+        width: 70px;
+        height: 70px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+        flex-shrink: 0;
+    }
 </style>
