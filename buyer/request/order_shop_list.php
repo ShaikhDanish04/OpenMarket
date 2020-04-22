@@ -17,7 +17,7 @@ while ($row_shops = $result_shops->fetch_assoc()) {
         '               </div>' .
         '            </div>' .
         '            <div class="cart-display">' .
-        '                <div class="badge badge-warning">' . $count_token = $conn->query("SELECT DISTINCT token_number FROM `token_list` WHERE buyer_id='$id' AND shop_id='$shop_id' AND `status`='pending'")->num_rows . '</div>' .
+        '                <div class="badge badge-warning">' . $count_token = $conn->query("SELECT DISTINCT token_number FROM `token_list` WHERE buyer_id='$id' AND shop_id='$shop_id'")->num_rows . '</div>' .
         '                <button class="btn btn-primary view-tokens"><i class="fa fa-list-alt"></i></button>' .
         '            </div>' .
         '        </div>' .

@@ -50,10 +50,12 @@ if ($search_product != '') {
                 '                <button ' . (($product_incart) ? 'style="display:none"' : '') . ' class="add_product btn btn-sm btn-success w-100" data-op="add_product"><i class="fa fa-shopping-bag"></i> Add to Cart</button>' .
                 '                <div  ' . ((!$product_incart) ? 'style="display:none"' : '') . ' class="update_product">' .
                 '                    <button data-op="update_product" class="btn btn-danger btn-sm minus-val" tabindex="-1"><i class="fa fa-minus"></i></button>' .
-                '                    <input type="number" step="0" value="' . $product_quantity . '" name="quantity_of_items" class="form-control btn-sm mx-1 text-center">' .
+                '                    <input type="number" step="0.005" value="' . $product_quantity . '" name="quantity_of_items" class="form-control btn-sm mx-1 text-center">' .
                 '                    <button data-op="update_product" class="btn btn-success btn-sm plus-val" tabindex="-1"><i class="fa fa-plus"></i></button>' .
                 '                </div>' .
                 '            </form>' .
+                '            <div class="estimation text-center font-weight-bold small mt-2"></div>' .
+                '            <div class="price text-center small"></div>' .
                 '        </div>' .
                 '    </div>' .
                 '    <div id="collapse_' . $row['shop_id'] . '_' . $row['product_name'] . '" class="collapse small m-2 mt-3">' .
@@ -173,7 +175,7 @@ if ($search_product != '') {
         } else {
             $(this).attr('step', '0.005');
         }
-        $price.text("Total Price : ₹ " + parseFloat(Number($price_per_item.val() * value)).toFixed(2));
+        $price.text("Price : ₹ " + parseFloat(Number($price_per_item.val() * value)).toFixed(2));
 
         if (Number($input.val()) > 0) {
             $card.find('.update_product').fadeIn();

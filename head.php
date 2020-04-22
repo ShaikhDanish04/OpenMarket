@@ -218,6 +218,11 @@
         margin-bottom: 0px;
     }
 
+    .bottom-nav .list-item:active {
+        transform: scale(0.9);
+        /* margin-bottom: 0px; */
+    }
+
     .bottom-nav a.list-item.active {
         color: #351fb1;
         text-shadow: 0 0 1px;
@@ -238,6 +243,10 @@
         justify-content: center;
         box-shadow: 0 0 20px #aaa;
 
+    }
+
+    .home-nav:active {
+        transform: scale(0.95);
     }
 
     .update_product {
@@ -666,5 +675,12 @@
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
         border-radius: 5px;
         flex-shrink: 0;
+    }
+
+    .btn-xsm {
+        padding: .125rem .5rem;
+        font-size: 0.5875rem;
+        line-height: 1.5;
+        border-radius: .2rem;
     }
 </style>

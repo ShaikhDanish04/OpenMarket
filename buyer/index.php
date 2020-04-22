@@ -51,7 +51,7 @@
                     '    <strong>Warning !!!</strong>' .
                     '    <p class="mt-1 mb-1"><i class="fa fa-map-marker text-danger"></i> Please Set Your Location Pointer</p>' .
                     '    <div class="divider"></div>' .
-                    '    <a href="?page=location" class="alert-link text-decoration-underline"><i class="fa fa-hand-o-right"></i> Click Here</a>' .
+                    '    <a data-screen="location" class="alert-link text-decoration-underline"><i class="fa fa-hand-o-right"></i> Click Here</a>' .
                     '</div>';
             } ?>
         </div>
