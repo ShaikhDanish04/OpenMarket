@@ -143,7 +143,7 @@ if (isset($_POST['register_submit'])) {
                                 </div>
 
                                 <div class="form-group d-flex justify-content-between">
-                                    <button type="submit" class="btn btn-success w-100" disabled name="register_submit">Submit</button>
+                                    <button type="submit" class="btn btn-success w-100" data-ajax="false" disabled name="register_submit">Submit</button>
                                 </div>
 
                                 <script>
@@ -171,7 +171,7 @@ if (isset($_POST['register_submit'])) {
                 </script>
             </div>
             <div class="card-footer">
-                <p class="text-center small mb-0">Already Registed ? <a href="login.php" class="font-weight-bold">Login</a></p>
+                <p class="text-center small mb-0">Already Registed ? <a data-ajax="false" href="login.php" class="font-weight-bold">Login</a></p>
 
             </div>
         </div>

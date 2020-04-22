@@ -63,12 +63,12 @@ if (isset($_POST['login_submit'])) {
                 </div>
 
                 <div class="form-group text-center">
-                    <button type="submit" name="login_submit" class="btn btn-success w-100">Login</button>
+                    <button type="submit" name="login_submit" data-ajax="false" class="btn btn-success w-100">Login</button>
                 </div>
 
             </div>
             <div class="card-footer">
-                <p class="small mb-0 text-center">Dont have account ? <a href="register.php" class="font-weight-bold text-underline">Register</a></p>
+                <p class="small mb-0 text-center">Dont have account ? <a href="register.php" data-ajax="false" class="font-weight-bold text-underline">Register</a></p>
 
             </div>
         </div>

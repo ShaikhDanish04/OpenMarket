@@ -132,7 +132,7 @@ $row = $result->fetch_assoc();
                 <div class="form-group">
                     <label>Pincode</label>
                     <input type="number" class="form-control" maxlength="6" value="<?php echo ($row['pincode'] == '0') ? '' : $row['pincode'] ?>" name="pincode" placeholder="000000" required>
-                    <small class="text-danger">*This can take lang time to search. Please Wait</small>
+                    <small class="text-danger">*This can take long time to search. Please Wait ...</small>
                 </div>
                 <div class="form-group">
                     <label>State</label>

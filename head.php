@@ -324,7 +324,7 @@
         box-shadow: none !important;
     }
 
-    .carousel-item {
+    #buyer_process .carousel-item {
         min-height: 95vh;
     }
 
