@@ -1,18 +1,6 @@
 <?php
 include('../../connect.php');
 
-if (isset($_POST['address_submit'])) {
-
-    $pincode = $_POST['pincode'];
-    $state = $_POST['state'];
-    $district = $_POST['district'];
-    $area = $_POST['area'];
-    $region = $_POST['region'];
-    $address = $_POST['address'];
-
-    $conn->query("UPDATE `buyers` SET `address` = '$address',`state` = '$state', `district` = '$district', `area` = '$area',`region` = '$region', `pincode`='$pincode' WHERE `id` = '$id'");
-    echo "<script>location.reload()</script>";
-}
 $result = $conn->query("SELECT * FROM buyers WHERE id = '$id'");
 $row = $result->fetch_assoc();
 
@@ -123,7 +111,6 @@ $row = $result->fetch_assoc();
             <p class="mb-0 text-center">
                 <?php echo  $row['area'] . ' - ' . $row['region'] . ', ' . $row['district'] . ', ' . $row['state'] . ' - ' . $row['pincode'] ?>
             </p>
-
         </div>
     </div>
     <!-- <div class="card mb-3">
@@ -133,7 +120,7 @@ $row = $result->fetch_assoc();
 
     <div class="card">
         <div class="card-body">
-            <form action="" method="post">
+            <form id="address_form" action="" method="post">
                 <p class="h5 text-center mb-3 text-info"><i class="fa fa-street-view"></i> Update Location</p>
                 <div class="divider mb-2"></div>
                 <div class="form-group">
@@ -145,6 +132,7 @@ $row = $result->fetch_assoc();
                 <div class="form-group">
                     <label>Pincode</label>
                     <input type="number" class="form-control" maxlength="6" value="<?php echo ($row['pincode'] == '0') ? '' : $row['pincode'] ?>" name="pincode" placeholder="000000" required>
+                    <small class="text-danger">*This can take lang time to search. Please Wait</small>
                 </div>
                 <div class="form-group">
                     <label>State</label>
@@ -173,7 +161,7 @@ $row = $result->fetch_assoc();
                     </select>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary" name="address_submit">Update</button>
+                    <button class="btn btn-primary" name="update_address">Update</button>
                 </div>
             </form>
         </div>
@@ -181,28 +169,42 @@ $row = $result->fetch_assoc();
 
 </div>
 <script>
+    $('#address_form').submit(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: "request/manage_location.php",
+            data: ($(this).serialize() + '&' + $.param({
+                'operation': 'update_address'
+            })),
+            success: function(data) {
+                location.reload();
+            }
+        });
+    })
+
     $('[name="pincode"]').on("input propertychange", function() {
         var searchField = $(this).val();
 
         if (searchField.length == 6) {
             $('.overlay').fadeIn();
+            $('.loading').fadeIn();
+
             $.ajax({
                 dataType: "json",
                 url: '../address_map.json',
                 success: function(data) {
                     $.each(data, function(key, val) {
-                        if (val.pincode == searchField) {
-                            console.log("State : " + val.stateName);
-                            console.log("District : " + val.district);
-                            console.log("Area : " + val.officeName);
-                            console.log("");
-                            $('[name="state"]').val(val.stateName);
-                            $('[name="district"]').val(val.district);
-                            $('[name="area"]').append('<option class="dynamic" value="' + val.officeName + '">' + val.officeName + '</option>');
+                        if (val.p == searchField) {
+                            $('[name="state"]').val(val.s);
+                            $('[name="district"]').val(val.d);
+                            $('[name="area"]').append('<option class="dynamic" value="' + val.a + '">' + val.a + '</option>');
                         }
                     });
                     $('.overlay').fadeOut();
                     $('[name="area"]').focus();
+                    $('.loading').fadeOut();
                 }
             });
         } else {

@@ -119,7 +119,7 @@
     $(document).ajaxStart(function() {
         $('.loading').fadeIn();
     });
-    $(document).ajaxComplete(function() {
+    $(document).ajaxSuccess(function() {
         $('.loading').fadeOut();
     })
     $(document).ajaxError(function() {
