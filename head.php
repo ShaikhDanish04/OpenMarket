@@ -69,7 +69,8 @@
         left: 0;
         top: 0;
         display: flex;
-        background: #ee1565;
+        /* background: #ee1565; */
+        background: #d6135f;
         padding: 8px;
         position: fixed;
         align-items: center;

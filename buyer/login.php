@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Daily Bazar : Buyer</title>
+    <title>OpenMarket</title>
     <?php include('../head.php') ?>
     <?php
     if (isset($_SESSION['id']) && $_SESSION['type'] == "buyer") {
@@ -10,13 +10,132 @@
     }
     ?>
 </head>
+
+<style>
+    .top-stick {
+        position: relative;
+        border-top: 10px solid #d6135f;
+        box-shadow: 0px 2px 18px rgba(0, 0, 0, .5);
+        width: 100%;
+    }
+
+    .auth {
+        background: #e9e9e9;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .auth form {
+        max-width: 330px;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px white inset !important;
+    }
+
+    .login-btn {
+        background: linear-gradient(45deg, #751056, #251075);
+        color: #fff;
+        border: 2px solid transparent;
+    }
+
+    .register-btn {
+        background: #fff;
+        border: 2px solid #70106b;
+        color: #331070;
+    }
+
+    .user-submit button {
+        border-radius: 5rem;
+        box-shadow: 0px 9px 15px rgba(0, 0, 0, .35);
+        width: 100%;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        user-select: none;
+        padding: .375rem .75rem;
+        outline: none;
+        transition: .15s ease-in-out;
+        font-size: 12px;
+    }
+
+    .user-submit button:active {
+        transform: scale(1.05);
+    }
+
+    .remember-me {
+        height: 20px;
+        width: 20px;
+    }
+
+    .user-input {
+        background: #fff;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-top: 1rem;
+    }
+
+    .input-box {
+        position: relative;
+    }
+
+    .input-box label {
+        color: #a71267;
+        font-weight: 500;
+        font-size: 12px;
+        margin: 0px 5px;
+    }
+
+    .input-box small {
+        font-size: 11px;
+    }
+
+    .input-box input {
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        border: 0;
+        border-bottom: 1px solid #a7a7a7;
+        outline: 0;
+    }
+
+    .input-box input:focus {
+        border-bottom: 1px solid #301071;
+    }
+
+
+
+    .forgot-link {
+        font-weight: 600;
+        color: #b31267;
+        font-size: 14px;
+        /* width: 100%; */
+        text-align: right;
+        display: block;
+        margin: 5px 10px 1.5rem;
+        outline: none;
+    }
+
+    .terms a {
+        color: #6e1059;
+        text-decoration: underline;
+    }
+</style>
+
 <?php
 $status = "";
 if (isset($_POST['login_submit'])) {
 
     $username = $_POST['username'];
     $password = sha1($_POST['password']);
-
     $result = $conn->query("SELECT (id) FROM buyers WHERE username='$username' AND `password`='$password'");
     $row = $result->fetch_assoc();
 
@@ -30,51 +149,44 @@ if (isset($_POST['login_submit'])) {
 }
 ?>
 
+
 <body>
-    <style>
-        .login-card {
-            margin: 20px auto;
-            max-width: 350px;
-            box-shadow: 2px 2px 8px #ccc;
-        }
-    </style>
-
-    <form action="" method="post" class="container" data-ajax="false">
-        <div class="login-card">
-            <?php echo $status; ?>
+    <div class="top-stick"></div>
+    <div class="auth">
+        <div class="brand-logo text-center mt-3 mb-3">
+            <img class="mx-auto my-3 d-block" src="../logo.png" height="120px" alt="">
+            <p class="h4">OpenMarket</p>
+            <p class="h6">BUYER</p>
         </div>
 
-        <div class="card login-card">
-            <div class="card-body">
-                <p class="display-4 text-center">Login</p>
-                <p class="text-center mb-4 h3">BUYER</p>
+        <form action="" id="login_form" method="post" data-ajax="false" class="w-100 container">
+            <div class="user-input">
+                <div class="input-box mb-3">
 
-                <div class="form-group">
                     <label for="">Username</label>
-                    <input type="text" name="username" class="form-control" required>
+                    <input type="text" name="username" required>
+                    <small class="text-muted">*Enter valid Username</small>
                 </div>
+                <div class="input-box mb-2">
 
-                <div class="form-group">
                     <label for="">Password</label>
-                    <input type="password" name="password" class="form-control" required>
-                    <a href="javascript:void(0)" class="small font-weight-bold">Forgot Password ?</a>
-                </div>
-
-                <div class="form-group text-center">
-                    <button class="btn btn-success w-100" data-ajax="false" name="login_submit">Login</button>
+                    <input type="password" name="password" required>
+                    <small class="text-muted">*Enter your password</small>
                 </div>
             </div>
-            <div class="card-footer">
-                <p class="small mb-0 text-center">Dont have account ? <a data-ajax="false" href="register.php" class="font-weight-bold text-underline">Register</a></p>
-
+            <a href="javascipt:void(0)" class="forgot-link">Forgot Password ?</a>
+            <div class="user-submit">
+                <div class="form-group">
+                    <button class="login-btn" name="login_submit">LOG IN</button>
+                </div>
+                <div class="form-group">
+                    <button class="register-btn">SIGN UP</button>
+                </div>
             </div>
-        </div>
-        <div class="d-flex align-items-baseline justify-content-center">
-            Translate : <div id="google_translate_element"></div>
-        </div>
-
-    </form>
-
+        </form>
+        <small class="terms">Our <a href="javascipt:void(0)">Terms of Use</a> and <a href="javascipt:void(0)">policy</a></small>
+    </div>
 </body>
+
 
 </html>
