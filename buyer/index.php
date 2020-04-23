@@ -55,6 +55,8 @@
                     '</div>';
             } ?>
         </div>
+        <button class="btn btn-dark submit-btn">Submit</button>
+
         <div class="screen"></div>
 
         <div class="bottom-nav">
@@ -62,9 +64,10 @@
                 <i class="fa fa-map-marker"></i>
                 <p class="">Location</p>
             </a>
-            <a class="list-item cart-display" data-screen="token-list">
+            <a class="list-item cart-display token-btn" data-screen="token-list">
                 <i class="fa fa-list-alt"></i>
                 <p class="">Tokens</p>
+                <span class="badge badge-primary"></span>
             </a>
             <a class="list-item active" data-screen="home">
                 <div class="home-nav">
@@ -85,24 +88,57 @@
         </div>
     </div>
 
-    <div class="modal" id="book_product">
-        <div class="modal-dialog modal-dialog-centered">
+    <!-- The Modal -->
+    <div class="modal fade" id="confirm">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
-                <div class="modal-body p-0">
-                    <form action="" method="post">
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <span><i class="fa fa-shopping-bag"></i> Book</span>
-                                <button type="button" class="close" data-dismiss="modal">×</button>
-                            </div>
-                            <div class="product-detail"></div>
-                        </div>
-                    </form>
+                <div class="modal-body text-center">
+                    <p class="h3 mb-4 mt-3 confirm-title"></p>
+                    <p class="">Are Your Sure ?</p>
+                    <div class="d-flex justify-content-center mb-3">
+                        <button type="button" class="btn mx-2 btn-danger" id="confirm_no">No</button>
+                        <button type="button" class="btn mx-2 btn-success" id="confirm_yes">Yes</button>
+                    </div>
+                    <p class="small text-justify"><b>Note :</b> <span class="confirm-note"></span></p>
                 </div>
             </div>
         </div>
     </div>
 </body>
+<script>
+    $(document).ready(function() {
+        function cconfirm(title, note, yes) {
+            $('#confirm').find('.confirm-title').text(title);
+            $('#confirm').find('.confirm-note').text(note);
+            var dialog = $('#confirm').modal();
+
+            $('#confirm_yes').click(function() {
+                dialog.modal('hide');
+                yes();
+                exit();
+            });
+            $('#confirm_no').click(function() {
+                dialog.modal('hide');
+                exit();
+            });
+        }
+
+        $('.submit-btn').click(function() {
+            // mconfirm('Delete Modal', 'This will Delete All Your Data');
+            cconfirm('Delete Model', 'The is not reversable and the token will be deleted, you can still see this in orders record',
+                function() {
+                    // Do something
+                    console.log('YES');
+                    $('.cart-btn .badge').load('request/count_carts.php');
+
+                }
+            );
+
+
+        })
+
+    })
+</script>
 <script>
     window.onscroll = function(e) {
         // print "false" if direction is down and "true" if up

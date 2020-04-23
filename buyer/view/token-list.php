@@ -5,26 +5,6 @@
 
     <div class="token-card-list"></div>
     <!-- list my tokens -->
-
-
-    <!-- The Modal -->
-    <div class="modal fade" id="card_delete_modal">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-
-                <div class="modal-body text-center">
-                    <p class="h3 mb-4 mt-3">Delete Token</p>
-                    <p class="">Are Your Sure ?</p>
-                    <div class="d-flex justify-content-center mb-3">
-                        <button type="button" class="btn mx-2 btn-danger" data-dismiss="modal">No</button>
-                        <button type="button" class="btn mx-2 btn-success delete_token_button">Yes</button>
-                    </div>
-                    <p class="small text-justify"><b>Note :</b> Your Token number will be set rejected and all your items will be sent back to your cart.</p>
-                </div>
-
-            </div>
-        </div>
-    </div>
 </div>
 <style>
     .token-card .card-side-img {
