@@ -19,7 +19,7 @@ if ($_POST['operation'] == 'generate_token') {
 
 
         $conn->query("INSERT INTO token_list (`token_number`,`shop_id`,`buyer_id`,`product_name`,quantity_of_items,`datetime`,`type`) 
-                      VALUES ('$token_number','$shop_id','$id','$product_name',$quantity_of_items,NOW(),'self-service')");
+                      VALUES ('$token_number','$shop_id','$id','$product_name',$quantity_of_items,'$datetime','self-service')");
         echo $conn->error;
 
         $conn->query("DELETE FROM `cart` WHERE `buyer_id` = '$id' AND `shop_id` = '$shop_id' AND `product_name` = '$product_name'");

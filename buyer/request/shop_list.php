@@ -1,5 +1,6 @@
 <?php include('../../connect.php');
 
+
 $result = $conn->query("SELECT * FROM sellers");
 while ($row = $result->fetch_assoc()) {
     $shop_id = $row['id'];
