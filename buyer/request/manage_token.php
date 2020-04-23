@@ -17,12 +17,12 @@ if ($_POST['operation'] == 'generate_token') {
         $product_name = $row['product_name'];
         $quantity_of_items = $row['quantity_of_items'];
 
-        $conn->query("INSERT INTO token_list (`token_number`,`shop_id`,`buyer_id`,`product_name`,quantity_of_items) 
-                      VALUES ('$token_number','$shop_id','$id','$product_name',$quantity_of_items)");
+
+        $conn->query("INSERT INTO token_list (`token_number`,`shop_id`,`buyer_id`,`product_name`,quantity_of_items,`datetime`,`type`) 
+                      VALUES ('$token_number','$shop_id','$id','$product_name',$quantity_of_items,NOW(),'self-service')");
+        echo $conn->error;
 
         $conn->query("DELETE FROM `cart` WHERE `buyer_id` = '$id' AND `shop_id` = '$shop_id' AND `product_name` = '$product_name'");
-
-        // print_r($row);
 
         $product_row = $conn->query("SELECT * FROM seller_product_stock WHERE shop_id='$shop_id' AND product_name='$product_name'")->fetch_assoc();
         // print_r($product_row);

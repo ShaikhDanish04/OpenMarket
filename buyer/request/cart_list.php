@@ -65,8 +65,8 @@ if ($result->num_rows > 0) {
             '        </div>' .
             '        <div id="shop_' . $row['id'] . '" class="collapse pt-3">' .
             '        <div class="divider mt-1 mb-3"></div>' . $cart_product_list . '<div class="divider mt-3 mb-3"></div>' .
-            '            <select class="form-control mb-3" name="collect_options">' .
-            '                <option value="">Self-Service</option>' .
+            '            <select class="form-control mb-3" name="service_type">' .
+            '                <option value="self-service">Self-Service</option>' .
             '                <option value="" disabled>Home Delivery</option>' .
             '            </select>' .
             '            <p class="h6 text-center">Sub-Total Price : ₹ <b>' . $total_cost . '</b></p>' .
@@ -101,19 +101,22 @@ if ($result->num_rows > 0) {
     $('.check-out-cart').click(function() {
 
         $(this).attr('disabled', 'true');
+        var $card = $(this).closest('.card');
+        $service_type = $card.find('[name="service_type"]');
 
         $.ajax({
             type: "POST",
             url: "request/manage_token.php",
             data: {
                 "shop_id": $(this).attr('data-shop-id'),
+                "service_type": $service_type.val(),
                 "operation": "generate_token"
             },
             success: function(data) {
                 $('.token-btn .badge').load('request/count_tokens.php');
                 $('.cart-btn .badge').load('request/count_carts.php');
                 $('.screen').load('view/token-list.php');
-                // console.log(data);
+                console.log(data);
             }
         })
     });

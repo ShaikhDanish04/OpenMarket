@@ -1,12 +1,13 @@
 <?php include('../../connect.php');
 
 $shop_id = $_POST['shop_id'];
-$result_token = $conn->query("SELECT DISTINCT token_number FROM token_list WHERE buyer_id='$id' AND shop_id= '$shop_id'");
+$result_token = $conn->query("SELECT DISTINCT token_number FROM token_list WHERE buyer_id='$id' AND shop_id= '$shop_id' ORDER BY `datetime` DESC");
 while ($row_token = $result_token->fetch_assoc()) {
     $token_number = $row_token['token_number'];
 
     $product_list = "";
     $total_cost = 0;
+    $datetime;
 
     $result_product = $conn->query("SELECT * FROM token_list WHERE buyer_id='$id' AND shop_id= '$shop_id' AND token_number='$token_number'");
     while ($row_product = $result_product->fetch_assoc()) {
@@ -61,6 +62,7 @@ while ($row_token = $result_token->fetch_assoc()) {
             '            </div>' .
             '        </div>' .
             '</div>';
+        $datetime = date('d / m / Y - h:i A', strtotime($row_product['datetime']));
     }
     echo '' .
         '<div class="token-card card mb-3" data-shop-id="' . $shop_id . '" data-token-number="' . $token_number . '">' .
@@ -68,7 +70,7 @@ while ($row_token = $result_token->fetch_assoc()) {
         '       <div class="d-flex align-items-center justify-content-between">' .
         '           <div>' .
         '               <p class="card-title h6 mb-0">Token No : ' . $token_number . '</p>' .
-        '               <p class="card-title mb-0 small">27 / 02 / 2020 - 10:00 AM</p>' .
+        '               <p class="card-title mb-0 small">' . $datetime . '</p>' .
         '           </div>' .
         '           <div class="cart-display">' .
         '               <div class="badge badge-warning">' . $result_product->num_rows . '</div>' .

@@ -14,15 +14,17 @@ if ($result->num_rows > 0) {
         $category = $row_shop['category'];
         $username = $row_shop['username'];
 
-        $result_token = $conn->query("SELECT DISTINCT token_number FROM token_list WHERE buyer_id='$id' AND shop_id= '$shop_id'AND `status`='pending'");
+        $result_token = $conn->query("SELECT DISTINCT token_number FROM token_list WHERE buyer_id='$id' AND shop_id= '$shop_id'AND `status`='pending' ORDER BY `datetime` DESC ");
         while ($row_token = $result_token->fetch_assoc()) {
             $token_number = $row_token['token_number'];
 
             $product_list = "";
             $total_cost = 0;
+            $datetime;
 
             $result_product = $conn->query("SELECT * FROM token_list WHERE buyer_id='$id' AND shop_id= '$shop_id' AND token_number='$token_number' AND `status`='pending'");
             while ($row_product = $result_product->fetch_assoc()) {
+                // print_r($row_product);
 
                 $product_name = $row_product['product_name'];
                 $items_in_cart = $row_product['quantity_of_items'];
@@ -55,6 +57,7 @@ if ($result->num_rows > 0) {
                     '       </div>' .
                     '   </div>' .
                     '</div>';
+                $datetime = date('d / m / Y - h:i A', strtotime($row_product['datetime']));
             }
             echo '' .
                 '<div class="token-card card mb-3" data-shop-id="' . $shop_id . '" data-token-number="' . $token_number . '">' .
@@ -62,7 +65,7 @@ if ($result->num_rows > 0) {
                 '       <div class="d-flex align-items-center justify-content-between">' .
                 '             <div>' .
                 '               <p class="card-title h6 mb-0">Your Token No : ' . $token_number . '</p>' .
-                '               <p class="card-title mb-0 small">27 / 02 / 2020 - 10:00 AM</p>' .
+                '               <p class="card-title mb-0 small">' . $datetime . '</p>' .
                 '             </div>' .
                 '             <button class="btn btn-danger btn-sm delete_token_button"><i class="fa fa-times"></i></button>' .
                 '       </div>' .
