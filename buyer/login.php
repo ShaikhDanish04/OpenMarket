@@ -14,38 +14,30 @@
 <style>
     .top-stick {
         position: relative;
-        border-top: 10px solid #d6135f;
-        box-shadow: 0px 2px 18px rgba(0, 0, 0, .5);
+        border-top: 5px solid #a80c45;
+        box-shadow: 0px 3px 18px rgba(0, 0, 0, .75);
         width: 100%;
     }
 
     .auth {
-        background: #e9e9e9;
+        /* background: #e9e9e9; */
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-    }
-
-    .auth form {
         max-width: 330px;
     }
 
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus,
-    input:-webkit-autofill:active {
-        -webkit-box-shadow: 0 0 0 30px white inset !important;
-    }
 
-    .login-btn {
+    .submit-btn {
         background: linear-gradient(45deg, #751056, #251075);
         color: #fff;
         border: 2px solid transparent;
     }
 
-    .register-btn {
-        background: #fff;
+    .toggle-btn {
+        /* background: #fff; */
+        background: linear-gradient(45deg, #d8d8d8, #fff);
         border: 2px solid #70106b;
         color: #331070;
     }
@@ -74,10 +66,12 @@
     }
 
     .user-input {
-        background: #fff;
+        background: linear-gradient(45deg, #d8d8d8, #fff);
         padding: 1rem;
         border-radius: 10px;
         margin-top: 1rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
     }
 
     .input-box {
@@ -96,6 +90,7 @@
     }
 
     .input-box input {
+        background: transparent;
         display: block;
         width: 100%;
         padding: .375rem .75rem;
@@ -103,15 +98,21 @@
         line-height: 1.5;
         color: #495057;
         border: 0;
+        border-radius: 0;
         border-bottom: 1px solid #a7a7a7;
         outline: 0;
+        transition: all .3s;
     }
 
-    .input-box input:focus {
-        border-bottom: 1px solid #301071;
+    /* .input-box input,
+    .input-box input:focus, */
+    .input-box input:valid {
+        margin-top: 5px;
+        background: #fff;
+        border: 1px solid #a7a7a7;
+        border-radius: 5rem;
+        /* border: 1px solid #301071;? */
     }
-
-
 
     .forgot-link {
         font-weight: 600;
@@ -120,7 +121,7 @@
         /* width: 100%; */
         text-align: right;
         display: block;
-        margin: 5px 10px 1.5rem;
+        margin: 10px 10px 1.5rem;
         outline: none;
     }
 
@@ -144,7 +145,7 @@ if (isset($_POST['login_submit'])) {
         $_SESSION['type'] = "buyer";
         echo "<script type='text/javascript'>document.location.href = 'index.php';</script>";
     } else {
-        $status = '<div class="alert alert-danger my-3">Invalid Details !!! Try Again</div>';
+        $status = '<div class="alert alert-danger mt-3 mb-0 w-100 alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button> Invalid Details !!! Try Again</div>';
     }
 }
 ?>
@@ -152,15 +153,17 @@ if (isset($_POST['login_submit'])) {
 
 <body>
     <div class="top-stick"></div>
-    <div class="auth">
-        <div class="brand-logo text-center mt-3 mb-3">
-            <img class="mx-auto my-3 d-block" src="../logo.png" height="120px" alt="">
-            <p class="h4">OpenMarket</p>
-            <p class="h6">BUYER</p>
-        </div>
+    <div class="auth mb-3 container">
+        <?php echo $status; ?>
 
-        <form action="" id="login_form" method="post" data-ajax="false" class="w-100 container">
+        <form action="" id="login_form" method="post" data-ajax="false" class="w-100 collapse show">
             <div class="user-input">
+                <div class="brand-logo text-center mt-3 mb-5">
+                    <img class="mx-auto my-3 d-block" src="../logo.png" height="120px" alt="">
+                    <p class="h4">OpenMarket</p>
+                    <p class="h6">BUYER</p>
+                </div>
+
                 <div class="input-box mb-3">
 
                     <label for="">Username</label>
@@ -177,16 +180,77 @@ if (isset($_POST['login_submit'])) {
             <a href="javascipt:void(0)" class="forgot-link">Forgot Password ?</a>
             <div class="user-submit">
                 <div class="form-group">
-                    <button class="login-btn" name="login_submit">LOG IN</button>
-                </div>
-                <div class="form-group">
-                    <button class="register-btn">SIGN UP</button>
+                    <button class="submit-btn" name="login_submit">LOG IN</button>
                 </div>
             </div>
         </form>
+        <form action="" id="register_form" data-ajax="false" class="w-100 collapse" method="post">
+
+            <div class="user-input">
+                <div class="brand-logo d-flex flex-row text-center align-items-center justify-content-center">
+                    <img class="my-3 mr-2 d-block" src="../logo.png" height="70px" alt="">
+                    <div>
+                        <p class="h4">OpenMarket</p>
+                        <p class="h6">BUYER</p>
+                    </div>
+                </div>
+                <div class="divider mb-3"></div>
+                <p class="h6  text-center text-uppercase mb-3">Buyer Registeration</p>
+
+                <div class="input-box mb-3">
+                    <label for="">First Name</label>
+                    <input type="text" name="fname" required>
+                    <small class="text-muted">*Enter your name</small>
+                </div>
+                <div class="input-box mb-3">
+                    <label for="">Last Name</label>
+                    <input type="text" name="lname" required>
+                    <small class="text-muted">*Enter your surname</small>
+                </div>
+                <div class="input-box mb-3">
+                    <label for="">Username</label>
+                    <input type="text" name="username" required>
+                    <small class="text-muted">*Username must be unique</small>
+                </div>
+                <div class="input-box mb-3">
+                    <label for="">Password</label>
+                    <input type="password" name="password" required>
+                    <small class="text-muted">*Enter your password</small>
+                </div>
+                <div class="input-box mb-3">
+                    <label for="">Confirm Password</label>
+                    <input type="password" name="confirm_password" required>
+                    <small class="text-muted">*Confirm your password</small>
+                </div>
+            </div>
+            <div class="user-submit mt-3">
+                <div class="form-group">
+                    <button class="submit-btn" name="registe_submit">SIGN UP</button>
+                </div>
+            </div>
+        </form>
+        <div class="user-submit w-100 ">
+            <div class="form-group">
+                <button type="button" class="toggle-btn" data-toggle="collapse" data-target=".collapse">SIGN UP</button>
+            </div>
+        </div>
         <small class="terms">Our <a href="javascipt:void(0)">Terms of Use</a> and <a href="javascipt:void(0)">policy</a></small>
     </div>
 </body>
+
+<script>
+    $('.collapse').on('show.bs.collapse', function() {
+        console.log($(this).attr('id'));
+        $('.alert').alert("close");
+        if ($(this).attr('id') == "login_form") {
+            $('[data-target=".collapse"]').text('SIGN UP');
+        }
+        if ($(this).attr('id') == "register_form") {
+            $('[data-target=".collapse"]').text('LOG IN');
+        }
+        // alert(1);
+    })
+</script>
 
 
 </html>
