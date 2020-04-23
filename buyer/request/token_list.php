@@ -103,21 +103,26 @@ if ($result->num_rows > 0) {
 
         $card = $(this).closest('.token-card');
         // $(this).attr('disabled', 'true');
-        $.ajax({
-            type: "POST",
-            url: "request/manage_token.php",
-            data: {
-                "shop_id": $card.attr('data-shop-id'),
-                "token_number": $card.attr('data-token-number'),
-                "operation": "delete_token"
-            },
-            success: function(data) {
-                // console.log(data);
-                $('.token-card-list').load('request/token_list.php')
-
-                // location.reload();
+        cconfirm('Delete Token', 'The is not reversable and the token will be deleted, you can still see this in orders record',
+            function() {
+                // Do something
+                $.ajax({
+                    type: "POST",
+                    url: "request/manage_token.php",
+                    data: {
+                        "shop_id": $card.attr('data-shop-id'),
+                        "token_number": $card.attr('data-token-number'),
+                        "operation": "delete_token"
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                        $('.token-card-list').load('request/token_list.php')
+                        // location.reload();
+                    }
+                })
             }
-        })
+        );
+
         // if (confirm('Are Your Sure')) {
         //     console.log('Deleted');
         // } else {

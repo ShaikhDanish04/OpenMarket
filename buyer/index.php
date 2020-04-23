@@ -55,7 +55,7 @@
                     '</div>';
             } ?>
         </div>
-        <button class="btn btn-dark submit-btn">Submit</button>
+        <!-- <button class="btn btn-dark submit-btn">Submit</button> -->
 
         <div class="screen"></div>
 
@@ -106,22 +106,23 @@
     </div>
 </body>
 <script>
-    $(document).ready(function() {
-        function cconfirm(title, note, yes) {
-            $('#confirm').find('.confirm-title').text(title);
-            $('#confirm').find('.confirm-note').text(note);
-            var dialog = $('#confirm').modal();
+    function cconfirm(title, note, yes) {
+        $('#confirm').find('.confirm-title').text(title);
+        $('#confirm').find('.confirm-note').text(note);
+        $('#confirm').modal("show");
 
-            $('#confirm_yes').click(function() {
-                dialog.modal('hide');
+        $('#confirm_yes').click(function() {
+            if ($('#confirm').hasClass('show')) {
                 yes();
-                exit();
-            });
-            $('#confirm_no').click(function() {
-                dialog.modal('hide');
-                exit();
-            });
-        }
+            }
+            $('#confirm').modal('hide');
+        });
+
+        $('#confirm_no').click(function() {
+            $('#confirm').modal('hide');
+        });
+    }
+    $(document).ready(function() {
 
         $('.submit-btn').click(function() {
             // mconfirm('Delete Modal', 'This will Delete All Your Data');
