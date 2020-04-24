@@ -404,8 +404,8 @@
         text-align: center;
 
         font-size: 12px;
-        max-height: 24px;
-        padding-top: 4px;
+        max-height: 26px;
+        padding-top: 5px;
         border-radius: 0px 0px 4px 4px;
     }
 

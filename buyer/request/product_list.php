@@ -241,6 +241,9 @@ if ($result->num_rows > 0) {
             $($(this).closest('.col-4')).toggleClass('col-12');
             $(this).addClass('active');
         }
+        $('html, body').animate({
+            scrollTop: $(this).offset().top - 25
+        }, 'slow');
     })
 
     $('.view-cart').click(function() {
