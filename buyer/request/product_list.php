@@ -84,7 +84,7 @@ if ($result->num_rows > 0) {
         }
 
         echo '' .
-            '<div class="col-6">' .
+            '<div class="col-4">' .
             '    <div class="card product-card" data-id="' . $row["product_name"] . '">' .
             '        <div class="card-img-top"><img width="100%" src="../product_list/' . $row["product_name"] . '.jpg" alt=""></div>' .
             '        <i class="fa fa-shopping-cart ' . ((isset($product_row['product_name'])) ? '' : 'd-none') . ' incart"></i>' .
@@ -232,13 +232,13 @@ if ($result->num_rows > 0) {
 
     $('.product-card .card-img-top').click(function() {
         $('.product-card').removeClass('open');
-        $('.col-6').removeClass('col-12');
+        $('.col-4').removeClass('col-12');
 
         if ($(this).hasClass('active')) {
             $('.product-card .card-img-top').removeClass('active');
         } else {
             $($(this).closest('.product-card')).toggleClass('open');
-            $($(this).closest('.col-6')).toggleClass('col-12');
+            $($(this).closest('.col-4')).toggleClass('col-12');
             $(this).addClass('active');
         }
     })

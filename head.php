@@ -402,6 +402,15 @@
         background: #ee1565;
         color: #fff;
         text-align: center;
+
+        font-size: 12px;
+        max-height: 24px;
+        padding-top: 4px;
+        border-radius: 0px 0px 4px 4px;
+    }
+
+    .product-card.card:not(.open) {
+        min-height: unset;
     }
 
     .product-card.card {
