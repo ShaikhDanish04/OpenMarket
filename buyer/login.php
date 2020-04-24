@@ -20,7 +20,7 @@
         background-image: url(bg.png);
         /* background-size: contain; */
         background-size: 200px;
-        background-position:center; 
+        background-position: center;
     }
 
     .top-stick {
@@ -325,7 +325,7 @@ if (isset($_POST['register_submit'])) {
         <div class="collapse w-100">
             <div class="user-submit mt-3">
                 <div class="form-group">
-                    <button class="submit-btn" name="register_submit" disabled>SIGN UP</button>
+                    <button type="submit" class="submit-btn" form="register_form" name="register_submit" disabled>SIGN UP</button>
                 </div>
             </div>
         </div>
@@ -333,7 +333,7 @@ if (isset($_POST['register_submit'])) {
             <a href="javascipt:void(0)" class="forgot-link">Forgot Password ?</a>
             <div class="user-submit">
                 <div class="form-group">
-                    <button class="submit-btn" name="login_submit">LOG IN</button>
+                    <button type="submit" class="submit-btn" form="login_form" name="login_submit">LOG IN</button>
                 </div>
             </div>
         </div>
