@@ -13,10 +13,6 @@
 
 <style>
     body {
-        /* background: #fafafa */
-    }
-
-    body {
         background-image: url(bg.png);
         /* background-size: contain; */
         background-size: 200px;
@@ -86,7 +82,7 @@
 
     .brand-logo {
         transform: scale(1.05);
-        background: linear-gradient(45deg, #d8d8d8, #fff);
+        background: linear-gradient(45deg, #e3e3e3, #fff);
         width: 100%;
         z-index: 1;
         position: relative;
@@ -330,7 +326,7 @@ if (isset($_POST['register_submit'])) {
             </div>
         </div>
         <div class="collapse w-100 show">
-            <a href="javascipt:void(0)" class="forgot-link">Forgot Password ?</a>
+            <a href="#" class="forgot-link">Forgot Password ?</a>
             <div class="user-submit">
                 <div class="form-group">
                     <button type="submit" class="submit-btn" form="login_form" name="login_submit">LOG IN</button>
@@ -343,7 +339,7 @@ if (isset($_POST['register_submit'])) {
                 <button type="button" class="toggle-btn" data-toggle="collapse" data-target=".collapse">SIGN UP</button>
             </div>
         </div>
-        <small class="terms">Our <a href="javascipt:void(0)">Terms of Use</a> and <a href="javascipt:void(0)">policy</a></small>
+        <small class="terms">Our <a href="#">Terms of Use</a> and <a href="#">policy</a></small>
     </div>
 </body>
 
