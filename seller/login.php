@@ -40,7 +40,7 @@ if (isset($_POST['login_submit'])) {
         }
     </style>
 
-    <form action="" method="post" class="p-3">
+    <form action="" data-ajax="false" method="post" class="p-3">
         <div class="login-card">
             <?php echo $status; ?>
         </div>

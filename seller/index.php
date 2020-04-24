@@ -79,7 +79,7 @@
                 <p class="">Products</p>
                 <span class="badge badge-warning"></span>
             </a>
-            <a class="list-item" data-screen="">
+            <a class="list-item" data-screen="products">
                 <i class="fa fa-cog"></i>
                 <p class="">settings</p>
             </a>
